@@ -26,4 +26,22 @@ public class Story {
 	public void updateDescription(String desc) {
 		this.desc = desc;
 	}
+	
+	public String getAuthor() {
+		return author;
+	}
+	
+	public int getStoryPoints() {
+		return storyPoints;
+	}
+	
+	public String getDescription() {
+		return desc;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	
+	
 }
