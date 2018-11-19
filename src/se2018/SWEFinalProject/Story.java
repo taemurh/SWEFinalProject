@@ -1,13 +1,18 @@
 package se2018.SWEFinalProject;
 
 public class Story {
+	private Integer storyID;
 	private Integer storyPoints;
 	private String author;
 	private String desc;
-	public Story(String author, String desc, int storyPoints) {
-		this.storyPoints = storyPoints;
+	private String status;
+	
+	public Story(Integer storyID, String author, String desc, String status, int storyPoints) {
+		this.storyID = storyID;
 		this.author = author;
 		this.desc = desc;
+		this.status = status;
+		this.storyPoints = storyPoints;
 	}
 	
 	public void updateAuthor(String author) {
