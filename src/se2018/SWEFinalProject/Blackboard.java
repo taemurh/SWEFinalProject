@@ -10,16 +10,4 @@ public class Blackboard {
 	HashMap<String, Story> productBacklog;
 	HashMap<String, Story> sprintBacklog;
 	HashMap<String, Story> stories;
-	
-	public void addStory() {
-		
-	}
-	
-	public void deleteStory() {
-		
-	}
-	
-	public void editStory() {
-		
-	}
 }
