@@ -2,32 +2,61 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <GridPane >
-	<columnConstraints>
-		<ColumnConstraints minWidth="100">
+	<rowConstraints>
+		<RowConstraints minHeight="100" ></RowConstraints> 
+	</rowConstraints>
+	
+	<columnConstraints >
+		<ColumnConstraints minWidth="300" >
 		</ColumnConstraints>
 		
-		<ColumnConstraints minWidth="100">
+		<ColumnConstraints minWidth="300">
 		</ColumnConstraints>
 		
-		<ColumnConstraints minWidth="100">
+		<ColumnConstraints minWidth="300">
 		</ColumnConstraints>
 		
-		<ColumnConstraints minWidth="100">
+		<ColumnConstraints minWidth="300">
 		</ColumnConstraints>
 	</columnConstraints>
 	
-	<Label text="TODO" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-    
-	<Label text="In Progress" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+	<Pane GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER" style="-fx-background-color: RGB(51,153,255);">
+		<Label text="TODO" style="-fx-text-fill: white;">
+			<font>
+        		<Font name="System Bold" size="20.0"  />
+    		</font>
+    	</Label>
+	</Pane>
 	
-	<Label text="Testing" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+    <Pane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.halignment="CENTER" style="-fx-background-color: RGB(51,153,255);">
+		<Label text="In Progress"  style="-fx-text-fill: white;">
+			<font>
+        		<Font name="System Bold" size="20.0" />
+    		</font>
+   	 	</Label>
+	</Pane>
+	<Pane GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.halignment="CENTER" style="-fx-background-color: RGB(51,153,255);">
+		<Label text="Testing"  style="-fx-text-fill: white;">
+			<font>
+        		<Font name="System Bold" size="20.0" />
+    		</font>
+    	</Label>
+	</Pane>
 	
-	<Label text="Done" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-	
+	<Pane GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.halignment="CENTER" style="-fx-background-color: RGB(51,153,255);">
+		<Label text="Done"  style="-fx-text-fill: white;">
+			<font>
+        		<Font name="System Bold" size="20.0" />
+    		</font>
+    	</Label>
+	</Pane>
     
 </GridPane> 
 
