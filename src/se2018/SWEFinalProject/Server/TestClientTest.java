@@ -1,11 +1,10 @@
 package se2018.SWEFinalProject.Server;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
 import java.net.UnknownHostException;
 
 import org.junit.jupiter.api.Test;
+
 
 public class TestClientTest {
 	@Test
@@ -23,7 +22,7 @@ public class TestClientTest {
 	    String response;
 		try {
 			response = client.sendMessage("hello server");
-			assertEquals("hello client", response);
+			assert("hello client" == response);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
