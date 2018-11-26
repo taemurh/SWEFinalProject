@@ -7,7 +7,9 @@ public class Blackboard {
 	/* 
 	 * Int Story Id : new  Story()
 	 * 
-	 * */
+	 * 
+	 */
+	
 	Integer totStories = 0;
 	HashMap<Integer, Story> productBacklog;
 	HashMap<Integer, Story> sprintBacklog;

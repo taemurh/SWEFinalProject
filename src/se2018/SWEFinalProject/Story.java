@@ -1,11 +1,17 @@
 package se2018.SWEFinalProject;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Story {
 	private Integer storyID;
 	private Integer storyPoints;
 	private String author;
 	private String desc;
 	private String status;
+	private List<String> transcript = Collections.synchronizedList(new ArrayList<String>());
+	
 	
 	public Story(Integer storyID, String author, String desc, String status, int storyPoints) {
 		this.storyID = storyID;
@@ -53,12 +59,23 @@ public class Story {
 
 	public void setStatus(String status) {
 		this.status = status;
-		
 	}
 
 	public void setStoryPoints(int storyPoints) {
 		this.storyPoints = storyPoints;
 	}
+	
+	public void addComment(String comment) { 
+		transcript.add(comment); 
+	}
+	
+    public int getSize() { 
+    	return transcript.size(); 
+    }
+    
+    public String getComment(int n) { 
+    	return transcript.get(n); 
+    }
 	
 	
 }
