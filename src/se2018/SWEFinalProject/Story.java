@@ -42,6 +42,23 @@ public class Story {
 	public String getStatus() {
 		return status;
 	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public void setDesc(String description) {
+		this.desc = description;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+		
+	}
+
+	public void setStoryPoints(int storyPoints) {
+		this.storyPoints = storyPoints;
+	}
 	
 	
 }
