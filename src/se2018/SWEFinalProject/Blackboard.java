@@ -1,6 +1,7 @@
 package se2018.SWEFinalProject;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 
 public class Blackboard {
 	
@@ -11,9 +12,15 @@ public class Blackboard {
 	 */
 	
 	Integer totStories = 0;
-	HashMap<Integer, Story> productBacklog;
-	HashMap<Integer, Story> sprintBacklog;
-	HashMap<Integer, Story> stories;
+	Hashtable<Integer, Story> productBacklog;
+	Hashtable<Integer, Story> sprintBacklog;
+	Hashtable<Integer, Story> stories;
+	
+	public Blackboard() {
+		productBacklog = new Hashtable <Integer, Story>();
+		sprintBacklog = new Hashtable <Integer, Story>();
+		stories = new Hashtable <Integer, Story>();
+	}
 	
 	public void addStory() {
 		//stories.put(totStories++, new Story(null, null, null, null, 0));
@@ -32,7 +39,7 @@ public class Blackboard {
 		oldStory.setStoryPoints(eStory.getStoryPoints());
 	}
 	
-	public HashMap<Integer, Story> getStories() {
+	public Hashtable <Integer, Story> getStories() {
 		return stories;
 	}
 	

@@ -6,12 +6,12 @@ import java.util.List;
 
 public class Story {
 	private Integer storyID;
-	private Integer storyPoints;
 	private String author;
 	private String desc;
 	private String status;
+	private Integer storyPoints;
 	private List<String> transcript = Collections.synchronizedList(new ArrayList<String>());
-	
+
 	
 	public Story(Integer storyID, String author, String desc, String status, int storyPoints) {
 		this.storyID = storyID;
