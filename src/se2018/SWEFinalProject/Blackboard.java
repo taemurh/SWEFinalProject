@@ -16,7 +16,8 @@ public class Blackboard {
 	HashMap<Integer, Story> stories;
 	
 	public void addStory() {
-		stories.put(totStories++, new Story(null, null, null, null, 0));
+		//stories.put(totStories++, new Story(null, null, null, null, 0));
+		stories.put(totStories++, new Story(0, "a", "b", "c", 0));
 	}
 	
 	public void deleteStory(Integer storyId) {
@@ -29,6 +30,14 @@ public class Blackboard {
 		oldStory.setDesc(eStory.getDescription());
 		oldStory.setStatus(eStory.getStatus());
 		oldStory.setStoryPoints(eStory.getStoryPoints());
+	}
+	
+	public HashMap<Integer, Story> getStories() {
+		return stories;
+	}
+	
+	public Story getStory(Integer id) {
+		return stories.get(id);
 	}
 }
 

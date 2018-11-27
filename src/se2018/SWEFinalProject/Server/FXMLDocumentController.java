@@ -13,6 +13,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
+import se2018.SWEFinalProject.Blackboard;
 
 public class FXMLDocumentController implements Initializable {
     
@@ -21,12 +22,14 @@ public class FXMLDocumentController implements Initializable {
     
     private int clientNo = 0;
     private Transcript transcript;
+    private Blackboard blackboard;
     
     private ServerSocket serverSocket;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      transcript = new Transcript();       
+      transcript = new Transcript();   
+      blackboard = new Blackboard();
       new Thread( () -> {
       try {
         // Create a server socket
@@ -45,7 +48,8 @@ public class FXMLDocumentController implements Initializable {
             });
           
           // Create and start a new thread for the connection
-          new Thread(new HandleAClient(socket,transcript,textArea)).start();
+          new Thread(new HandleAClient(socket,transcript,blackboard,textArea)).start();
+          // new Thread(new HandleAClient(socket,transcript,,textArea)).start();
         }
       }
       catch(IOException ex) {
@@ -59,12 +63,14 @@ public class FXMLDocumentController implements Initializable {
 class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstants {
     private Socket socket; // A connected socket
     private Transcript transcript; // Reference to shared transcript
+    private Blackboard blackboard; // Reference to shared blackboard
     private TextArea textArea;
     private String handle;
 
-    public HandleAClient(Socket socket,Transcript transcript,TextArea textArea) {
+    public HandleAClient(Socket socket, Transcript transcript, Blackboard blackboard, TextArea textArea) {
       this.socket = socket;
       this.transcript = transcript;
+      this.blackboard = blackboard;
       this.textArea = textArea;
     }
 
@@ -87,10 +93,14 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
               case SEND_COMMENT: {
                   String comment = inputFromClient.readLine();
                   transcript.addComment(handle + "> " + comment);
+                  //blackboard.addStory();
+                  
+                  //System.out.println(blackboard.getStories());
                   break;
               }
               case GET_COMMENT_COUNT: {
                   outputToClient.println(transcript.getSize());
+                  //outputToClient.println(blackboard.stories.size());
                   outputToClient.flush();
                   break;
               }
