@@ -14,7 +14,7 @@ public class Story {
 
 	
 	public Story(Integer storyID, String author, String desc, String status, int storyPoints) {
-		this.storyID = storyID;
+		this.setStoryID(storyID);
 		this.author = author;
 		this.desc = desc;
 		this.status = status;
@@ -76,6 +76,14 @@ public class Story {
     public String getComment(int n) { 
     	return transcript.get(n); 
     }
+
+	public Integer getStoryID() {
+		return storyID;
+	}
+
+	public void setStoryID(Integer storyID) {
+		this.storyID = storyID;
+	}
 	
 	
 }

@@ -1,6 +1,5 @@
 package se2018.SWEFinalProject;
 
-import java.util.HashMap;
 import java.util.Hashtable;
 
 public class Blackboard {

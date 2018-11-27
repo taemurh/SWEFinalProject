@@ -93,9 +93,9 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
               case SEND_COMMENT: {
                   String comment = inputFromClient.readLine();
                   transcript.addComment(handle + "> " + comment);
-                  //blackboard.addStory();
+                  blackboard.addStory();
                   
-                  //System.out.println(blackboard.getStories());
+                  System.out.println(blackboard.getStories());
                   break;
               }
               case GET_COMMENT_COUNT: {
