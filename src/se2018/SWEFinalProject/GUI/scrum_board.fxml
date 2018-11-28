@@ -4,10 +4,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
 
@@ -31,58 +33,68 @@
 		</ColumnConstraints>
 	</columnConstraints>
 	
-	<Button fx:id="addStoryButton" text="Add Story"
-		onAction="#handleAddStoryButtonAction"
+	<HBox fx:id="storyBacklogButtonsHBox" spacing="50" alignment="CENTER"
 		GridPane.columnIndex="0" GridPane.rowIndex="0">
-		<GridPane.margin>
-			<Insets left="0"></Insets>
-		</GridPane.margin>
-	</Button>
+		<Button fx:id="addStoryButton" text="Add Story"
+			onAction="#handleAddStoryButtonAction">
+		</Button>
+		<Button fx:id="backlogButton" text="Backlog"
+			onAction="#handleBacklogButtonAction">
+		</Button>
+	</HBox>
 	
-	<Button fx:id="backlogButton" text="Backlog"
-		onAction="#handleBacklogButtonAction"
-		GridPane.columnIndex="1" GridPane.rowIndex="0">
-	</Button>
-	
-	<Button fx:id="burndownButton" text="Burndown"
-		onAction="#handleBurndownButtonAction"
+	<HBox fx:id="burndownButtonHBox" spacing="10" alignment="CENTER"
 		GridPane.columnIndex="3" GridPane.rowIndex="0">
-	</Button>
+		<Button fx:id="burndownButton" text="Burndown"
+			onAction="#handleBurndownButtonAction"
+			GridPane.columnIndex="3" GridPane.rowIndex="0">
+		</Button>
+	</HBox>
 	
-	<Pane GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER" style="-fx-background-color: RGB(51,153,255);">
-		<Label text="TODO" style="-fx-text-fill: white;">
+	<HBox fx:id="titleHBox" spacing="10" alignment="CENTER"
+		GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="2">
+		<Text fx:id="titleText" text="Scrum Board Tool">
 			<font>
-        		<Font name="System Bold" size="20.0"  />
+        		<Font name="System Bold" size="80.0"/>
     		</font>
-    		<GridPane.margin>
-				<Insets left="500"></Insets>
-			</GridPane.margin>
-    	</Label>
-	</Pane>
+    	</Text>
+	</HBox>
 	
-    <Pane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.halignment="CENTER" style="-fx-background-color: RGB(51,153,255);">
-		<Label text="In Progress"  style="-fx-text-fill: white;">
+	<HBox fx:id="todoLabelHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(51,153,255);"
+		GridPane.columnIndex="0" GridPane.rowIndex="1">
+		<Label fx:id="todoLabel" text="TODO" style="-fx-text-fill: white;">
 			<font>
-        		<Font name="System Bold" size="20.0" />
+	       		<Font name="System Bold" size="20.0"/>
+	    	</font>
+	    </Label>
+	</HBox>
+	
+    <HBox fx:id="inProgressLabelHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(51,153,255);"
+    	GridPane.columnIndex="1" GridPane.rowIndex="1">
+		<Label fx:id="inProgressLabel" text="In Progress" style="-fx-text-fill: white;">
+			<font>
+        		<Font name="System Bold" size="20.0"/>
     		</font>
    	 	</Label>
-	</Pane>
+	</HBox>
 	
-	<Pane GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.halignment="CENTER" style="-fx-background-color: RGB(51,153,255);">
-		<Label text="Testing"  style="-fx-text-fill: white;">
+	<HBox fx:id="testingLabelHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(51,153,255);"
+    	GridPane.columnIndex="2" GridPane.rowIndex="1">
+		<Label fx:id="testingLabel" text="Testing" style="-fx-text-fill: white;">
 			<font>
-        		<Font name="System Bold" size="20.0" />
+        		<Font name="System Bold" size="20.0"/>
     		</font>
     	</Label>
-	</Pane>
+	</HBox>
 	
-	<Pane GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.halignment="CENTER" style="-fx-background-color: RGB(51,153,255);">
-		<Label text="Done"  style="-fx-text-fill: white;">
+	<HBox fx:id="doneLabelHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(51,153,255);"
+    	GridPane.columnIndex="3" GridPane.rowIndex="1">
+		<Label fx:id="doneLabel" text="Done" style="-fx-text-fill: white;">
 			<font>
-        		<Font name="System Bold" size="20.0" />
+        		<Font name="System Bold" size="20.0"/>
     		</font>
     	</Label>
-	</Pane>
+	</HBox>
     
 </GridPane> 
 
