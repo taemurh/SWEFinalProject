@@ -1,3 +1,5 @@
+Record Locking:
+
 	With the combination of both the Blackboard and the Read-write lock pattern, we will ensure that as multiple clients 
 access the data structures in the Blackboard component, that all operations on the Blackboard are concurrent and displayed 
 consistently across clients. To be more specific, we have modified our original design to store user stories from the HashMap 
