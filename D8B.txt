@@ -1,0 +1,12 @@
+	With the combination of both the Blackboard and the Read-write lock pattern, we will ensure that as multiple clients access the data structures in the Blackboard component, that all operations on the Blackboard are concurrent and displayed consistently across clients. To be more specific, we have modified our original design to store user stories from the HashMap to the thread safe HashTable. The interactive chat structure in the stories class will be maintained with a thread safe list using the Collections.synchronized initialization. When running our current prototype we are able to concurrently access stories across clients. Record Locking will thus reflect users’ changes to the server in terms of the stories uploaded to the scrum backlog, product backlog, and scrum board along with the chart. This will be achieved sing a client-server architecture along with synchronized data structures to ensure that no issues happen when multiple clients update the same data structure containing stories.
+
+list of any design patterns:
+
+Design Patterns:
+	- Blackboard
+		- Our finalized combined design will be utilizing a loosely implemented version of the Blackboard pattern. Since many different clients and the server itself will need to access information on the state of the sprint repeatedly, the Blackboard pattern will maintain the state.
+	- Read-write lock pattern
+		- Once again, many different components will be accessing monitors via threads, and we will be utilizing synchronized keywords for methods, along with thread safe data structures to ensure this pattern is correctly implemented.
+	- Builder pattern
+		- We want to utilized the software engineering principle of letting components do one thing well, so instead of letting the server code put together a stories construction itself, we will use the builder pattern to separate the construction of stories from text areas in the UI from the actual implementation. 
+
