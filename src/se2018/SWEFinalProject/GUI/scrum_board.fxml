@@ -16,7 +16,9 @@
 <GridPane fx:controller="se2018.SWEFinalProject.GUI.FXMLController"
 		xmlns:fx="http://javafx.com/fxml">
 	<rowConstraints>
+		<RowConstraints minHeight="100" ></RowConstraints>
 		<RowConstraints minHeight="100" ></RowConstraints> 
+		<RowConstraints minHeight="600" ></RowConstraints>  
 	</rowConstraints>
 	
 	<columnConstraints >
@@ -94,6 +96,22 @@
         		<Font name="System Bold" size="20.0"/>
     		</font>
     	</Label>
+	</HBox>
+	
+	<HBox fx:id="todoColumnHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(204,229,255); -fx-border-style: solid inside;" 
+    	GridPane.columnIndex="0" GridPane.rowIndex="2">	
+	</HBox>
+	
+	<HBox fx:id="inprogressColumnHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(204,229,255); -fx-border-style: solid inside;" 
+    	GridPane.columnIndex="1" GridPane.rowIndex="2">	
+	</HBox>
+	
+	<HBox fx:id="testingColumnHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(204,229,255); -fx-border-style: solid inside;" 
+    	GridPane.columnIndex="2" GridPane.rowIndex="2">	
+	</HBox>
+	
+	<HBox fx:id="doneColumnHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(204,229,255); -fx-border-style: solid inside;" 
+    	GridPane.columnIndex="3" GridPane.rowIndex="2">	
 	</HBox>
     
 </GridPane> 
