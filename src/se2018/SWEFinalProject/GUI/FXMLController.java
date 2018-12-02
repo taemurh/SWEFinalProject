@@ -70,10 +70,11 @@ public class FXMLController {
     	System.out.println(authorField.getText());
     	System.out.println(titleField.getText());
     	System.out.println(pointsField.getText());
+    	System.out.println("What");
     	
     	Label label = new Label();
     	label.setText("hello");
-    	todoColumnVBox.getChildren().addAll(label);
+    	//todoColumnVBox.getChildren().addAll(label);
     	
     }
     
