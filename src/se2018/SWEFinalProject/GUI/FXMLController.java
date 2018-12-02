@@ -13,8 +13,6 @@ import javafx.stage.Stage;
 public class FXMLController {
 	
 	@FXML TextField authorField;
-	@FXML TextField titleField;
-	@FXML TextField pointsField;
 	
     @FXML 
     protected void handleAddStoryButtonAction(ActionEvent event) {
@@ -65,7 +63,5 @@ public class FXMLController {
     protected void handleAddStorySubmitButtonAction(ActionEvent event) {
     	System.out.println("hey it works");
     	System.out.println(authorField.getText());
-    	System.out.println(titleField.getText());
-    	System.out.println(pointsField.getText());
     }
 }
