@@ -1,4 +1,4 @@
-package se2018.SWEFinalProject;
+package se2018.SWEFinalProject.Server;
 
 import java.util.ArrayList;
 import java.util.Collections;

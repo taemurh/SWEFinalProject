@@ -9,10 +9,18 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 import se2018.SWEFinalProject.Blackboard;
 
 public class FXMLDocumentController implements Initializable {
@@ -56,7 +64,7 @@ public class FXMLDocumentController implements Initializable {
         System.err.println(ex);
       }
     }).start();
-    }    
+    }
     
 }
 
@@ -93,10 +101,12 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
               case SEND_COMMENT: {
                   String comment = inputFromClient.readLine();
                   transcript.addComment(handle + "> " + comment);
-                  blackboard.addStory();
-                  
-                  System.out.println(blackboard.getStories());
                   break;
+              }
+              case SEND_STORY: {
+            	  String storyJSON = inputFromClient.readLine();
+            	  ObjectMapper mapper = new ObjectMapper();
+            	  Story s = mapper.readValue(storyJSON, Story.class);
               }
               case GET_COMMENT_COUNT: {
                   outputToClient.println(transcript.getSize());
@@ -109,6 +119,8 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
                   outputToClient.println(transcript.getComment(n));
                   outputToClient.flush();
               }
+              
+            
           }
         }
       }

@@ -45,6 +45,13 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
         outputToServer.println(comment);
         outputToServer.flush();
     }
+    
+    // send a new user story to server
+    public void sendStory(String story) {
+    	outputToServer.println(SEND_STORY);
+    	outputToServer.println(story);
+    	outputToServer.flush();
+    }
 
     // Ask the server to send us a count of how many comments are
     // currently in the transcript.
@@ -73,4 +80,6 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
         }
         return comment;
     }
+    
+
 }
