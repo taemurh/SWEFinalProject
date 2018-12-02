@@ -93,7 +93,7 @@
     	</Label>
 	</HBox>
 	
-	<VBox fx:id="doneLabelHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(51,153,255);"
+	<VBox fx:id="doneLabelVBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(51,153,255);"
     	GridPane.columnIndex="3" GridPane.rowIndex="1">
 		<Label fx:id="doneLabel" text="Done" style="-fx-text-fill: white;">
 			<font>
@@ -104,24 +104,24 @@
 	
 	<ScrollPane GridPane.columnIndex="0" GridPane.rowIndex="2" pannable="true" style="-fx-background: RGB(204,229,255); -fx-border-style: solid inside;" >
 		<VBox 
-			fx:id="todoColumnHBox" spacing="10" alignment="CENTER" >
+			fx:id="todoColumnVBox" spacing="10" alignment="CENTER" >
 		</VBox>
 	</ScrollPane>
 	
 	<ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="2" pannable="true" style="-fx-background: RGB(204,229,255); -fx-border-style: solid inside;" >
 		<VBox
-			 fx:id="inprogressColumnHBox" spacing="10" alignment="CENTER">	
+			 fx:id="inprogressColumnVBox" spacing="10" alignment="CENTER">	
 		</VBox>
 	</ScrollPane>
 	
 	<ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="2" pannable="true" style="-fx-background: RGB(204,229,255); -fx-border-style: solid inside;" >
 		<VBox
-			 fx:id="testingColumnHBox" spacing="10" alignment="CENTER" >	
+			 fx:id="testingColumnVBox" spacing="10" alignment="CENTER" >	
 		</VBox>
 	</ScrollPane>
 	<ScrollPane GridPane.columnIndex="3" GridPane.rowIndex="2" pannable="true" style="-fx-background: RGB(204,229,255); -fx-border-style: solid inside;" >
 		<VBox 
-			fx:id="doneColumnHBox" spacing="10" alignment="CENTER" >	
+			fx:id="doneColumnVBox" spacing="10" alignment="CENTER" >	
 		</VBox>
   	</ScrollPane>
   	
