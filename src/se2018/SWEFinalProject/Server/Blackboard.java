@@ -22,9 +22,8 @@ public class Blackboard {
 		stories = new Hashtable <Integer, Story>();
 	}
 	
-	public void addStory() {
-		//stories.put(totStories++, new Story(null, null, null, null, 0));
-		stories.put(totStories++, new Story(0, "a", "b", "c", 0, 0));
+	public void addStory(Story story) {
+		stories.put(story.getStoryID(), story);
 	}
 	
 	public void deleteStory(Integer storyId) {

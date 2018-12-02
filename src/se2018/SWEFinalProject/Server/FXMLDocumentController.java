@@ -21,7 +21,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import se2018.SWEFinalProject.Blackboard;
+import se2018.SWEFinalProject.Server.Blackboard;
+import se2018.SWEFinalProject.Server.Story;
 
 public class FXMLDocumentController implements Initializable {
     
@@ -107,6 +108,9 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  String storyJSON = inputFromClient.readLine();
             	  ObjectMapper mapper = new ObjectMapper();
             	  Story s = mapper.readValue(storyJSON, Story.class);
+            	  System.out.println("adding to balckboard");
+            	  blackboard.addStory(s);
+            	  break;
               }
               case GET_COMMENT_COUNT: {
                   outputToClient.println(transcript.getSize());
@@ -118,6 +122,16 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
                   int n = Integer.parseInt(inputFromClient.readLine());
                   outputToClient.println(transcript.getComment(n));
                   outputToClient.flush();
+                  break;
+              }
+              case GET_STORY: {
+            	  Integer id = Integer.parseInt(inputFromClient.readLine());
+            	  Story story = blackboard.getStory(id);
+            	  ObjectMapper mapper = new ObjectMapper();
+            	  String jsonStr = mapper.writeValueAsString(story);
+            	  outputToClient.println(jsonStr);
+            	  outputToClient.flush();
+            	  break;
               }
               
             

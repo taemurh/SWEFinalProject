@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +19,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
+import se2018.SWEFinalProject.Server.Story;
 
 public class FXMLDocumentController implements Initializable {
     private ChatGateway gateway;
@@ -79,8 +84,29 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     protected void handleAddStorySubmitButtonAction(ActionEvent event) {
-    	System.out.println("hey it works");
+    	//Integer storyID, String author, String desc, String status, int storyPoints, int sprint
+    	Story story = new Story(0, "tay", "test story", "not started", 15, 0);
+    	String storyJSON = "";
+
+    	try {
+    		ObjectMapper mapper = new ObjectMapper();
+    		storyJSON = mapper.writeValueAsString(story);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			storyJSON = "Error converting Java object to JSON string: " + e;
+			System.out.println(storyJSON);
+		}
+    	/*
+    	System.out.println(">>>>>hey it works");
+    	gateway.sendStory(storyJSON);
+    	System.out.println("+++++hey it works");
     	System.out.println(authorField.getText());
+    	String dStory = gateway.getStory();
+    	System.out.println(dStory);
+    	System.out.println(">>>>hey it works");
+    	*/
+
     }
     
     @Override
