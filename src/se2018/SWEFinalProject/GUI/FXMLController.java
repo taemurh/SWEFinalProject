@@ -7,9 +7,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class FXMLController {
+	
+	@FXML TextField authorField;
+	
     @FXML 
     protected void handleAddStoryButtonAction(ActionEvent event) {
         Parent root;
@@ -53,5 +57,11 @@ public class FXMLController {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    @FXML
+    protected void handleAddStorySubmitButtonAction(ActionEvent event) {
+    	System.out.println("hey it works");
+    	System.out.println(authorField.getText());
     }
 }
