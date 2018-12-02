@@ -20,7 +20,7 @@ public class FXMLController {
     protected void handleAddStoryButtonAction(ActionEvent event) {
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("add_story_window.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Layouts/add_story_window.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Add Story!");
             stage.setScene(new Scene(root, 450, 700));
@@ -35,7 +35,7 @@ public class FXMLController {
     protected void handleBacklogButtonAction(ActionEvent event) {
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("burndown_window.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Layouts/burndown_window.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Backlog");
             stage.setScene(new Scene(root, 700, 700));
@@ -50,7 +50,7 @@ public class FXMLController {
     protected void handleBurndownButtonAction(ActionEvent event) {
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("burndown_window.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Layouts/burndown_window.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Burndown Chart");
             stage.setScene(new Scene(root, 800, 700));

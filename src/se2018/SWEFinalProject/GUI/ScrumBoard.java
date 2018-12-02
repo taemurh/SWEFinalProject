@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class ScrumBoard extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("scrum_board.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("Layouts/scrum_board.fxml"));
 		primaryStage.setTitle("Scrum Board Tool");
 		primaryStage.setScene(new Scene(root, 1200, 800));
 		primaryStage.show();
