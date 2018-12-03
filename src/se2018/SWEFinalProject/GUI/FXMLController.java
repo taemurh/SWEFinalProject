@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class FXMLController {
@@ -70,12 +71,25 @@ public class FXMLController {
     	//TODO Make for loop and for every story retrieved from server create a new VBOX and append
     	
     	VBox storyPane = new VBox();
-    	storyPane.setPrefHeight(100);
+    	storyPane.setPrefHeight(80);
     	storyPane.setPrefWidth(300);
     	storyPane.setStyle("-fx-background-color: RGB(130,229,130);");
     	
+    	// TODO Set Text here for 
+    	storyPane.getChildren().add(new Text("Author: "));
+    	storyPane.getChildren().add(new Text("Title: "));
+    	storyPane.getChildren().add(new Text("Points: "));
+    	///storyPane.OnMouseClicked("#handleStoryClick");
     	todoColumnVBox.getChildren().add(storyPane);
     	
+    	
+    	System.out.println(storyPane.getParent().idProperty().getValue());
+    	
+    	
+    }
+    
+    @FXML 
+    protected void handleStoryClick(ActionEvent event) {
     	
     }
     
