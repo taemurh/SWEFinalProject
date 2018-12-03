@@ -13,13 +13,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
+
 public class FXMLController {
 	
 	@FXML TextField authorField;
 	@FXML TextField titleField;
 	@FXML TextField pointsField;
 	@FXML VBox todoColumnVBox;
-	
+	 
     @FXML 
     protected void handleAddStoryButtonAction(ActionEvent event) {
         Parent root;
@@ -79,7 +81,30 @@ public class FXMLController {
     	storyPane.getChildren().add(new Text("Author: "));
     	storyPane.getChildren().add(new Text("Title: "));
     	storyPane.getChildren().add(new Text("Points: "));
-    	///storyPane.OnMouseClicked("#handleStoryClick");
+    	storyPane.setOnMouseClicked(e -> {
+            System.out.println("Clicked");
+            Parent root;
+            try {
+              
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Layouts/Story_Details.fxml"));
+                
+                root = loader.load();
+                Stage stage = new Stage();
+                stage.setTitle("Story Details");
+                stage.setScene(new Scene(root, 450, 700));
+                stage.show();
+                
+               
+                StoryController controller = loader.getController();
+                controller.displayAuthorField.setText("JeehadiJonny");
+                controller.displayTitleField.setText("Get this Bread (yeet)");
+                controller.displayPointsField.setText("5");
+                
+            }
+            catch (IOException d) {
+                d.printStackTrace();
+            }
+        });
     	todoColumnVBox.getChildren().add(storyPane);
     	
     	
