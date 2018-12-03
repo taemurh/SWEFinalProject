@@ -29,6 +29,8 @@ public class FXMLDocumentController implements Initializable {
     private TextField comment;
     
     @FXML TextField authorField;
+	@FXML TextField titleField;
+	@FXML TextField pointsField;
            
     
     @FXML
@@ -84,7 +86,6 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     protected void handleAddStorySubmitButtonAction(ActionEvent event) {
-    	//Integer storyID, String author, String desc, String status, int storyPoints, int sprint
     	Story story = new Story(0, "tay", "test story", "not started", 15, 0);
     	String storyJSON = "";
 
@@ -97,14 +98,12 @@ public class FXMLDocumentController implements Initializable {
 			storyJSON = "Error converting Java object to JSON string: " + e;
 			System.out.println(storyJSON);
 		}
+    	
+      	gateway.sendStory(storyJSON);
     	/*
-    	System.out.println(">>>>>hey it works");
-    	gateway.sendStory(storyJSON);
     	System.out.println("+++++hey it works");
-    	System.out.println(authorField.getText());
     	String dStory = gateway.getStory();
     	System.out.println(dStory);
-    	System.out.println(">>>>hey it works");
     	*/
 
     }
@@ -142,15 +141,14 @@ class TranscriptCheck implements Runnable, se2018.SWEFinalProject.Chat.ChatConst
     /** Run a thread */
     public void run() {
       while(true) {
-          if(gateway.getCommentCount() > N) {
-              String newComment = gateway.getComment(N);
-              Platform.runLater(()->textArea.appendText(newComment + "\n"));
-              N++;
-          } else {
-              try {
-                  Thread.sleep(250);
-              } catch(InterruptedException ex) {}
-          }
+    	  
+        try {
+			Thread.sleep(250);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      }
+          
       }
     }
-  }

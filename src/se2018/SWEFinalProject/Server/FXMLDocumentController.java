@@ -106,9 +106,12 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
               }
               case SEND_STORY: {
             	  String storyJSON = inputFromClient.readLine();
+            	  System.out.println(storyJSON);
             	  ObjectMapper mapper = new ObjectMapper();
-            	  Story s = mapper.readValue(storyJSON, Story.class);
-            	  System.out.println("adding to balckboard");
+            	  //System.out.println("DEBUG");
+            	  Story s = mapper.readValue(storyJSON, se2018.SWEFinalProject.Server.Story.class);
+            	  //System.out.println(s.toString());
+            	  //System.out.println("adding to blackboard");
             	  blackboard.addStory(s);
             	  break;
               }
@@ -126,12 +129,14 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
               }
               case GET_STORY: {
             	  Integer id = Integer.parseInt(inputFromClient.readLine());
+            	  System.out.print(">>>> " + id);
             	  Story story = blackboard.getStory(id);
             	  ObjectMapper mapper = new ObjectMapper();
             	  String jsonStr = mapper.writeValueAsString(story);
             	  outputToClient.println(jsonStr);
+            	  System.out.println(jsonStr);
             	  outputToClient.flush();
-            	  break;
+
               }
               
             

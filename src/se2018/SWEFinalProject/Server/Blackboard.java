@@ -22,15 +22,15 @@ public class Blackboard {
 		stories = new Hashtable <Integer, Story>();
 	}
 	
-	public void addStory(Story story) {
+	public synchronized void addStory(Story story) {
 		stories.put(story.getStoryID(), story);
 	}
 	
-	public void deleteStory(Integer storyId) {
+	public synchronized void deleteStory(Integer storyId) {
 		stories.remove(storyId);
 	}
 	
-	public void editStory(Integer storyId, Story eStory) {
+	public synchronized void editStory(Integer storyId, Story eStory) {
 		Story oldStory = stories.get(storyId);
 		oldStory.setAuthor(eStory.getAuthor());
 		oldStory.setDesc(eStory.getDescription());
@@ -38,11 +38,11 @@ public class Blackboard {
 		oldStory.setStoryPoints(eStory.getStoryPoints());
 	}
 	
-	public Hashtable <Integer, Story> getStories() {
+	public synchronized Hashtable <Integer, Story> getStories() {
 		return stories;
 	}
 	
-	public Story getStory(Integer id) {
+	public synchronized Story getStory(Integer id) {
 		return stories.get(id);
 	}
 }

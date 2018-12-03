@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
 
-<GridPane fx:controller="se2018.SWEFinalProject.GUI.FXMLController"
+<GridPane fx:controller="se2018.SWEFinalProject.Client.FXMLDocumentController"
 		xmlns:fx="http://javafx.com/fxml">
 	<rowConstraints>
 		<RowConstraints minHeight="100" ></RowConstraints>

@@ -22,51 +22,51 @@ public class Story {
 		this.sprint = sprint;
 	}
 	
-	public void updateAuthor(String author) {
+	public synchronized void updateAuthor(String author) {
 		this.author = author;
 	}
 	
-	public void updateStoryPoints(int sp) {
+	public synchronized void updateStoryPoints(int sp) {
 		this.storyPoints = sp;
 	}
 	
-	public void updateDescription(String desc) {
+	public synchronized void updateDescription(String desc) {
 		this.desc = desc;
 	}
 	
-	public String getAuthor() {
+	public synchronized String getAuthor() {
 		return author;
 	}
 	
-	public int getStoryPoints() {
+	public synchronized int getStoryPoints() {
 		return storyPoints;
 	}
 	
-	public String getDescription() {
+	public synchronized String getDescription() {
 		return desc;
 	}
 	
-	public String getStatus() {
+	public synchronized String getStatus() {
 		return status;
 	}
 
-	public void setAuthor(String author) {
+	public synchronized void setAuthor(String author) {
 		this.author = author;
 	}
 
-	public void setDesc(String description) {
+	public synchronized void setDesc(String description) {
 		this.desc = description;
 	}
 
-	public void setStatus(String status) {
+	public synchronized void setStatus(String status) {
 		this.status = status;
 	}
 
-	public void setStoryPoints(int storyPoints) {
+	public synchronized void setStoryPoints(int storyPoints) {
 		this.storyPoints = storyPoints;
 	}
 	
-	public void addComment(String comment) { 
+	public synchronized void addComment(String comment) { 
 		transcript.add(comment); 
 	}
 	
