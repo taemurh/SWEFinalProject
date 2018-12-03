@@ -49,11 +49,15 @@
 		</Button>
 	</HBox>
 	
-	<HBox fx:id="burndownButtonHBox" spacing="10" alignment="CENTER"
+	<HBox fx:id="burndownButtonHBox" spacing="20" alignment="CENTER"
 		GridPane.columnIndex="3" GridPane.rowIndex="0">
+		<padding><Insets left="80"/></padding>
 		<Button fx:id="burndownButton" text="Burndown"
-			onAction="#handleBurndownButtonAction"
-			GridPane.columnIndex="3" GridPane.rowIndex="0">
+			onAction="#handleBurndownButtonAction">
+		</Button>
+		
+		<Button fx:id="refreshButton" text="Refresh"
+			onAction="#handleRefreshButtonAction">
 		</Button>
 	</HBox>
 	

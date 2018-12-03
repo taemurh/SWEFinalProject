@@ -64,6 +64,21 @@ public class FXMLController {
         }
     }
     
+    @FXML 
+    protected void handleRefreshButtonAction(ActionEvent event) {
+    	
+    	//TODO Make for loop and for every story retrieved from server create a new VBOX and append
+    	
+    	VBox storyPane = new VBox();
+    	storyPane.setPrefHeight(100);
+    	storyPane.setPrefWidth(300);
+    	storyPane.setStyle("-fx-background-color: RGB(130,229,130);");
+    	
+    	todoColumnVBox.getChildren().add(storyPane);
+    	
+    	
+    }
+    
     @FXML
     protected void handleAddStorySubmitButtonAction(ActionEvent event) {
     	System.out.println("hey it works");
@@ -72,9 +87,6 @@ public class FXMLController {
     	System.out.println(pointsField.getText());
     	System.out.println("What");
     	
-    	Label label = new Label();
-    	label.setText("hello");
-    	//todoColumnVBox.getChildren().addAll(label);
     	
     }
     
