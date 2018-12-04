@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -21,6 +22,7 @@ public class FXMLController {
 	@FXML TextField titleField;
 	@FXML TextField pointsField;
 	@FXML VBox todoColumnVBox;
+	@FXML Button submitButton;
 	 
     @FXML 
     protected void handleAddStoryButtonAction(ActionEvent event) {
@@ -120,13 +122,13 @@ public class FXMLController {
     
     @FXML
     protected void handleAddStorySubmitButtonAction(ActionEvent event) {
-    	System.out.println("hey it works");
     	System.out.println(authorField.getText());
     	System.out.println(titleField.getText());
     	System.out.println(pointsField.getText());
-    	System.out.println("What");
-    	
-    	
+
+    	Stage stage = (Stage) submitButton.getScene().getWindow();
+    	stage.close();
+    	System.out.println("window closed");
     }
     
     
