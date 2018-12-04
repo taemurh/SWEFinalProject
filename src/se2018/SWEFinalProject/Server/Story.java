@@ -1,27 +1,18 @@
 package se2018.SWEFinalProject.Server;
 
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Story {
-	//@JsonRawValue
 	private Integer storyID;
-	//@JsonRawValue
 	private String author;
-	//@JsonRawValue
 	private String title;
-	//@JsonRawValue
 	private String description;
-	//@JsonRawValue
 	private String status = "not started";
-	//@JsonRawValue
 	private Integer storyPoints;
-	//private List<String> transcript = Collections.synchronizedList(new ArrayList<String>());
+	private List<String> transcript = Collections.synchronizedList(new ArrayList<String>());
 	
 	public Story(Integer storyID, String author, String title, String description, int storyPoints) {
 		this.storyID = storyID;
@@ -75,7 +66,7 @@ public class Story {
 		this.storyPoints = storyPoints;
 	}
 	
-	/*
+	
 	public synchronized void addComment(String comment) { 
 		transcript.add(comment); 
 	}
@@ -87,7 +78,7 @@ public class Story {
     public synchronized String getComment(int n) { 
     	return transcript.get(n); 
     }
-    */
+    
 
 	public synchronized Integer getStoryID() {
 		return storyID;
@@ -107,13 +98,18 @@ public class Story {
 	
 	 
 	public String toString_() 
-    { 
+    { 	
+		String chat = "";
+		for (String comment: transcript) {
+			chat = comment + "-";
+		}
         return (Integer.toString(storyID) + ","
         		+ author + "," +  
                 title + "," +  
                description + "," +
                status + "," +
-               Integer.toString(storyPoints)); 
+               Integer.toString(storyPoints) + ","
+               + chat); 
     }
 	
 	

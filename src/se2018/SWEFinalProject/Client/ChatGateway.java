@@ -68,10 +68,8 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
 			storyJSON = inputFromServer.readLine();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			storyJSON = "Error Fetching Story: " + e;
-            Platform.runLater(() -> System.out.println("final"));
 
 		}
     	
