@@ -1,8 +1,12 @@
 package se2018.SWEFinalProject.Server;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Hashtable;
 
-public class Blackboard {
+public class Blackboard implements Externalizable {
 	
 	/* 
 	 * Int Story Id : new  Story()
@@ -47,6 +51,42 @@ public class Blackboard {
 		System.out.println("in blackboard class: " +stories.get(id));
 
 		return stories.get(id);
+	}
+
+	@Override
+	public String toString() {
+		return null;
+		
+	}
+	
+	@Override
+	public void writeExternal(ObjectOutput out) throws IOException {
+		for (Story s: stories.values()) {
+			out.writeUTF(s.toString_());
+		}
+		
+		
+	}
+
+	@Override
+	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		Story story;
+		String storyStr = in.readLine();
+		
+		while (storyStr != null) {
+			String[] fields = storyStr.split(",");
+   		  	Integer storyID = Integer.parseInt(fields[0]);
+   		  	String author = fields[1];
+   		  	String title = fields[2];
+   		  	String desc = fields[3];
+   		  	String status = fields[4];
+   		  	Integer storyPoints = Integer.parseInt(fields[5]);
+   		  	story = new Story(storyID, author, title, desc,  storyPoints);
+   		  	story.setStatus(status);
+   		  	stories.put(story.getStoryID(), story);
+   		  	storyStr = in.readLine();
+		}
+		
 	}
 }
 

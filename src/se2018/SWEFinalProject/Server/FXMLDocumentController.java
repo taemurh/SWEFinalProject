@@ -108,7 +108,6 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  System.out.println("story reached server" + storyJSON);
             	  story = null;
             	  try {
-            		  //story = reader.readValue(storyJSON);
             		  String[] fields = storyJSON.split(",");
             		  Integer storyID = Integer.parseInt(fields[0]);
             		  String author = fields[1];
