@@ -28,7 +28,9 @@ public class Blackboard implements Externalizable {
 	
 	public synchronized void addStory(Story story) {
 		System.out.println("story id in blackboard: " + story.getStoryID());
-		stories.put(story.getStoryID(), story);
+		stories.put(totStories, story);
+		story.setStoryID(totStories);
+		totStories = totStories  + 1;
 	}
 	
 	public synchronized void deleteStory(Integer storyId) {
@@ -58,7 +60,7 @@ public class Blackboard implements Externalizable {
 		return null;
 		
 	}
-	
+	// save the sprint
 	@Override
 	public void writeExternal(ObjectOutput out) throws IOException {
 		for (Story s: stories.values()) {
@@ -67,7 +69,7 @@ public class Blackboard implements Externalizable {
 		
 		
 	}
-
+	// upload the sprint
 	@Override
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		Story story;
