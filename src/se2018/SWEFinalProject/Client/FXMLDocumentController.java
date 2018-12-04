@@ -5,9 +5,6 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +23,7 @@ import se2018.SWEFinalProject.Server.Story;
 
 public class FXMLDocumentController implements Initializable {
     private ChatGateway gateway;
+    
     @FXML
     private TextArea textArea;
     @FXML
@@ -90,19 +88,17 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     protected void handleAddStorySubmitButtonAction(ActionEvent event) {
-    	Story story = new Story(0, authorField.getText(), titleField.getText(), "not started", Integer.parseInt(pointsField.getText()));
+    	Story story = new Story(0, authorField.getText(), titleField.getText(), "this stories description", Integer.parseInt(pointsField.getText()));
     	String storyJSON = "";
 
     	try {
-    		ObjectMapper mapper = new ObjectMapper();
-    		storyJSON = mapper.writeValueAsString(story);
-		} catch (JsonProcessingException e) {
+    		storyJSON = story.toString_();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			storyJSON = "Error converting Java object to JSON string: " + e;
-			System.out.println(storyJSON);
 		}
     	
+		System.out.println(storyJSON);
       	gateway.sendStory(storyJSON);
 
     }
@@ -126,7 +122,7 @@ public class FXMLDocumentController implements Initializable {
             Parent root;
             try {
               
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Layouts/Story_Details.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Story_Details.fxml"));
                 
                 root = loader.load();
                 Stage stage = new Stage();
@@ -162,16 +158,6 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gateway = new ChatGateway(textArea);
-
-        // Put up a dialog to get a handle from the user
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Start Chat");
-        dialog.setHeaderText(null);
-        dialog.setContentText("Enter a handle:");
-
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(name -> gateway.sendHandle(name));
-
         // Start the transcript check thread
         new Thread(new TranscriptCheck(gateway,textArea)).start();
     }        

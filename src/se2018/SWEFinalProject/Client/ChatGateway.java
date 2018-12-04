@@ -57,19 +57,15 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
     	outputToServer.println(SEND_STORY);
     	outputToServer.println(story);
     	outputToServer.flush();
-    	System.out.println("in gateway: " + story);
     }
     
     public Story getStory(int id) {
     	outputToServer.println(GET_STORY);
-    	// add logic to select a story
     	outputToServer.println(Integer.toString(id));
     	outputToServer.flush();
     	String storyJSON = "";
     	try {
-    		System.out.println("expecting input from server");
 			storyJSON = inputFromServer.readLine();
-    		System.out.println("after input from server");
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -79,20 +75,18 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
 
 		}
     	
-    	System.out.println("getting story in gateway: " + storyJSON);
-    	ObjectMapper mapper = new ObjectMapper();
-  	  	Story s = null;
-		try {
-			s = mapper.readValue(storyJSON, se2018.SWEFinalProject.Server.Story.class);
-		} catch (JsonParseException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+  	  	Story story = null;
+  	  	String[] fields = storyJSON.split(",");
+  	  	Integer storyID = Integer.parseInt(fields[0]);
+  	  	String author = fields[1];
+  	  	String title = fields[2];
+  	  	String desc = fields[3];
+  	  	String status = fields[4];
+  	  	Integer storyPoints = Integer.parseInt(fields[5]);
+  	  	story = new Story(storyID, author, title, desc,  storyPoints);
+  	  	story.setStatus(status);
   	  	
-    	return s;
+    	return story;
     }
 
     // Ask the server to send us a count of how many comments are

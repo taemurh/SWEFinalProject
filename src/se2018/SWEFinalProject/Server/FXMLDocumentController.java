@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -32,7 +31,6 @@ public class FXMLDocumentController implements Initializable {
     private int clientNo = 0;
     private Transcript transcript;
     private Blackboard blackboard;
-    
     private ServerSocket serverSocket;
     
     @Override
@@ -74,8 +72,8 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
     private Transcript transcript; // Reference to shared transcript
     private Blackboard blackboard; // Reference to shared blackboard
     private TextArea textArea;
-    private String handle;
-
+    private String handle;  
+    private Story story;
     public HandleAClient(Socket socket, Transcript transcript, Blackboard blackboard, TextArea textArea) {
       this.socket = socket;
       this.transcript = transcript;
@@ -105,18 +103,34 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
                   break;
               }
               case SEND_STORY: {
+            	  System.out.println("send story");
             	  String storyJSON = inputFromClient.readLine();
-            	  System.out.println(storyJSON);
-            	  ObjectMapper mapper = new ObjectMapper();
-            	  Story s = mapper.readValue(storyJSON, se2018.SWEFinalProject.Server.Story.class);
-            	  //System.out.println(s.toString());
-            	  //System.out.println("adding to blackboard");
-            	  blackboard.addStory(s);
+            	  System.out.println("story reached server" + storyJSON);
+            	  story = null;
+            	  try {
+            		  //story = reader.readValue(storyJSON);
+            		  String[] fields = storyJSON.split(",");
+            		  Integer storyID = Integer.parseInt(fields[0]);
+            		  String author = fields[1];
+            		  String title = fields[2];
+            		  String desc = fields[3];
+            		  String status = fields[4];
+            		  Integer storyPoints = Integer.parseInt(fields[5]);
+            		  story = new Story(storyID, author, title, desc,  storyPoints);
+            		  story.setStatus(status);
+
+            	  } catch (Exception e) {
+            		  System.out.println(e);
+            	  }
+            	  
+            	  blackboard.addStory(story);
+            	  if (story == null) {
+            		  System.out.println("story is null");
+            	  }
             	  break;
               }
               case GET_COMMENT_COUNT: {
                   outputToClient.println(transcript.getSize());
-                  //outputToClient.println(blackboard.stories.size());
                   outputToClient.flush();
                   break;
               }
@@ -127,13 +141,13 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
                   break;
               }
               case GET_STORY: {
+            	  System.out.println("get story");
             	  Integer id = Integer.parseInt(inputFromClient.readLine());
-            	  System.out.print(">>>> " + id);
-            	  Story story = blackboard.getStory(id);
-            	  ObjectMapper mapper = new ObjectMapper();
-            	  String jsonStr = mapper.writeValueAsString(story);
-            	  outputToClient.println(jsonStr);
+            	  System.out.println(">>>> " + id);
+            	  story = blackboard.getStory(id);
+            	  String jsonStr = story.toString_();
             	  System.out.println(jsonStr);
+            	  outputToClient.println(jsonStr);
             	  outputToClient.flush();
 
               }

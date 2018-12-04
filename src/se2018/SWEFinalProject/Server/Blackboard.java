@@ -23,6 +23,7 @@ public class Blackboard {
 	}
 	
 	public synchronized void addStory(Story story) {
+		System.out.println("story id in blackboard: " + story.getStoryID());
 		stories.put(story.getStoryID(), story);
 	}
 	
@@ -43,6 +44,8 @@ public class Blackboard {
 	}
 	
 	public synchronized Story getStory(Integer id) {
+		System.out.println("in blackboard class: " +stories.get(id));
+
 		return stories.get(id);
 	}
 }

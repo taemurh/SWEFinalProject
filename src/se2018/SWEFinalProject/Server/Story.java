@@ -1,23 +1,33 @@
 package se2018.SWEFinalProject.Server;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Story {
+	//@JsonRawValue
 	private Integer storyID;
+	//@JsonRawValue
 	private String author;
+	//@JsonRawValue
 	private String title;
-	private String desc;
+	//@JsonRawValue
+	private String description;
+	//@JsonRawValue
 	private String status = "not started";
+	//@JsonRawValue
 	private Integer storyPoints;
-	private List<String> transcript = Collections.synchronizedList(new ArrayList<String>());
-
-	public Story(Integer storyID, String author, String title, String desc, int storyPoints) {
-		this.setStoryID(storyID);
+	//private List<String> transcript = Collections.synchronizedList(new ArrayList<String>());
+	
+	public Story(Integer storyID, String author, String title, String description, int storyPoints) {
+		this.storyID = storyID;
 		this.author = author;
 		this.title = title;
-		this.desc = desc;
+		this.description = description;
 		this.storyPoints = storyPoints;
 	}
 	
@@ -29,8 +39,8 @@ public class Story {
 		this.storyPoints = sp;
 	}
 	
-	public synchronized void updateDescription(String desc) {
-		this.desc = desc;
+	public synchronized void updateDescription(String description) {
+		this.description = description;
 	}
 	
 	public synchronized String getAuthor() {
@@ -42,7 +52,7 @@ public class Story {
 	}
 	
 	public synchronized String getDescription() {
-		return desc;
+		return description;
 	}
 	
 	public synchronized String getStatus() {
@@ -54,7 +64,7 @@ public class Story {
 	}
 
 	public synchronized void setDesc(String description) {
-		this.desc = description;
+		this.description = description;
 	}
 
 	public synchronized void setStatus(String status) {
@@ -65,6 +75,7 @@ public class Story {
 		this.storyPoints = storyPoints;
 	}
 	
+	/*
 	public synchronized void addComment(String comment) { 
 		transcript.add(comment); 
 	}
@@ -76,6 +87,7 @@ public class Story {
     public synchronized String getComment(int n) { 
     	return transcript.get(n); 
     }
+    */
 
 	public synchronized Integer getStoryID() {
 		return storyID;
@@ -92,6 +104,17 @@ public class Story {
 	public synchronized void setTitle(String title) {
 		this.title = title;
 	}
+	
+	 
+	public String toString_() 
+    { 
+        return (Integer.toString(storyID) + ","
+        		+ author + "," +  
+                title + "," +  
+               description + "," +
+               status + "," +
+               Integer.toString(storyPoints)); 
+    }
 	
 	
 }
