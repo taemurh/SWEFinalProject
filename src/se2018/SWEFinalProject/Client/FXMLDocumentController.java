@@ -107,18 +107,19 @@ public class FXMLDocumentController implements Initializable {
     protected void handleRefreshButtonAction(ActionEvent event) {
     	
     	//TODO Make for loop and for every story retrieved from server create a new VBOX and append
+    	todoColumnVBox.getChildren().clear();
+    	for () {
+    		VBox storyPane = new VBox();
+    		storyPane.setPrefHeight(80);
+    		storyPane.setPrefWidth(300);
+    		storyPane.setStyle("-fx-background-color: RGB(130,229,130);");
     	
-    	VBox storyPane = new VBox();
-    	storyPane.setPrefHeight(80);
-    	storyPane.setPrefWidth(300);
-    	storyPane.setStyle("-fx-background-color: RGB(130,229,130);");
-    	
-    	// TODO Set Text here for 
-    	storyPane.getChildren().add(new Text("Author: "));
-    	storyPane.getChildren().add(new Text("Title: "));
-    	storyPane.getChildren().add(new Text("Points: "));
-    	storyPane.setOnMouseClicked(e -> {
-            System.out.println("Clicked");
+    		// TODO Set Text here for 
+    		storyPane.getChildren().add(new Text("Author: "));
+    		storyPane.getChildren().add(new Text("Title: "));
+    		storyPane.getChildren().add(new Text("Points: "));
+    		storyPane.setOnMouseClicked(e -> {
+    		System.out.println("Clicked");
             Parent root;
             try {
               
@@ -141,12 +142,13 @@ public class FXMLDocumentController implements Initializable {
             catch (IOException d) {
                 d.printStackTrace();
             }
-        });
-    	todoColumnVBox.getChildren().add(storyPane);
+    		});
+    		todoColumnVBox.getChildren().add(storyPane);
     	
     	
-    	System.out.println(storyPane.getParent().idProperty().getValue());
+    		System.out.println(storyPane.getParent().idProperty().getValue());
     	
+    	}
     	
     }
     

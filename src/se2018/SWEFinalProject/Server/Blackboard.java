@@ -30,7 +30,7 @@ public class Blackboard implements Externalizable {
 		System.out.println("story id in blackboard: " + story.getStoryID());
 		stories.put(totStories, story);
 		story.setStoryID(totStories);
-		totStories = totStories  + 1;
+		totStories = totStories + 1;
 	}
 	
 	public synchronized void deleteStory(Integer storyId) {
