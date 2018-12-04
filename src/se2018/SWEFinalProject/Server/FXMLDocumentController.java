@@ -22,6 +22,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import se2018.SWEFinalProject.Server.Blackboard;
 import se2018.SWEFinalProject.Server.Story;
+import se2018.SWEFinalProject.Server.Transcript;
 
 public class FXMLDocumentController implements Initializable {
     
