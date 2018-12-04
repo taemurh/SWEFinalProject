@@ -7,19 +7,18 @@ import java.util.List;
 public class Story {
 	private Integer storyID;
 	private String author;
+	private String title;
 	private String desc;
-	private String status;
+	private String status = "not started";
 	private Integer storyPoints;
 	private List<String> transcript = Collections.synchronizedList(new ArrayList<String>());
-	private Integer sprint;
 
-	public Story(Integer storyID, String author, String desc, String status, int storyPoints, int sprint) {
+	public Story(Integer storyID, String author, String title, String desc, int storyPoints) {
 		this.setStoryID(storyID);
 		this.author = author;
+		this.title = title;
 		this.desc = desc;
-		this.status = status;
 		this.storyPoints = storyPoints;
-		this.sprint = sprint;
 	}
 	
 	public synchronized void updateAuthor(String author) {
@@ -70,28 +69,28 @@ public class Story {
 		transcript.add(comment); 
 	}
 	
-    public int getSize() { 
+    public synchronized int getSize() { 
     	return transcript.size(); 
     }
     
-    public String getComment(int n) { 
+    public synchronized String getComment(int n) { 
     	return transcript.get(n); 
     }
 
-	public Integer getStoryID() {
+	public synchronized Integer getStoryID() {
 		return storyID;
 	}
 
-	public void setStoryID(Integer storyID) {
+	public synchronized void setStoryID(Integer storyID) {
 		this.storyID = storyID;
 	}
 	
-	public Integer getSprint() {
-		return sprint;
+	public synchronized String getTitle() {
+		return title;
 	}
 
-	public void setSprint(Integer sprint) {
-		this.sprint = sprint;
+	public synchronized void setTitle(String title) {
+		this.title = title;
 	}
 	
 	

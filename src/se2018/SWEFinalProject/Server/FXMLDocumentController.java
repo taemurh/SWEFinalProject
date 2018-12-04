@@ -108,7 +108,6 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  String storyJSON = inputFromClient.readLine();
             	  System.out.println(storyJSON);
             	  ObjectMapper mapper = new ObjectMapper();
-            	  //System.out.println("DEBUG");
             	  Story s = mapper.readValue(storyJSON, se2018.SWEFinalProject.Server.Story.class);
             	  //System.out.println(s.toString());
             	  //System.out.println("adding to blackboard");

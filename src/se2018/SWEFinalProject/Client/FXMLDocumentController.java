@@ -18,7 +18,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import se2018.SWEFinalProject.Client.StoryController;
 import se2018.SWEFinalProject.Server.Story;
 
 public class FXMLDocumentController implements Initializable {
@@ -31,6 +34,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML TextField authorField;
 	@FXML TextField titleField;
 	@FXML TextField pointsField;
+	@FXML VBox todoColumnVBox;
            
     
     @FXML
@@ -86,7 +90,7 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     protected void handleAddStorySubmitButtonAction(ActionEvent event) {
-    	Story story = new Story(0, "tay", "test story", "not started", 15, 0);
+    	Story story = new Story(0, authorField.getText(), titleField.getText(), "not started", Integer.parseInt(pointsField.getText()));
     	String storyJSON = "";
 
     	try {
@@ -100,12 +104,59 @@ public class FXMLDocumentController implements Initializable {
 		}
     	
       	gateway.sendStory(storyJSON);
-    	/*
-    	System.out.println("+++++hey it works");
-    	String dStory = gateway.getStory();
-    	System.out.println(dStory);
-    	*/
 
+    }
+    
+    @FXML 
+    protected void handleRefreshButtonAction(ActionEvent event) {
+    	
+    	//TODO Make for loop and for every story retrieved from server create a new VBOX and append
+    	
+    	VBox storyPane = new VBox();
+    	storyPane.setPrefHeight(80);
+    	storyPane.setPrefWidth(300);
+    	storyPane.setStyle("-fx-background-color: RGB(130,229,130);");
+    	
+    	// TODO Set Text here for 
+    	storyPane.getChildren().add(new Text("Author: "));
+    	storyPane.getChildren().add(new Text("Title: "));
+    	storyPane.getChildren().add(new Text("Points: "));
+    	storyPane.setOnMouseClicked(e -> {
+            System.out.println("Clicked");
+            Parent root;
+            try {
+              
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Layouts/Story_Details.fxml"));
+                
+                root = loader.load();
+                Stage stage = new Stage();
+                stage.setTitle("Story Details");
+                stage.setScene(new Scene(root, 450, 700));
+                stage.show();
+                
+               
+                StoryController controller = loader.getController();
+                Story story = gateway.getStory(0);
+                controller.displayAuthorField.setText(story.getAuthor());
+                controller.displayTitleField.setText(story.getTitle());
+                controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
+                
+            }
+            catch (IOException d) {
+                d.printStackTrace();
+            }
+        });
+    	todoColumnVBox.getChildren().add(storyPane);
+    	
+    	
+    	System.out.println(storyPane.getParent().idProperty().getValue());
+    	
+    	
+    }
+    
+    @FXML 
+    protected void handleStoryClick(ActionEvent event) {
+    	
     }
     
     @Override

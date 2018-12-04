@@ -5,8 +5,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
@@ -17,8 +19,10 @@
 		xmlns:fx="http://javafx.com/fxml">
 	<rowConstraints>
 		<RowConstraints minHeight="100" ></RowConstraints>
-		<RowConstraints minHeight="100" ></RowConstraints> 
-		<RowConstraints minHeight="600" ></RowConstraints>  
+		<RowConstraints minHeight="100" ></RowConstraints>
+		<RowConstraints minHeight="700" ></RowConstraints> 
+		
+	
 	</rowConstraints>
 	
 	<columnConstraints >
@@ -45,11 +49,15 @@
 		</Button>
 	</HBox>
 	
-	<HBox fx:id="burndownButtonHBox" spacing="10" alignment="CENTER"
+	<HBox fx:id="burndownButtonHBox" spacing="20" alignment="CENTER"
 		GridPane.columnIndex="3" GridPane.rowIndex="0">
+		<padding><Insets left="80"/></padding>
 		<Button fx:id="burndownButton" text="Burndown"
-			onAction="#handleBurndownButtonAction"
-			GridPane.columnIndex="3" GridPane.rowIndex="0">
+			onAction="#handleBurndownButtonAction">
+		</Button>
+		
+		<Button fx:id="refreshButton" text="Refresh"
+			onAction="#handleRefreshButtonAction">
 		</Button>
 	</HBox>
 	
@@ -89,30 +97,37 @@
     	</Label>
 	</HBox>
 	
-	<HBox fx:id="doneLabelHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(51,153,255);"
+	<VBox fx:id="doneLabelVBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(51,153,255);"
     	GridPane.columnIndex="3" GridPane.rowIndex="1">
 		<Label fx:id="doneLabel" text="Done" style="-fx-text-fill: white;">
 			<font>
         		<Font name="System Bold" size="20.0"/>
     		</font>
     	</Label>
-	</HBox>
+	</VBox>
 	
-	<HBox fx:id="todoColumnHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(204,229,255); -fx-border-style: solid inside;" 
-    	GridPane.columnIndex="0" GridPane.rowIndex="2">	
-	</HBox>
+	<ScrollPane GridPane.columnIndex="0" GridPane.rowIndex="2" pannable="true" style="-fx-background: RGB(204,229,255); -fx-border-style: solid inside;" >
+		<VBox 
+			fx:id="todoColumnVBox" spacing="10" alignment="CENTER" >
+		</VBox>
+	</ScrollPane>
 	
-	<HBox fx:id="inprogressColumnHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(204,229,255); -fx-border-style: solid inside;" 
-    	GridPane.columnIndex="1" GridPane.rowIndex="2">	
-	</HBox>
+	<ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="2" pannable="true" style="-fx-background: RGB(204,229,255); -fx-border-style: solid inside;" >
+		<VBox
+			 fx:id="inprogressColumnVBox" spacing="10" alignment="CENTER">	
+		</VBox>
+	</ScrollPane>
 	
-	<HBox fx:id="testingColumnHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(204,229,255); -fx-border-style: solid inside;" 
-    	GridPane.columnIndex="2" GridPane.rowIndex="2">	
-	</HBox>
-	
-	<HBox fx:id="doneColumnHBox" spacing="10" alignment="CENTER" style="-fx-background-color: RGB(204,229,255); -fx-border-style: solid inside;" 
-    	GridPane.columnIndex="3" GridPane.rowIndex="2">	
-	</HBox>
-    
+	<ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="2" pannable="true" style="-fx-background: RGB(204,229,255); -fx-border-style: solid inside;" >
+		<VBox
+			 fx:id="testingColumnVBox" spacing="10" alignment="CENTER" >	
+		</VBox>
+	</ScrollPane>
+	<ScrollPane GridPane.columnIndex="3" GridPane.rowIndex="2" pannable="true" style="-fx-background: RGB(204,229,255); -fx-border-style: solid inside;" >
+		<VBox 
+			fx:id="doneColumnVBox" spacing="10" alignment="CENTER" >	
+		</VBox>
+  	</ScrollPane>
+  	
 </GridPane> 
 

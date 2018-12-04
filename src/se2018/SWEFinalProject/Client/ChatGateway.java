@@ -5,8 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
+import se2018.SWEFinalProject.Server.Story;
 
 public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
 
@@ -54,11 +60,10 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
     	System.out.println("in gateway: " + story);
     }
     
-    public String getStory() {
+    public Story getStory(int id) {
     	outputToServer.println(GET_STORY);
     	// add logic to select a story
-    	int number = 0;
-    	outputToServer.println(Integer.toString(number));
+    	outputToServer.println(Integer.toString(id));
     	outputToServer.flush();
     	String storyJSON = "";
     	try {
@@ -75,8 +80,19 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
 		}
     	
     	System.out.println("getting story in gateway: " + storyJSON);
-
-    	return storyJSON;
+    	ObjectMapper mapper = new ObjectMapper();
+  	  	Story s = null;
+		try {
+			s = mapper.readValue(storyJSON, se2018.SWEFinalProject.Server.Story.class);
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+  	  	
+    	return s;
     }
 
     // Ask the server to send us a count of how many comments are
