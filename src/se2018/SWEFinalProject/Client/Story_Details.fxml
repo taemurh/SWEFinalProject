@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
@@ -54,6 +55,6 @@
     <Label text="Description: " GridPane.columnIndex="0" GridPane.rowIndex="4" ></Label>
     
     <!-- Add Description Field -->
-    <TextField fx:id="displayDescriptionField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <TextArea fx:id="displayDescriptionField" prefHeight="120" WrapText="True" prefWidth="20" GridPane.columnIndex="1" GridPane.rowIndex="4"></TextArea>
      
 </GridPane>

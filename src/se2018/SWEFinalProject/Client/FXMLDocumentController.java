@@ -34,7 +34,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML TextField authorField;
 	@FXML TextField titleField;
 	@FXML TextField pointsField;
-	@FXML TextField descriptionField;
+	@FXML TextArea descriptionField;
+	@FXML TextArea displayDescriptionField;
 	@FXML VBox todoColumnVBox;
 	@FXML VBox inprogressColumnVBox;
 	@FXML VBox testingColumnVBox;
