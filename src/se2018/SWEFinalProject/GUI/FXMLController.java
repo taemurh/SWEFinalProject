@@ -5,6 +5,8 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,6 +24,9 @@ public class FXMLController {
 	@FXML TextField titleField;
 	@FXML TextField pointsField;
 	@FXML VBox todoColumnVBox;
+	@FXML VBox inprogressColumnVBox;
+	@FXML VBox testingColumnVBox;
+	@FXML VBox doneColumnVBox;
 	@FXML Button submitButton;
 	 
     @FXML 
@@ -107,6 +112,58 @@ public class FXMLController {
                 d.printStackTrace();
             }
         });
+    	
+    	storyPane.setOnMousePressed(e -> {
+    		double startDragX = e.getSceneX();
+    		double startDragY = e.getSceneY();
+    		System.out.println(startDragX + ", " + startDragY);
+    	});
+    	
+    	storyPane.setOnMouseReleased(e -> {
+    		double endDragX = e.getSceneX();
+    		double endDragY = e.getSceneY();
+    		System.out.println(endDragX + ", " + endDragY);
+    		
+    		Bounds boundsInScene = storyPane.localToScene(storyPane.getBoundsInLocal());
+    		System.out.println(boundsInScene.getMaxX());
+    		if (endDragX <= 300) {
+    			System.out.println("Ended in Todo");
+    			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
+    				System.out.println("Already in Todo");
+    			}
+    			else {
+    				todoColumnVBox.getChildren().add(storyPane);
+    			}
+    		}
+    		else if (endDragX <= 600) {
+    			System.out.println("Ended in In Progress");
+    			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
+    				System.out.println("Already in In Progress");
+    			}
+    			else {
+    				inprogressColumnVBox.getChildren().add(storyPane);
+    			}
+    		}
+    		else if (endDragX <= 900) {
+    			System.out.println("Ended in Testing");
+    			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
+    				System.out.println("Already in Testing");
+    			}
+    			else {
+    				testingColumnVBox.getChildren().add(storyPane);
+    			}
+    		}
+    		else if (endDragX <= 1200) {
+    			System.out.println("Ended in Done");
+    			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
+    				System.out.println("Already in Done");
+    			}
+    			else {
+    				doneColumnVBox.getChildren().add(storyPane);
+    			}
+    		}
+    	});
+    	
     	todoColumnVBox.getChildren().add(storyPane);
     	
     	
