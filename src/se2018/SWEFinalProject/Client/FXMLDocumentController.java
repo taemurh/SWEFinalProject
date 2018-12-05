@@ -20,11 +20,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import se2018.SWEFinalProject.Client.StoryController;
 import se2018.SWEFinalProject.Server.Story;
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
 
 public class FXMLDocumentController implements Initializable {
     private ChatGateway gateway;
@@ -43,6 +46,7 @@ public class FXMLDocumentController implements Initializable {
 	@FXML VBox testingColumnVBox;
 	@FXML VBox doneColumnVBox;
 	@FXML Button submitButton;
+	@FXML VBox backlogWindow;
            
     
     @FXML
@@ -74,6 +78,31 @@ public class FXMLDocumentController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle("Backlog");
             stage.setScene(new Scene(root, 700, 700));
+            stage.setOnShowing(new EventHandler<WindowEvent>() {
+            	public void handle(WindowEvent e) {
+            		int storyCount = gateway.getStoryCount();
+                	for (int i = 0; i < storyCount; i++) {
+                		int j = i;
+                		VBox storyPane = new VBox();
+                		storyPane.setPrefHeight(80);
+                		storyPane.setPrefWidth(300);
+                	
+                		// Set Text here for 
+                		Story story = gateway.getStory(j);
+                		
+                		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
+                		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
+                		storyPane.getChildren().add(new Text("Points: " + Integer.toString(story.getStoryPoints())));
+                		storyPane.getChildren().add(new Label(Integer.toString(story.getStoryID())));
+                		
+	            		if (story.getStatus().equals("not started")) {
+	            			System.out.println("backlog: " + backlogWindow);
+	            			System.out.println("backlog children: " + backlogWindow.getChildren());
+	                		backlogWindow.getChildren().add(storyPane);
+	            		}
+                	}
+            	}
+            });
             stage.show();
         }
         catch (IOException e) {
