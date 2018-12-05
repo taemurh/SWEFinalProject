@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.chart.*?>
 <?import java.lang.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="393.0" prefWidth="419.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se2018.SWEFinalProject.Client.BurndownChartController">
-   <children>
-      <BarChart fx:id="bc" layoutX="-40.0" layoutY="-3.0" prefHeight="205.0" prefWidth="409.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
-        <xAxis>
-          <CategoryAxis fx:id="yAxis" side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" fx:id="xAxis" />
-        </yAxis>
-      </BarChart>
-     <TextArea layoutX="103.0" layoutY="14.0" maxHeight="100.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="21.0"AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="5.0" />
-        </children>
-      </AnchorPane>
+<AnchorPane prefHeight="2000.0" prefWidth="2005.0" xmlns:fx="http://javafx.com/fxml/1"     xmlns="http://javafx.com/javafx/2.2" fx:controller="se2018.SWEFinalProject.Client.BurndownChartController">
+  <children>
+    <ImageView fx:id="imageView" fitHeight="650.0" fitWidth="700.0" layoutX="61.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" >
+			<image>
+                <Image
+                    url="file:///Users/taylormurray/Desktop/SWEFinalProject/src/se2018/SWEFinalProject/Client/burndownchart.png"
+                    backgroundLoading="true"
+                    />
+            </image>
+    </ImageView>
+  </children>
+</AnchorPane>
