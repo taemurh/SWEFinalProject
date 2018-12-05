@@ -6,9 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
@@ -85,6 +82,20 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
   	  	story.setStatus(status);
   	  	
     	return story;
+    }
+    
+    // Get count of stories from server
+    public int getStoryCount() {
+        outputToServer.println(GET_STORY_COUNT);
+        outputToServer.flush();
+        int count = 0;
+        try {
+            count = Integer.parseInt(inputFromServer.readLine());
+        } catch (IOException ex) {
+            // Platform.runLater(() -> textArea.appendText("Error in getStoryCount: " + ex.toString() + "\n"));
+        	ex.printStackTrace();
+        }
+        return count;
     }
 
     // Ask the server to send us a count of how many comments are

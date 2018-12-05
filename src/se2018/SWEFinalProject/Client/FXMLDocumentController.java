@@ -60,7 +60,7 @@ public class FXMLDocumentController implements Initializable {
     protected void handleBacklogButtonAction(ActionEvent event) {
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("burndown_window.fxml"));
+            root = FXMLLoader.load(getClass().getResource("backlog_window.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Backlog");
             stage.setScene(new Scene(root, 700, 700));
@@ -108,7 +108,9 @@ public class FXMLDocumentController implements Initializable {
     	
     	//TODO Make for loop and for every story retrieved from server create a new VBOX and append
     	todoColumnVBox.getChildren().clear();
-    	for () {
+    	int storyCount = gateway.getStoryCount();
+    	for (int i = 0; i < storyCount; i++) {
+    		int j = i;
     		VBox storyPane = new VBox();
     		storyPane.setPrefHeight(80);
     		storyPane.setPrefWidth(300);
@@ -133,7 +135,7 @@ public class FXMLDocumentController implements Initializable {
                 
                
                 StoryController controller = loader.getController();
-                Story story = gateway.getStory(0);
+                Story story = gateway.getStory(j);
                 controller.displayAuthorField.setText(story.getAuthor());
                 controller.displayTitleField.setText(story.getTitle());
                 controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));

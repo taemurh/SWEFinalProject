@@ -9,5 +9,6 @@ public interface ChatConstants {
     public static int SEND_STORY = 6;
     public static int GET_BACKLOG = 7;
     public static int GET_STORY = 8;
+    public static int GET_STORY_COUNT = 9;
     //public static int 
 }
