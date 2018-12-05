@@ -122,14 +122,30 @@ public class FXMLController {
     
     @FXML
     protected void handleAddStorySubmitButtonAction(ActionEvent event) {
-    	System.out.println(authorField.getText());
-    	System.out.println(titleField.getText());
-    	System.out.println(pointsField.getText());
-
-    	Stage stage = (Stage) submitButton.getScene().getWindow();
-    	stage.close();
-    	System.out.println("window closed");
+    	
+    	if (authorField.getText().isEmpty() == false) {
+    		if (titleField.getText().isEmpty() == false) {
+    			if (pointsField.getText().isEmpty() == false) {
+    				System.out.println(authorField.getText());
+    		    	System.out.println(titleField.getText());
+    		    	System.out.println(pointsField.getText());
+    		    	
+    		    	Stage stage = (Stage) submitButton.getScene().getWindow();
+    		    	stage.close();
+    		    	System.out.println("window closed");
+    			}
+    			else {
+    				System.out.println("Missing points text");
+    			}
+    		}
+    		else {
+    			System.out.println("Missing title text");
+    		}
+    	}
+    	else {
+    		System.out.println("Missing author text");
+    	}
     }
-    
-    
+
+
 }
