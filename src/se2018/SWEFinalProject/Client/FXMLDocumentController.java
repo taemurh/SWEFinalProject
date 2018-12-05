@@ -152,10 +152,19 @@ public class FXMLDocumentController implements Initializable {
     		VBox storyPane = new VBox();
     		storyPane.setPrefHeight(80);
     		storyPane.setPrefWidth(300);
-    		storyPane.setStyle("-fx-background-color: RGB(130,229,130);");
     	
     		// Set Text here for 
     		Story story = gateway.getStory(j);
+    		if(story.getStoryPoints() < 5) {
+    			storyPane.setStyle("-fx-background-color: RGB(130,229,130);");
+    		}
+    		else if(story.getStoryPoints() > 4 && story.getStoryPoints()< 8 ) {
+    			storyPane.setStyle("-fx-background-color: RGB(255,255,100);");
+    		}
+    		else {
+    			storyPane.setStyle("-fx-background-color: RGB(250,150,130);");
+    		}
+    		
     		
     		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
     		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));

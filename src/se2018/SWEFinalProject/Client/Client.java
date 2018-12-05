@@ -12,7 +12,7 @@ public class Client extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("scrum_board.fxml"));
         
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,1280,800);
         
         stage.setScene(scene);
         stage.setTitle("Chat Client");
