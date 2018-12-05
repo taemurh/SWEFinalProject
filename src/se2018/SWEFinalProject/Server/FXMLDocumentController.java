@@ -152,7 +152,6 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  break;
               }
               case GET_STORY_COUNT: {
-            	  System.out.println("that's a yikes");
             	  outputToClient.println(blackboard.totStories);
             	  outputToClient.flush();
               }

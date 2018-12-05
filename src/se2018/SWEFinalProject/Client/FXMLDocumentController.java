@@ -108,6 +108,7 @@ public class FXMLDocumentController implements Initializable {
     	
     	//TODO Make for loop and for every story retrieved from server create a new VBOX and append
     	todoColumnVBox.getChildren().clear();
+    	
     	int storyCount = gateway.getStoryCount();
     	for (int i = 0; i < storyCount; i++) {
     		int j = i;
