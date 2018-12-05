@@ -22,7 +22,7 @@
 </AnchorPane> -->
 
 
-<GridPane fx:controller="se2018.SWEFinalProject.Client.FXMLDocumentController"
+<GridPane fx:controller="se2018.SWEFinalProject.Client.BacklogController"
 		xmlns:fx="http://javafx.com/fxml">
  	<columnConstraints >
 		<ColumnConstraints minWidth="320" maxWidth="320" >

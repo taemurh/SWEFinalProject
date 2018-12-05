@@ -46,7 +46,6 @@ public class FXMLDocumentController implements Initializable {
 	@FXML VBox testingColumnVBox;
 	@FXML VBox doneColumnVBox;
 	@FXML Button submitButton;
-	@FXML VBox backlogWindow;
            
     
     @FXML
@@ -72,12 +71,19 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML 
     protected void handleBacklogButtonAction(ActionEvent event) {
+ 
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("backlog_window.fxml"));
+            //root = FXMLLoader.load(getClass().getResource("backlog_window.fxml"));
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("backlog_window.fxml"));
+             
+            root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Backlog");
             stage.setScene(new Scene(root, 700, 700));
+            
+          
+            
             stage.setOnShowing(new EventHandler<WindowEvent>() {
             	public void handle(WindowEvent e) {
             		int storyCount = gateway.getStoryCount();
@@ -94,11 +100,11 @@ public class FXMLDocumentController implements Initializable {
                 		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
                 		storyPane.getChildren().add(new Text("Points: " + Integer.toString(story.getStoryPoints())));
                 		storyPane.getChildren().add(new Label(Integer.toString(story.getStoryID())));
+                		BacklogController controller = loader.getController();
                 		
 	            		if (story.getStatus().equals("not started")) {
-	            			System.out.println("backlog: " + backlogWindow);
-	            			System.out.println("backlog children: " + backlogWindow.getChildren());
-	                		backlogWindow.getChildren().add(storyPane);
+	            			
+	                		controller.backlogWindow.getChildren().add(storyPane);
 	            		}
                 	}
             	}
