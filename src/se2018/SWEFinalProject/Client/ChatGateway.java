@@ -126,5 +126,11 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
         return comment;
     }
     
+    public void changeStoryStatus(String story) {
+    	outputToServer.println(CHANGE_STORY_STATUS);
+        outputToServer.println(story);
+        outputToServer.flush();
+    }
+    
 
 }

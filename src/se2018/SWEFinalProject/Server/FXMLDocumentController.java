@@ -154,8 +154,16 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
               case GET_STORY_COUNT: {
             	  outputToClient.println(blackboard.totStories);
             	  outputToClient.flush();
+            	  break;
               }
-              
+              case CHANGE_STORY_STATUS: {
+            	  System.out.println("reaching change story status");
+            	  String[] fields = inputFromClient.readLine().split("-");
+            	  Story story = blackboard.getStory(Integer.parseInt(fields[0]));
+            	  story.setStatus(fields[1]);
+            	  System.out.println("after reaching change story status");
+
+              }
             
           }
         }

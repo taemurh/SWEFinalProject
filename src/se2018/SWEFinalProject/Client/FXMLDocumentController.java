@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
@@ -34,6 +35,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML TextField authorField;
 	@FXML TextField titleField;
 	@FXML TextField pointsField;
+	@FXML TextField storyIDField;
 	@FXML TextArea descriptionField;
 	@FXML TextArea displayDescriptionField;
 	@FXML VBox todoColumnVBox;
@@ -146,6 +148,9 @@ public class FXMLDocumentController implements Initializable {
     	
     	//TODO Make for loop and for every story retrieved from server create a new VBOX and append
     	todoColumnVBox.getChildren().clear();
+    	inprogressColumnVBox.getChildren().clear();
+    	testingColumnVBox.getChildren().clear();
+    	doneColumnVBox.getChildren().clear();
     	
     	int storyCount = gateway.getStoryCount();
     	for (int i = 0; i < storyCount; i++) {
@@ -170,6 +175,8 @@ public class FXMLDocumentController implements Initializable {
     		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
     		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
     		storyPane.getChildren().add(new Text("Points: " + Integer.toString(story.getStoryPoints())));
+    		storyPane.getChildren().add(new Label(Integer.toString(story.getStoryID())));
+    		System.out.println("DEBUG");
     		
     		storyPane.setOnMouseClicked(e -> {
     		System.out.println("Clicked");
@@ -191,7 +198,7 @@ public class FXMLDocumentController implements Initializable {
                 controller.displayTitleField.setText(story.getTitle());
                 controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
                 controller.displayDescriptionField.setText(story.getDescription());
-                
+
             }
             catch (IOException d) {
                 d.printStackTrace();
@@ -211,7 +218,12 @@ public class FXMLDocumentController implements Initializable {
         				System.out.println("Already in Todo");
         			}
         			else {
+        	    		System.out.println("DEBUG1");
         				todoColumnVBox.getChildren().add(storyPane);
+        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
+        	    		gateway.changeStoryStatus(fields[1].replaceAll("'","") + "-todo");
+        	    		System.out.println("DEBUG2");
+
         			}
         		}
         		else if (endDragX <= 600) {
@@ -220,7 +232,11 @@ public class FXMLDocumentController implements Initializable {
         				System.out.println("Already in In Progress");
         			}
         			else {
+        	    		System.out.println("DEBUG3");
+
         				inprogressColumnVBox.getChildren().add(storyPane);
+        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
+        				gateway.changeStoryStatus(fields[1].replaceAll("'","") + "-inprogress");
         			}
         		}
         		else if (endDragX <= 900) {
@@ -229,7 +245,11 @@ public class FXMLDocumentController implements Initializable {
         				System.out.println("Already in Testing");
         			}
         			else {
+        	    		System.out.println("DEBUG4");
+
         				testingColumnVBox.getChildren().add(storyPane);
+        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
+        				gateway.changeStoryStatus(fields[1].replaceAll("'","") + "-testing");
         			}
         		}
         		else if (endDragX <= 1200) {
@@ -238,14 +258,30 @@ public class FXMLDocumentController implements Initializable {
         				System.out.println("Already in Done");
         			}
         			else {
+        	    		System.out.println("DEBUG5");
+
         				doneColumnVBox.getChildren().add(storyPane);
+        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
+        				gateway.changeStoryStatus(fields[1].replaceAll("'","") + "-done");
         			}
         		}
         	});
+    		System.out.println("checking status...");
+    		System.out.println(story.getStatus());
+    		if (story.getStatus().equals("todo" )|| story.getStatus().equals("not started")) {
+    			System.out.println("story added to todo");
+        		todoColumnVBox.getChildren().add(storyPane);
+    		} else if (story.getStatus().equals("inprogress")) {
+    			inprogressColumnVBox.getChildren().add(storyPane);
+    		} else if (story.getStatus().equals("testing")) {
+    			testingColumnVBox.getChildren().add(storyPane);
+    		} else if (story.getStatus().equals("done")) {
+    			doneColumnVBox.getChildren().add(storyPane);
+    		}
     		
-    		todoColumnVBox.getChildren().add(storyPane);
-    	
-    	
+        	System.out.println("after checking status");
+        	System.out.println("story pane: " + storyPane);
+        	System.out.println("parent: " + storyPane.getParent());
     		System.out.println(storyPane.getParent().idProperty().getValue());
     	
     	}
