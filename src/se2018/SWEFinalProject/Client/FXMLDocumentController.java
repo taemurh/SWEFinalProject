@@ -7,9 +7,13 @@ import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
+import javafx.scene.control.Button;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
@@ -31,8 +35,12 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML TextField authorField;
 	@FXML TextField titleField;
+	@FXML VBox inprogressColumnVBox;
+	@FXML VBox testingColumnVBox;
+	@FXML VBox doneColumnVBox;
 	@FXML TextField pointsField;
 	@FXML VBox todoColumnVBox;
+	@FXML Button submitButton;
            
     
     @FXML
@@ -88,6 +96,31 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     protected void handleAddStorySubmitButtonAction(ActionEvent event) {
+    	if (authorField.getText().isEmpty() == false) {
+    		if (titleField.getText().isEmpty() == false) {
+    			if (pointsField.getText().isEmpty() == false) {
+    				System.out.println(authorField.getText());
+    		    	System.out.println(titleField.getText());
+    		    	System.out.println(pointsField.getText());
+    		    	
+    		    	Stage stage = (Stage) submitButton.getScene().getWindow();
+    		    	stage.close();
+    		    	System.out.println("window closed");
+    			}
+    			else {
+    				System.out.println("Missing points text");
+    			}
+    		}
+    		else {
+    			System.out.println("Missing title text");
+    		}
+    	}
+    	else {
+    		System.out.println("Missing author text");
+    	}
+    	
+    	// SEND INFO TO SERVER
+    	
     	Story story = new Story(0, authorField.getText(), titleField.getText(), "this stories description", Integer.parseInt(pointsField.getText()));
     	String storyJSON = "";
 
@@ -117,10 +150,12 @@ public class FXMLDocumentController implements Initializable {
     		storyPane.setPrefWidth(300);
     		storyPane.setStyle("-fx-background-color: RGB(130,229,130);");
     	
-    		// TODO Set Text here for 
-    		storyPane.getChildren().add(new Text("Author: "));
-    		storyPane.getChildren().add(new Text("Title: "));
-    		storyPane.getChildren().add(new Text("Points: "));
+    		// Set Text here for 
+    		Story story = gateway.getStory(j);
+    		
+    		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
+    		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
+    		storyPane.getChildren().add(new Text("Points: " + Integer.toString(story.getStoryPoints())));
     		storyPane.setOnMouseClicked(e -> {
     		System.out.println("Clicked");
             Parent root;
@@ -136,7 +171,7 @@ public class FXMLDocumentController implements Initializable {
                 
                
                 StoryController controller = loader.getController();
-                Story story = gateway.getStory(j);
+              
                 controller.displayAuthorField.setText(story.getAuthor());
                 controller.displayTitleField.setText(story.getTitle());
                 controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
@@ -146,6 +181,51 @@ public class FXMLDocumentController implements Initializable {
                 d.printStackTrace();
             }
     		});
+    		storyPane.setOnMouseReleased(e -> {
+        		double endDragX = e.getSceneX();
+        		double endDragY = e.getSceneY();
+        		System.out.println(endDragX + ", " + endDragY);
+        		
+        		Bounds boundsInScene = storyPane.localToScene(storyPane.getBoundsInLocal());
+        		System.out.println(boundsInScene.getMaxX());
+        		if (endDragX <= 300) {
+        			System.out.println("Ended in Todo");
+        			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
+        				System.out.println("Already in Todo");
+        			}
+        			else {
+        				todoColumnVBox.getChildren().add(storyPane);
+        			}
+        		}
+        		else if (endDragX <= 600) {
+        			System.out.println("Ended in In Progress");
+        			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
+        				System.out.println("Already in In Progress");
+        			}
+        			else {
+        				inprogressColumnVBox.getChildren().add(storyPane);
+        			}
+        		}
+        		else if (endDragX <= 900) {
+        			System.out.println("Ended in Testing");
+        			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
+        				System.out.println("Already in Testing");
+        			}
+        			else {
+        				testingColumnVBox.getChildren().add(storyPane);
+        			}
+        		}
+        		else if (endDragX <= 1200) {
+        			System.out.println("Ended in Done");
+        			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
+        				System.out.println("Already in Done");
+        			}
+        			else {
+        				doneColumnVBox.getChildren().add(storyPane);
+        			}
+        		}
+        	});
+    		
     		todoColumnVBox.getChildren().add(storyPane);
     	
     	
