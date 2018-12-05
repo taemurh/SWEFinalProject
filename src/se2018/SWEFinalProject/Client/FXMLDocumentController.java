@@ -28,18 +28,17 @@ import se2018.SWEFinalProject.Server.Story;
 public class FXMLDocumentController implements Initializable {
     private ChatGateway gateway;
     
-    @FXML
-    private TextArea textArea;
-    @FXML
-    private TextField comment;
+    @FXML private TextArea textArea;
+    @FXML private TextField comment;
     
     @FXML TextField authorField;
 	@FXML TextField titleField;
+	@FXML TextField pointsField;
+	@FXML TextField descriptionField;
+	@FXML VBox todoColumnVBox;
 	@FXML VBox inprogressColumnVBox;
 	@FXML VBox testingColumnVBox;
 	@FXML VBox doneColumnVBox;
-	@FXML TextField pointsField;
-	@FXML VBox todoColumnVBox;
 	@FXML Button submitButton;
            
     
@@ -99,13 +98,18 @@ public class FXMLDocumentController implements Initializable {
     	if (authorField.getText().isEmpty() == false) {
     		if (titleField.getText().isEmpty() == false) {
     			if (pointsField.getText().isEmpty() == false) {
-    				System.out.println(authorField.getText());
-    		    	System.out.println(titleField.getText());
-    		    	System.out.println(pointsField.getText());
-    		    	
-    		    	Stage stage = (Stage) submitButton.getScene().getWindow();
-    		    	stage.close();
-    		    	System.out.println("window closed");
+    				if (descriptionField.getText().isEmpty() == false) {
+	    				System.out.println(authorField.getText());
+	    		    	System.out.println(titleField.getText());
+	    		    	System.out.println(pointsField.getText());
+	    		    	
+	    		    	Stage stage = (Stage) submitButton.getScene().getWindow();
+	    		    	stage.close();
+	    		    	System.out.println("window closed");
+    				}
+    				else {
+    					System.out.println("Missing description text");
+    				}
     			}
     			else {
     				System.out.println("Missing points text");
@@ -121,7 +125,7 @@ public class FXMLDocumentController implements Initializable {
     	
     	// SEND INFO TO SERVER
     	
-    	Story story = new Story(0, authorField.getText(), titleField.getText(), "this stories description", Integer.parseInt(pointsField.getText()));
+    	Story story = new Story(0, authorField.getText(), titleField.getText(), descriptionField.getText(), Integer.parseInt(pointsField.getText()));
     	String storyJSON = "";
 
     	try {
@@ -156,6 +160,7 @@ public class FXMLDocumentController implements Initializable {
     		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
     		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
     		storyPane.getChildren().add(new Text("Points: " + Integer.toString(story.getStoryPoints())));
+    		
     		storyPane.setOnMouseClicked(e -> {
     		System.out.println("Clicked");
             Parent root;
@@ -166,7 +171,7 @@ public class FXMLDocumentController implements Initializable {
                 root = loader.load();
                 Stage stage = new Stage();
                 stage.setTitle("Story Details");
-                stage.setScene(new Scene(root, 450, 700));
+                stage.setScene(new Scene(root, 450, 300));
                 stage.show();
                 
                
@@ -175,12 +180,14 @@ public class FXMLDocumentController implements Initializable {
                 controller.displayAuthorField.setText(story.getAuthor());
                 controller.displayTitleField.setText(story.getTitle());
                 controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
+                controller.displayDescriptionField.setText(story.getDescription());
                 
             }
             catch (IOException d) {
                 d.printStackTrace();
             }
     		});
+    		
     		storyPane.setOnMouseReleased(e -> {
         		double endDragX = e.getSceneX();
         		double endDragY = e.getSceneY();

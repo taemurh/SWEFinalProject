@@ -35,21 +35,25 @@
     </Label>
     
     <!-- Add Author Text Field -->
-    <Label fx:id="displayAuthorField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <TextField fx:id="displayAuthorField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
 
     <!-- Add Title Label -->
     <Label text="Title: " GridPane.columnIndex="0" GridPane.rowIndex="2" ></Label>
     
     <!-- Add Title Text Field -->
-    <Label fx:id="displayTitleField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <TextField fx:id="displayTitleField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
     <!-- Add Points Label -->
     <Label text="Points: " GridPane.columnIndex="0" GridPane.rowIndex="3" ></Label>
     
     <!-- Add Points Field -->
-    <Label fx:id="displayPointsField" prefHeight="40" prefWidth="40" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    <TextField fx:id="displayPointsField" prefHeight="40" prefWidth="40" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
     
+     <!-- Add Description Label -->
+    <Label text="Description: " GridPane.columnIndex="0" GridPane.rowIndex="4" ></Label>
     
+    <!-- Add Description Field -->
+    <TextField fx:id="displayDescriptionField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
      
 </GridPane>

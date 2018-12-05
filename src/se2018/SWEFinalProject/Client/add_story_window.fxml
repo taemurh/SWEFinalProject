@@ -50,10 +50,17 @@
     <!-- Add Points Field -->
     <TextField fx:id="pointsField" prefHeight="40" prefWidth="10" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
     
+    <!-- Add Description Label -->
+    <Label text="Description: " GridPane.columnIndex="0" GridPane.rowIndex="4" ></Label>
+    
+    <!-- Add Description Field -->
+    <TextField fx:id="descriptionField" prefHeight="40" prefWidth="10" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    
+    
     <!-- Add Submit Button -->
     <Button fx:id="submitButton" text="Submit"
     		onAction="#handleAddStorySubmitButtonAction"
-    		GridPane.columnIndex="1" GridPane.rowIndex="4">
+    		GridPane.columnIndex="1" GridPane.rowIndex="5">
     </Button>
      
 </GridPane>
