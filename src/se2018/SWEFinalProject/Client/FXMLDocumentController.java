@@ -56,7 +56,7 @@ public class FXMLDocumentController implements Initializable {
             root = FXMLLoader.load(getClass().getResource("add_story_window.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Add Story!");
-            stage.setScene(new Scene(root, 450, 700));
+            stage.setScene(new Scene(root, 450, 500));
             stage.show();
         }
         catch (IOException e) {

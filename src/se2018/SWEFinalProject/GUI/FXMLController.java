@@ -36,7 +36,7 @@ public class FXMLController {
             root = FXMLLoader.load(getClass().getResource("Layouts/add_story_window.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Add Story!");
-            stage.setScene(new Scene(root, 450, 700));
+            stage.setScene(new Scene(root, 450, 400));
             stage.show();
         }
         catch (IOException e) {
