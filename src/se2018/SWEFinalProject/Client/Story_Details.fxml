@@ -82,5 +82,11 @@
     
     <!-- Add Description Field -->
     <TextArea fx:id="displayDescriptionField" prefHeight="120" WrapText="True" prefWidth="20" GridPane.columnIndex="1" GridPane.rowIndex="5"></TextArea>
-     
+
+    <Button fx:id="updateStoryButton" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="6"
+			onAction="#handleUpdateStoryButtonAction">
+	</Button>
+	<Button fx:id="deleteStoryButton" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="6"
+			onAction="#handleDeleteStoryButtonAction">
+	</Button>
 </GridPane>
