@@ -133,6 +133,7 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     protected void handleAddStorySubmitButtonAction(ActionEvent event) {
+    	//error checking for empty fields
     	if (authorField.getText().isEmpty() == false) {
     		if (titleField.getText().isEmpty() == false) {
     			if (pointsField.getText().isEmpty() == false) {
