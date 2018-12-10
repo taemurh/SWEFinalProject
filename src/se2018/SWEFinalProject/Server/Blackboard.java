@@ -26,6 +26,7 @@ public class Blackboard implements Externalizable {
 		productBacklog = new Hashtable <Integer, Story>();
 		sprintBacklog = new Hashtable <Integer, Story>();
 		stories = new Hashtable <Integer, Story>();
+		burndown = new Hashtable<Integer, Integer>();
 	}
 	
 	public synchronized void addStory(Story story) {
