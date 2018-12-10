@@ -145,6 +145,20 @@ public class FXMLDocumentController implements Initializable {
 	    		    	Stage stage = (Stage) submitButton.getScene().getWindow();
 	    		    	stage.close();
 	    		    	System.out.println("window closed");
+	    		    	// SEND INFO TO SERVER
+	    		    	
+	    		    	Story story = new Story(0, authorField.getText(), titleField.getText(), descriptionField.getText(), Integer.parseInt(pointsField.getText()));
+	    		    	String storyJSON = "";
+
+	    		    	try {
+	    		    		storyJSON = story.toString_();
+	    				} catch (Exception e) {
+	    					// TODO Auto-generated catch block
+	    					e.printStackTrace();
+	    				}
+	    		    	
+	    				System.out.println(storyJSON);
+	    		      	gateway.sendStory(storyJSON);
     				}
     				else {
     					System.out.println("Missing description text");
@@ -161,21 +175,6 @@ public class FXMLDocumentController implements Initializable {
     	else {
     		System.out.println("Missing author text");
     	}
-    	
-    	// SEND INFO TO SERVER
-    	
-    	Story story = new Story(0, authorField.getText(), titleField.getText(), descriptionField.getText(), Integer.parseInt(pointsField.getText()));
-    	String storyJSON = "";
-
-    	try {
-    		storyJSON = story.toString_();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-		System.out.println(storyJSON);
-      	gateway.sendStory(storyJSON);
 
     }
     
