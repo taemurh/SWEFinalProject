@@ -11,5 +11,6 @@ public interface ChatConstants {
     public static int GET_STORY = 8;
     public static int GET_STORY_COUNT = 9;
     public static int CHANGE_STORY_STATUS = 10;
+    public static int UPDATE_STORY = 11;
     //public static int 
 }

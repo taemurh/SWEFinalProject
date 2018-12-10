@@ -163,6 +163,36 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  story.setStatus(fields[1]);
             	  System.out.println("after reaching change story status");
             	  blackboard.completeStory(story.getStoryPoints());
+            	  break;
+              }
+              case UPDATE_STORY: {
+            	  System.out.println("updating story status");
+            	  System.out.println("send story");
+            	  String storyJSON = inputFromClient.readLine();
+            	  System.out.println("story reached server" + storyJSON);
+            	  story = null;
+            	  try {
+            		  String[] fields = storyJSON.split(",");
+            		  Integer storyID = Integer.parseInt(fields[0]);
+            		  String author = fields[1];
+            		  String title = fields[2];
+            		  String desc = fields[3];
+            		  String status = fields[4];
+            		  Integer storyPoints = Integer.parseInt(fields[5]);
+            		  story.setAuthor(author);
+            		  story.setDesc(desc);
+            		  story.setTitle(title);
+            		  story.setStatus(status);
+            		  story.setStoryPoints(storyPoints);
+
+            	  } catch (Exception e) {
+            		  System.out.println(e);
+            	  }
+            	  
+            	  // blackboard.addStory(story);
+            	  if (story == null) {
+            		  System.out.println("story is null");
+            	  }
               }
             
           }
