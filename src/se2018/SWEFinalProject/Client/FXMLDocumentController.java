@@ -230,11 +230,22 @@ public class FXMLDocumentController implements Initializable {
                 StoryController controller = loader.getController();
               
                 controller.IDField.setText(Integer.toString(story.getStoryID()));
-                controller.statusDropDown.setValue(story.getStatus());
                 controller.displayAuthorField.setText(story.getAuthor());
                 controller.displayTitleField.setText(story.getTitle());
                 controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
                 controller.displayDescriptionField.setText(story.getDescription());
+                if(story.getStatus().equals("todo")) 
+                	controller.statusDropDown.setValue("TODO");       
+                else if(story.getStatus().equals("inprogress")) 
+                	controller.statusDropDown.setValue("In Progress");            
+                else if (story.getStatus().equals("testing"))
+                	controller.statusDropDown.setValue("Testing");         
+                else if (story.getStatus().equals("done"))
+                	controller.statusDropDown.setValue("Done");          
+                else
+                	controller.statusDropDown.setValue("Backlog");
+                
+                
 
             }
             catch (IOException d) {
