@@ -206,11 +206,10 @@ public class FXMLDocumentController implements Initializable {
     			storyPane.setStyle("-fx-background-color: RGB(250,150,130);");
     		}
     		
-    		
+    		storyPane.getChildren().add(new Text("ID: " + Integer.toString(story.getStoryID())));
     		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
     		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
     		storyPane.getChildren().add(new Text("Points: " + Integer.toString(story.getStoryPoints())));
-    		storyPane.getChildren().add(new Label(Integer.toString(story.getStoryID())));
     		System.out.println("DEBUG");
     		
     		storyPane.setOnMouseClicked(e -> {
