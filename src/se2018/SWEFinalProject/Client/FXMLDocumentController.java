@@ -244,6 +244,8 @@ public class FXMLDocumentController implements Initializable {
                
                 StoryController controller = loader.getController();
               
+                controller.IDField.setText(Integer.toString(story.getStoryID()));
+                controller.statusDropDown.setValue(story.getStatus());
                 controller.displayAuthorField.setText(story.getAuthor());
                 controller.displayTitleField.setText(story.getTitle());
                 controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
