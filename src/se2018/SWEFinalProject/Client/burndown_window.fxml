@@ -7,13 +7,13 @@
 
 <AnchorPane prefHeight="2000.0" prefWidth="2005.0" xmlns:fx="http://javafx.com/fxml/1"     xmlns="http://javafx.com/javafx/2.2" fx:controller="se2018.SWEFinalProject.Client.BurndownChartController">
   <children>
-    <ImageView fx:id="imageView" fitHeight="650.0" fitWidth="700.0" layoutX="61.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" >
-			<image>
-                <Image
-                    url="file:///Users/taylormurray/Desktop/SWEFinalProject/src/se2018/SWEFinalProject/Client/burndownchart.png"
-                    backgroundLoading="true"
-                    />
-            </image>
-    </ImageView>
+    <LineChart fx:id="lineGraph" createSymbols="false" legendVisible="false" prefHeight="372.0" prefWidth="423.0" visible="false">
+  	<xAxis>
+   		<NumberAxis autoRanging="false" lowerBound="-10" side="BOTTOM" tickUnit="1" upperBound="10" />
+  	</xAxis>
+  	<yAxis>
+    	<NumberAxis autoRanging="false" lowerBound="-10" side="LEFT" tickUnit="1" upperBound="10" />
+  	</yAxis>
+</LineChart>
   </children>
 </AnchorPane>

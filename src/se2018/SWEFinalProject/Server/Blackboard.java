@@ -19,6 +19,8 @@ public class Blackboard implements Externalizable {
 	Hashtable<Integer, Story> sprintBacklog;
 	Hashtable<Integer, Story> stories;
 	Hashtable<Integer, Sprint> sprints;
+	Integer time = 0;
+	Hashtable<Integer, Integer> burndown;
 	
 	public Blackboard() {
 		productBacklog = new Hashtable <Integer, Story>();
@@ -89,6 +91,15 @@ public class Blackboard implements Externalizable {
    		  	storyStr = in.readLine();
 		}
 		
+	}
+	
+	public void completeStory(int points) {
+		burndown.put(time, points);
+		time += 1;
+	}
+	
+	public Hashtable<Integer, Integer> getBurndown() {
+		return burndown;
 	}
 }
 
