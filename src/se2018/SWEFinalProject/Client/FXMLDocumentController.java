@@ -179,8 +179,23 @@ public class FXMLDocumentController implements Initializable {
     }
     
     @FXML 
-    protected void handleRefreshButtonAction(ActionEvent event) {
+    public void handleRefreshButtonAction(ActionEvent event) {
+    	refresh();
+    }
+    
+    @FXML 
+    protected void handleStoryClick(ActionEvent event) {
     	
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        gateway = new ChatGateway(textArea);
+        // Start the transcript check thread
+        new Thread(new TranscriptCheck(gateway,textArea, this)).start();
+    }  
+    
+    public void refresh() {
     	//TODO Make for loop and for every story retrieved from server create a new VBOX and append
     	todoColumnVBox.getChildren().clear();
     	inprogressColumnVBox.getChildren().clear();
@@ -303,7 +318,7 @@ public class FXMLDocumentController implements Initializable {
         	});
     		System.out.println("checking status...");
     		System.out.println(story.getStatus());
-    		if (story.getStatus().equals("todo" )|| story.getStatus().equals("not started")) {
+    		if (story.getStatus().equals("todo" )) {
     			System.out.println("story added to todo");
         		todoColumnVBox.getChildren().add(storyPane);
     		} else if (story.getStatus().equals("inprogress")) {
@@ -318,40 +333,27 @@ public class FXMLDocumentController implements Initializable {
         	System.out.println("story pane: " + storyPane);
         	System.out.println("parent: " + storyPane.getParent());
     		System.out.println(storyPane.getParent().idProperty().getValue());
-    	
-    	}
-    	
     }
-    
-    @FXML 
-    protected void handleStoryClick(ActionEvent event) {
-    	
-    }
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        gateway = new ChatGateway(textArea);
-        // Start the transcript check thread
-        new Thread(new TranscriptCheck(gateway,textArea)).start();
-    }        
 }
 
 class TranscriptCheck implements Runnable, se2018.SWEFinalProject.Chat.ChatConstants {
     private ChatGateway gateway; // Gateway to the server
     private TextArea textArea; // Where to display comments
     private int N; // How many comments we have read
-    
+    private FXMLDocumentController dc;
     /** Construct a thread */
-    public TranscriptCheck(ChatGateway gateway,TextArea textArea) {
+    public TranscriptCheck(ChatGateway gateway,TextArea textArea, FXMLDocumentController dc) {
       this.gateway = gateway;
       this.textArea = textArea;
       this.N = 0;
+      this.dc = dc;
     }
 
     /** Run a thread */
     public void run() {
       while(true) {
-    	  
+    	dc.refresh();
+    	System.out.println("fxml clients...");
         try {
 			Thread.sleep(250);
 		} catch (InterruptedException e) {
@@ -362,3 +364,4 @@ class TranscriptCheck implements Runnable, se2018.SWEFinalProject.Chat.ChatConst
           
       }
     }
+}
