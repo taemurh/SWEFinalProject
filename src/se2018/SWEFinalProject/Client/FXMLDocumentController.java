@@ -206,10 +206,11 @@ public class FXMLDocumentController implements Initializable {
     			storyPane.setStyle("-fx-background-color: RGB(250,150,130);");
     		}
     		
-    		storyPane.getChildren().add(new Text("ID: " + Integer.toString(story.getStoryID())));
+    		
     		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
     		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
     		storyPane.getChildren().add(new Text("Points: " + Integer.toString(story.getStoryPoints())));
+    		storyPane.getChildren().add(new Label(Integer.toString(story.getStoryID())));
     		System.out.println("DEBUG");
     		
     		storyPane.setOnMouseClicked(e -> {
@@ -324,49 +325,6 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML 
     protected void handleStoryClick(ActionEvent event) {
-    	
-    }
-
-    @FXML 
-    protected void handleStoryUpdate(ActionEvent event) {
-    	// get id from story fxml doc
-    	// once id is grabbed, get story
-    	try {
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("Story_Details.fxml"));
-            /*
-            root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Story Details");
-            stage.setScene(new Scene(root, 450, 300));
-            stage.show();
-            */
-           
-            StoryController controller = loader.getController();
-            int id = Integer.parseInt(controller.IDField.getText());
-            Story story = gateway.getStory(id);
-            
-            // then setFields
-            controller.displayAuthorField.setText(story.getAuthor());
-            controller.displayTitleField.setText(story.getTitle());
-            controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
-            controller.displayDescriptionField.setText(story.getDescription());
-         
-        	// then sendStory
-            // Story story = new Story(0, authorField.getText(), titleField.getText(), descriptionField.getText(), Integer.parseInt(pointsField.getText()));
-	    	String storyJSON = "";
-
-	    	try {
-	    		storyJSON = story.toString_();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    	
-	      	gateway.sendStory(storyJSON);
-            
-    	} catch (Exception d) {
-            d.printStackTrace();
-        }
     	
     }
     
