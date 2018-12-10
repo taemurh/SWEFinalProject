@@ -10,6 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?> 
+<?import java.lang.String?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
@@ -30,6 +33,15 @@
         </ColumnConstraints>
     </columnConstraints>
     
+    <!-- Add ID Label -->
+    <Label
+    	text="ID " GridPane.columnIndex="0" GridPane.rowIndex="0" >
+    </Label>
+    
+    <!-- Add ID Text Field -->
+    <Label fx:id="IDField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    
+    
     <!-- Add Author Label -->
     <Label
     	text="Author: " GridPane.columnIndex="0" GridPane.rowIndex="1" >
@@ -44,17 +56,31 @@
     
     <!-- Add Title Text Field -->
     <TextField fx:id="displayTitleField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    
+    <!--  Add Dropdown Label  -->
+    <Label text="Status: " GridPane.columnIndex="0" GridPane.rowIndex="3" ></Label>
+    <ComboBox  fx:id="statusDropDown" GridPane.columnIndex="1" GridPane.rowIndex="3" >
+    	<items>
+       		<FXCollections fx:factory="observableArrayList">
+       		 <String fx:value="Backlog" />
+     		 <String fx:value="TODO" />
+     		 <String fx:value="In Progress" />
+     		 <String fx:value="Testing" />
+     		 <String fx:value="Done"/>
+     	 	</FXCollections>
+   	    </items>
+    </ComboBox>
 
     <!-- Add Points Label -->
-    <Label text="Points: " GridPane.columnIndex="0" GridPane.rowIndex="3" ></Label>
+    <Label text="Points: " GridPane.columnIndex="0" GridPane.rowIndex="4" ></Label>
     
     <!-- Add Points Field -->
-    <TextField fx:id="displayPointsField" prefHeight="40" prefWidth="40" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    <TextField fx:id="displayPointsField" prefHeight="40" prefWidth="40" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
     
      <!-- Add Description Label -->
-    <Label text="Description: " GridPane.columnIndex="0" GridPane.rowIndex="4" ></Label>
+    <Label text="Description: " GridPane.columnIndex="0" GridPane.rowIndex="5" ></Label>
     
     <!-- Add Description Field -->
-    <TextArea fx:id="displayDescriptionField" prefHeight="120" WrapText="True" prefWidth="20" GridPane.columnIndex="1" GridPane.rowIndex="4"></TextArea>
+    <TextArea fx:id="displayDescriptionField" prefHeight="120" WrapText="True" prefWidth="20" GridPane.columnIndex="1" GridPane.rowIndex="5"></TextArea>
      
 </GridPane>
