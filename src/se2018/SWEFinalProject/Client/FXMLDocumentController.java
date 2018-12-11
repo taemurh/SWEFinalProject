@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -46,7 +47,13 @@ public class FXMLDocumentController implements Initializable {
 	@FXML VBox testingColumnVBox;
 	@FXML VBox doneColumnVBox;
 	@FXML Button submitButton;
-           
+	
+	@FXML TextField displayAuthorField;
+	@FXML ComboBox statusDropDown;
+	@FXML Label IDField;
+	@FXML TextField displayPointsField;
+	@FXML TextField displayTitleField;
+	// @FXML TextArea displayDescriptionField;
     
     @FXML
     private void sendComment(ActionEvent event) {
@@ -185,6 +192,71 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML 
     protected void handleStoryClick(ActionEvent event) {
+    	
+    }
+    
+    @FXML
+	protected void handleUpdateStoryButtonAction(ActionEvent event) {
+    	
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("backlog_window.fxml"));
+    	StoryController controller = loader.getController();
+        
+    	int id = Integer.parseInt(controller.IDField.getText());
+    	Story story = gateway.getStory(id);
+    	story.setAuthor(controller.displayAuthorField.getText());
+    	story.setDesc(controller.displayDescriptionField.getText());
+		story.setStoryPoints(Integer.parseInt(controller.displayPointsField.getText()));
+		story.setTitle(controller.displayTitleField.getText());
+		if(controller.statusDropDown.getValue().equals("TODO")) {
+			story.setStatus("todo");
+		} else if(controller.statusDropDown.getValue().equals("In Progress")) {
+			story.setStatus("inprogress");
+		} else if(controller.statusDropDown.getValue().equals("Testing")) {
+			story.setStatus("testing");
+		} else if(controller.statusDropDown.getValue().equals("Done")) {
+			story.setStatus("done");
+		} else {
+			story.setStatus("not started");
+		}
+		
+    	/*
+    	int id = Integer.parseInt(IDField.getText());
+    	Story story = gateway.getStory(id);
+    	story.setAuthor(displayAuthorField.getText());
+    	story.setDesc(displayDescriptionField.getText());
+		story.setStoryPoints(Integer.parseInt(displayPointsField.getText()));
+		story.setTitle(displayTitleField.getText());
+		if(statusDropDown.getValue().equals("TODO")) {
+			story.setStatus("todo");
+		} else if(statusDropDown.getValue().equals("In Progress")) {
+			story.setStatus("inprogress");
+		} else if(statusDropDown.getValue().equals("Testing")) {
+			story.setStatus("testing");
+		} else if(statusDropDown.getValue().equals("Done")) {
+			story.setStatus("done");
+		} else {
+			story.setStatus("not started");
+		}
+		*/
+		// SEND INFO TO SERVER
+    	// Story story = new Story(0, authorField.getText(), titleField.getText(), descriptionField.getText(), Integer.parseInt(pointsField.getText()));
+    	/*
+		String storyJSON = "";
+
+    	try {
+    		storyJSON = story.toString_();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+		System.out.println(storyJSON);
+      	gateway.sendStory(storyJSON);
+      	*/
+	}
+    
+    @FXML
+    protected void handleDeleteStoryButtonAction(ActionEvent event) {
     	
     }
     

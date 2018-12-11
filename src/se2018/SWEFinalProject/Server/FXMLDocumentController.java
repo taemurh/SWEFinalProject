@@ -171,7 +171,7 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  System.out.println("send story");
             	  String storyJSON = inputFromClient.readLine();
             	  System.out.println("story reached server" + storyJSON);
-            	  story = null;
+//            	  story = null;
             	  try {
             		  String[] fields = storyJSON.split(",");
             		  Integer storyID = Integer.parseInt(fields[0]);
@@ -185,12 +185,14 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             		  story.setTitle(title);
             		  story.setStatus(status);
             		  story.setStoryPoints(storyPoints);
+            		  System.out.println("in server: " + story.getAuthor());
+            		  blackboard.editStory(storyID, story);
 
             	  } catch (Exception e) {
             		  System.out.println(e);
             	  }
             	  
-            	  // blackboard.addStory(story);
+            	  
             	  if (story == null) {
             		  System.out.println("story is null");
             	  }
