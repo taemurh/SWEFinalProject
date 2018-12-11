@@ -322,6 +322,7 @@ public class FXMLDocumentController implements Initializable {
                 controller.displayTitleField.setText(story.getTitle());
                 controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
                 controller.displayDescriptionField.setText(story.getDescription());
+                // status
                 if(story.getStatus().equals("todo")) 
                 	controller.statusDropDown.setValue("TODO");       
                 else if(story.getStatus().equals("inprogress")) 
@@ -332,7 +333,14 @@ public class FXMLDocumentController implements Initializable {
                 	controller.statusDropDown.setValue("Done");          
                 else
                 	controller.statusDropDown.setValue("Backlog");
-                
+                // chat
+                // getSize is transcript's size, not story size...confusing name, i'll probs change it
+                for (int k = 0; k < story.getSize(); k++) {
+                	VBox chatPane = new VBox();
+            		chatPane.setPrefHeight(80);
+            		chatPane.setPrefWidth(300);
+            		chatPane.getChildren().add(new Text(story.getComment(k)));
+                }
                 
 
             }

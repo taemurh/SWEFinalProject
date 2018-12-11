@@ -1,6 +1,9 @@
 package se2018.SWEFinalProject.Client;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -8,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import se2018.SWEFinalProject.Client.FXMLDocumentController.TranscriptCheck;
 import se2018.SWEFinalProject.Server.Story;
@@ -26,9 +31,11 @@ public class StoryController implements Initializable {
 	@FXML TextArea displayDescriptionField;
 	@FXML Button updateStoryButton;
 	@FXML Button deleteStoryButton;
+	@FXML VBox chatColumnVBox;
 	
 	private ChatGateway gateway;
 	@FXML private TextArea textArea;
+	private List<String> transcript = Collections.synchronizedList(new ArrayList<String>());
 	
 	@FXML
 	protected void handleUpdateStoryButtonAction(ActionEvent event) {
@@ -78,6 +85,48 @@ public class StoryController implements Initializable {
 		gateway.deleteStory(id);
       	Stage stage = (Stage) deleteStoryButton.getScene().getWindow();
     	stage.close();
+	}
+	
+	@FXML
+	protected void handleAddCommentButtonAction(ActionEvent event) {
+		int id = Integer.parseInt(IDField.getText());
+		Story story = gateway.getStory(id);
+		// TODO: display chat before opening...happens where? OH IN CLIENT CONTROLLER refresh i think
+		story.addComment(chatColumnVBox.getAccessibleText());
+	}
+	
+	@FXML
+	protected void handleRefreshCommentButtonAction(ActionEvent event) {
+		/*doneColumnVBox.getChildren().clear();
+    	
+    	int storyCount = gateway.getStoryCount();
+    	System.out.println("refresh: " + storyCount);
+    	for (int i = 0; i < storyCount; i++) {
+    		int j = i;
+    		VBox storyPane = new VBox();
+    		storyPane.setPrefHeight(80);
+    		storyPane.setPrefWidth(300);
+    	
+    		// Set Text here for 
+    		Story story = gateway.getStory(j);
+    		if(story.getStoryPoints() < 5) {
+    			storyPane.setStyle("-fx-background-color: RGB(130,229,130);");
+    		}
+    		else if(story.getStoryPoints() > 4 && story.getStoryPoints()< 8 ) {
+    			storyPane.setStyle("-fx-background-color: RGB(255,255,100);");
+    		}
+    		else {
+    			storyPane.setStyle("-fx-background-color: RGB(250,150,130);");
+    		}
+    		
+    		
+    		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
+    		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
+    		storyPane.getChildren().add(new Text("Points: " + Integer.toString(story.getStoryPoints())));
+    		storyPane.getChildren().add(new Label(Integer.toString(story.getStoryID())));
+    		System.out.println("DEBUG");
+    	}
+    	*/
 	}
 	
 	@Override

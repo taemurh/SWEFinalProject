@@ -79,6 +79,9 @@ public class Story {
     	return transcript.get(n); 
     }
     
+    public synchronized List<String> getChat() { 
+    	return transcript; 
+    }
 
 	public synchronized Integer getStoryID() {
 		return storyID;

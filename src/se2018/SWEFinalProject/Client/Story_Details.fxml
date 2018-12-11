@@ -96,6 +96,12 @@
 		<VBox 
 			fx:id="chatColumnVBox" spacing="10" alignment="CENTER" >
 		</VBox>
+		<Button fx:id="addCommentButton" text="Add" onAction="#handleAddCommentButtonAction">
+		
+		</Button>
+		<Button fx:id="refreshCommentSection" text="Refresh" onAction="#handleRefreshCommentButtonAction">
+		
+		</Button>
 	</ScrollPane>
 	
 </GridPane>
