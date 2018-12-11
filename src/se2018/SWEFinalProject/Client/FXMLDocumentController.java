@@ -331,7 +331,8 @@ public class FXMLDocumentController implements Initializable {
         	});
     		System.out.println("checking status...");
     		System.out.println(story.getStatus());
-    		if (story.getStatus().equals("todo" )) {
+    		
+    		if (story.getStatus().equals("todo" ) || story.getStatus().equals("not started")) {
     			System.out.println("story added to todo");
         		todoColumnVBox.getChildren().add(storyPane);
     		} else if (story.getStatus().equals("inprogress")) {
@@ -364,7 +365,7 @@ class TranscriptCheck implements Runnable, se2018.SWEFinalProject.Chat.ChatConst
 
     /** Run a thread */
     public void run() {
-      while(true) {
+     /* while(true) {
     	dc.refresh();
     	System.out.println("fxml clients...");
         try {
@@ -374,7 +375,8 @@ class TranscriptCheck implements Runnable, se2018.SWEFinalProject.Chat.ChatConst
 			e.printStackTrace();
 		}
       }
-          
+       */   
       }
+      
     }
 }
