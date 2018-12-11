@@ -138,5 +138,11 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
         outputToServer.flush();
     }
     
+    public void deleteStory(int id) {
+    	outputToServer.println(DELETE_STORY);
+        outputToServer.println(id);
+        outputToServer.flush();
+    }
+    
 
 }

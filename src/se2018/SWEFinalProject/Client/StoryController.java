@@ -25,6 +25,7 @@ public class StoryController implements Initializable {
 	@FXML TextField displayTitleField;
 	@FXML TextArea displayDescriptionField;
 	@FXML Button updateStoryButton;
+	@FXML Button deleteStoryButton;
 	
 	private ChatGateway gateway;
 	@FXML private TextArea textArea;
@@ -32,7 +33,7 @@ public class StoryController implements Initializable {
 	@FXML
 	protected void handleUpdateStoryButtonAction(ActionEvent event) {
 		int id = Integer.parseInt(IDField.getText());
-		System.out.println("id: " + id);
+		System.out.println("update id: " + id);
 		Story story = gateway.getStory(id);
 		story.setAuthor(displayAuthorField.getText());
 		story.setDesc(displayDescriptionField.getText());
@@ -72,7 +73,11 @@ public class StoryController implements Initializable {
 	
 	@FXML
 	protected void handleDeleteStoryButtonAction(ActionEvent event) {
-	    	
+		int id = Integer.parseInt(IDField.getText());
+		System.out.println("delete id: " + id);
+		gateway.deleteStory(id);
+      	Stage stage = (Stage) deleteStoryButton.getScene().getWindow();
+    	stage.close();
 	}
 	
 	@Override

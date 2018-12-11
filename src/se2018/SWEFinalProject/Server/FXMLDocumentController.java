@@ -152,7 +152,7 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  break;
               }
               case GET_STORY_COUNT: {
-            	  outputToClient.println(blackboard.totStories);
+            	  outputToClient.println(blackboard.stories.size());
             	  outputToClient.flush();
             	  break;
               }
@@ -196,8 +196,13 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  if (story == null) {
             		  System.out.println("story is null");
             	  }
+            	  break;
               }
-            
+              case DELETE_STORY: {
+            	  System.out.println("delete story");
+            	  Integer id = Integer.parseInt(inputFromClient.readLine());
+            	  blackboard.deleteStory(id);
+              }
           }
         }
       }

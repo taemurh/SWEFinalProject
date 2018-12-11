@@ -275,6 +275,7 @@ public class FXMLDocumentController implements Initializable {
     	doneColumnVBox.getChildren().clear();
     	
     	int storyCount = gateway.getStoryCount();
+    	System.out.println("refresh: " + storyCount);
     	for (int i = 0; i < storyCount; i++) {
     		int j = i;
     		VBox storyPane = new VBox();
