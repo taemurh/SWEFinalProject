@@ -6,11 +6,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -20,6 +22,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 
 
 public class StoryController implements Initializable {
@@ -32,6 +35,11 @@ public class StoryController implements Initializable {
 	@FXML Button updateStoryButton;
 	@FXML Button deleteStoryButton;
 	@FXML VBox chatColumnVBox;
+	
+	// Comment FXML Objects
+	@FXML ScrollPane commentPane;
+	@FXML TextArea displayCommentField;
+	@FXML VBox commentSectionVBox;
 	
 	private ChatGateway gateway;
 	@FXML private TextArea textArea;
@@ -88,73 +96,46 @@ public class StoryController implements Initializable {
 	}
 	
 	@FXML
-	protected void handleAddCommentButtonAction(ActionEvent event) {
-		int id = Integer.parseInt(IDField.getText());
-		Story story = gateway.getStory(id);
-		// TODO: display chat before opening...happens where? OH IN CLIENT CONTROLLER refresh i think
-		story.addComment(chatColumnVBox.getAccessibleText());
+	protected void handleSendCommentButtonAction(ActionEvent event) {
+		String sendComment = IDField.getText() + "-" + displayCommentField.getText();
+		gateway.addComment(sendComment);
+		Platform.runLater(()->commentSectionRefresh());
 	}
 	
-	@FXML
-	protected void handleRefreshCommentButtonAction(ActionEvent event) {
-		/*doneColumnVBox.getChildren().clear();
-    	
-    	int storyCount = gateway.getStoryCount();
-    	System.out.println("refresh: " + storyCount);
-    	for (int i = 0; i < storyCount; i++) {
-    		int j = i;
-    		VBox storyPane = new VBox();
-    		storyPane.setPrefHeight(80);
-    		storyPane.setPrefWidth(300);
-    	
-    		// Set Text here for 
-    		Story story = gateway.getStory(j);
-    		if(story.getStoryPoints() < 5) {
-    			storyPane.setStyle("-fx-background-color: RGB(130,229,130);");
-    		}
-    		else if(story.getStoryPoints() > 4 && story.getStoryPoints()< 8 ) {
-    			storyPane.setStyle("-fx-background-color: RGB(255,255,100);");
-    		}
-    		else {
-    			storyPane.setStyle("-fx-background-color: RGB(250,150,130);");
-    		}
-    		
-    		
-    		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
-    		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
-    		storyPane.getChildren().add(new Text("Points: " + Integer.toString(story.getStoryPoints())));
-    		storyPane.getChildren().add(new Label(Integer.toString(story.getStoryID())));
-    		System.out.println("DEBUG");
-    	}
-    	*/
+	public void commentSectionRefresh() {
+		// clear everything in HBox like in refresh in clientController
+		Platform.runLater(() -> commentSectionVBox.getChildren().clear());
+//		commentSectionVBox.set
+		for(int i = 0; i < gateway.getCommentCount(); i++) {
+			int j = i;
+			VBox commentPane = new VBox();
+			Platform.runLater(() -> commentPane.setPrefHeight(100));
+			Platform.runLater(() -> commentPane.setPrefWidth(100));
+			
+			Platform.runLater(()->commentPane.getChildren().add(new Label(gateway.getComment(j))));
+			Platform.runLater(()->commentSectionVBox.getChildren().add(commentPane));
+			System.out.println("storycontroller: " + gateway.getComment(i));
+		}
 	}
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		gateway = new ChatGateway(textArea);
 	    // Start the transcript check thread
-	    new Thread(new TranscriptCheck(gateway, textArea, this)).start();
+	    new Thread(new StoryControllerRefresh(gateway)).start();
 	}
 	  
-	class TranscriptCheck implements Runnable, se2018.SWEFinalProject.Chat.ChatConstants {
+	class StoryControllerRefresh implements Runnable, se2018.SWEFinalProject.Chat.ChatConstants {
 		private ChatGateway gateway; // Gateway to the server
-		private TextArea textArea; // Where to display comments
-		private int N; // How many comments we have read
-		private StoryController dc;
 		
-		public TranscriptCheck(ChatGateway gateway, TextArea textArea, StoryController dc) {
+		public StoryControllerRefresh(ChatGateway gateway) {
 		    this.gateway = gateway;
-		    this.textArea = textArea;
-		    this.N = 0;
-		    this.dc = dc;
 		}
 
-		
 		public void run() {
-			/*
 	     	while(true) {
-	   			dc.refresh();
-		    	System.out.println("fxml clients...");
+//	   			dc.refresh();
+	     		Platform.runLater(()->commentSectionRefresh());
 		       	try {
 					Thread.sleep(250);
 				} catch (InterruptedException e) {
@@ -162,7 +143,6 @@ public class StoryController implements Initializable {
 					e.printStackTrace();
 				}
 		 	}
-		 	*/
 		         
 		}
 		      

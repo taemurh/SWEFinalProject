@@ -34,6 +34,14 @@
         	prefWidth="200" maxWidth="200" hgrow="ALWAYS">
         </ColumnConstraints>
     </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="200.0" prefHeight="200.0" vgrow="ALWAYS" />
+    </rowConstraints>
+    
+    <!-- Add Update Button -->
+    <Button fx:id="updateStoryButton" text="Update" GridPane.columnIndex="0" GridPane.rowIndex="0"
+			onAction="#handleUpdateStoryButtonAction">
+	</Button>
     
     <!-- Add ID Label -->
     <Label
@@ -43,6 +51,10 @@
     <!-- Add ID Text Field -->
     <Label fx:id="IDField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
     
+    <!-- Add Delete Button -->
+    <Button fx:id="deleteStoryButton" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="0"
+			onAction="#handleDeleteStoryButtonAction">
+	</Button>
     
     <!-- Add Author Label -->
     <Label
@@ -51,7 +63,6 @@
     
     <!-- Add Author Text Field -->
     <TextField fx:id="displayAuthorField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
 
     <!-- Add Title Label -->
     <Label text="Title: " GridPane.columnIndex="0" GridPane.rowIndex="3" ></Label>
@@ -84,25 +95,20 @@
     
     <!-- Add Description Field -->
     <TextArea fx:id="displayDescriptionField" prefHeight="200" WrapText="True" prefWidth="20" GridPane.columnIndex="1" GridPane.rowIndex="6"></TextArea>
-
-    <Button fx:id="updateStoryButton" text="Update" GridPane.columnIndex="0" GridPane.rowIndex="0"
-			onAction="#handleUpdateStoryButtonAction">
-	</Button>
-	<Button fx:id="deleteStoryButton" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="0"
-			onAction="#handleDeleteStoryButtonAction">
-	</Button>
-	<Label text="Comments " GridPane.columnIndex="0" GridPane.rowIndex="7">
 	
-	</Label>
-	<HBox GridPane.columnIndex="1" GridPane.rowIndex="8">
-		<ScrollPane  fx:id="commentPane" pannable="true"  style="-fx-background: RGB(255,255,255); -fx-border-style: solid inside;" prefHeight="250"  prefWidth="200">
-		</ScrollPane>
-	</HBox>
+	<Label text="Comments" GridPane.columnIndex="0" GridPane.rowIndex="7"></Label>
 	
-	<Button fx:id="addCommentButton" GridPane.columnIndex="1" GridPane.rowIndex="9" text="Add" onAction="#handleAddCommentButtonAction">
+	<ScrollPane  fx:id="commentPane" pannable="true" style="-fx-background: RGB(255,255,255); -fx-border-style: solid inside;" prefHeight="100"  prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="7">
+		<VBox fx:id="commentSectionVBox">
+		</VBox>
+	</ScrollPane>
+	
+	<TextArea fx:id="displayCommentField" prefHeight="50" WrapText="True" prefWidth="100" GridPane.columnIndex="1" GridPane.rowIndex="8"></TextArea>
+	
+	<Button fx:id="sendCommentButton" GridPane.columnIndex="2" GridPane.rowIndex="8" text="Send" onAction="#handleSendCommentButtonAction">
 	</Button>
-	<Button fx:id="refreshCommentSection" GridPane.columnIndex="2" GridPane.rowIndex="9" text="Refresh" onAction="#handleRefreshCommentButtonAction">
-	</Button>
+	<!-- <Button fx:id="refreshCommentSection" GridPane.columnIndex="3" GridPane.rowIndex="9" text="Refresh" onAction="#handleRefreshCommentButtonAction">
+	</Button> -->
 	
 	
 </GridPane>

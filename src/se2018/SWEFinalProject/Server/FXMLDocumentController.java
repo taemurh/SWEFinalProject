@@ -105,9 +105,9 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
                   break;
               }
               case SEND_STORY: {
-            	  System.out.println("send story");
+            	  //System.out.println("send story");
             	  String storyJSON = inputFromClient.readLine();
-            	  System.out.println("story reached server" + storyJSON);
+            	  //System.out.println("story reached server" + storyJSON);
             	  story = null;
             	  try {
             		  String[] fields = storyJSON.split(",");
@@ -142,7 +142,7 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
                   break;
               }
               case GET_BURNDOWN: {
-            	  System.out.println("server burndown");
+            	  // System.out.println("server burndown");
             	  Hashtable<Integer, Integer> burndown = blackboard.getBurndown();
             	  String serialBurndown = "";
             	  for (Integer key : burndown.keySet()) {
@@ -153,12 +153,12 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  break;
               }
               case GET_STORY: {
-            	  System.out.println("get story");
+            	  // System.out.println("get story");
             	  Integer id = Integer.parseInt(inputFromClient.readLine());
-            	  System.out.println(">>>> " + id);
+            	  // System.out.println(">>>> " + id);
             	  story = blackboard.getStory(id);
             	  String jsonStr = story.toString_();
-            	  System.out.println(jsonStr);
+            	  // System.out.println(jsonStr);
             	  outputToClient.println(jsonStr);
             	  outputToClient.flush();
             	  break;
@@ -172,17 +172,17 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  String[] fields = inputFromClient.readLine().split("-");
             	  Story story = blackboard.getStory(Integer.parseInt(fields[0]));
             	  story.setStatus(fields[1]);
-            	  System.out.println(story.getStoryPoints());
+            	  // System.out.println(story.getStoryPoints());
             	  if (fields[1].equals("done")) {
             		  blackboard.completeStory(story.getStoryPoints());
             	  }
             	  break;
               }
               case UPDATE_STORY: {
-            	  System.out.println("updating story status");
-            	  System.out.println("send story");
+            	  // System.out.println("updating story status");
+            	  // System.out.println("send story");
             	  String storyJSON = inputFromClient.readLine();
-            	  System.out.println("story reached server" + storyJSON);
+            	  // System.out.println("story reached server" + storyJSON);
 //            	  story = null;
             	  try {
             		  String[] fields = storyJSON.split(",");
@@ -197,7 +197,7 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             		  story.setTitle(title);
             		  story.setStatus(status);
             		  story.setStoryPoints(storyPoints);
-            		  System.out.println("in server: " + story.getAuthor());
+            		  // System.out.println("in server: " + story.getAuthor());
             		  blackboard.editStory(storyID, story);
 
             	  } catch (Exception e) {
@@ -211,9 +211,19 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  break;
               }
               case DELETE_STORY: {
-            	  System.out.println("delete story");
+            	  // System.out.println("delete story");
             	  Integer id = Integer.parseInt(inputFromClient.readLine());
             	  blackboard.deleteStory(id);
+            	  break;
+              }
+              case ADD_COMMENT: {
+            	  String[] fields = inputFromClient.readLine().split("-");
+            	  Story story = blackboard.getStory(Integer.parseInt(fields[0]));
+            	  story.addComment(fields[1]);
+            	  System.out.println("added comment server");
+            	  for(int i = 0; i < story.getSize(); i++) {
+            		  System.out.println("comment server: " + story.getComment(i));
+            	  }
               }
           }
         }

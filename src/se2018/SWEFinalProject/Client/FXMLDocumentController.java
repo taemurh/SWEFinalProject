@@ -221,8 +221,8 @@ public class FXMLDocumentController implements Initializable {
 		  	series.getData().add(new XYChart.Data<Number, Number>((Number)key, (Number)burndown.get(key)));
 		}
 		
-		System.out.println(series.getData());
-		System.out.println(lineChartData);
+		//System.out.println(series.getData());
+		//System.out.println(lineChartData);
 		lineChartData.add(series);
 		NumberAxis xAxis = new NumberAxis();
 		xAxis.setLabel("Time");
@@ -243,9 +243,9 @@ public class FXMLDocumentController implements Initializable {
     		if (titleField.getText().isEmpty() == false) {
     			if (pointsField.getText().isEmpty() == false) {
     				if (descriptionField.getText().isEmpty() == false) {
-	    				System.out.println(authorField.getText());
-	    		    	System.out.println(titleField.getText());
-	    		    	System.out.println(pointsField.getText());
+	    				//System.out.println(authorField.getText());
+	    		    	//System.out.println(titleField.getText());
+	    		    	//System.out.println(pointsField.getText());
 	    		    	
 	    		    	Stage stage = (Stage) submitButton.getScene().getWindow();
 	    		    	stage.close();
@@ -293,71 +293,6 @@ public class FXMLDocumentController implements Initializable {
     	
     }
     
-    @FXML
-	protected void handleUpdateStoryButtonAction(ActionEvent event) {
-    	
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("backlog_window.fxml"));
-    	StoryController controller = loader.getController();
-        
-    	int id = Integer.parseInt(controller.IDField.getText());
-    	Story story = gateway.getStory(id);
-    	story.setAuthor(controller.displayAuthorField.getText());
-    	story.setDesc(controller.displayDescriptionField.getText());
-		story.setStoryPoints(Integer.parseInt(controller.displayPointsField.getText()));
-		story.setTitle(controller.displayTitleField.getText());
-		if(controller.statusDropDown.getValue().equals("TODO")) {
-			story.setStatus("todo");
-		} else if(controller.statusDropDown.getValue().equals("In Progress")) {
-			story.setStatus("inprogress");
-		} else if(controller.statusDropDown.getValue().equals("Testing")) {
-			story.setStatus("testing");
-		} else if(controller.statusDropDown.getValue().equals("Done")) {
-			story.setStatus("done");
-		} else {
-			story.setStatus("not started");
-		}
-		
-    	/*
-    	int id = Integer.parseInt(IDField.getText());
-    	Story story = gateway.getStory(id);
-    	story.setAuthor(displayAuthorField.getText());
-    	story.setDesc(displayDescriptionField.getText());
-		story.setStoryPoints(Integer.parseInt(displayPointsField.getText()));
-		story.setTitle(displayTitleField.getText());
-		if(statusDropDown.getValue().equals("TODO")) {
-			story.setStatus("todo");
-		} else if(statusDropDown.getValue().equals("In Progress")) {
-			story.setStatus("inprogress");
-		} else if(statusDropDown.getValue().equals("Testing")) {
-			story.setStatus("testing");
-		} else if(statusDropDown.getValue().equals("Done")) {
-			story.setStatus("done");
-		} else {
-			story.setStatus("not started");
-		}
-		*/
-		// SEND INFO TO SERVER
-    	// Story story = new Story(0, authorField.getText(), titleField.getText(), descriptionField.getText(), Integer.parseInt(pointsField.getText()));
-    	/*
-		String storyJSON = "";
-
-    	try {
-    		storyJSON = story.toString_();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-		System.out.println(storyJSON);
-      	gateway.sendStory(storyJSON);
-      	*/
-	}
-    
-    @FXML
-    protected void handleDeleteStoryButtonAction(ActionEvent event) {
-    	
-    } 
-    
     public void refresh() {
     	//TODO Make for loop and for every story retrieved from server create a new VBOX and append
     	
@@ -367,7 +302,7 @@ public class FXMLDocumentController implements Initializable {
     	doneColumnVBox.getChildren().clear();
     	
     	int storyCount = gateway.getStoryCount();
-    	System.out.println("refresh: " + storyCount);
+    	//System.out.println("refresh: " + storyCount);
     	for (int i = 0; i < storyCount; i++) {
     		int j = i;
     		VBox storyPane = new VBox();
@@ -517,8 +452,8 @@ public class FXMLDocumentController implements Initializable {
     	        			}
     	        		}
     	        	});
-    	    		System.out.println("checking status...");
-    	    		System.out.println(story.getStatus());
+    	    		//System.out.println("checking status...");
+    	    		//System.out.println(story.getStatus());
     	    		
     	    		if (story.getStatus().equals("todo" ) ) {
     	    			System.out.println("story added to todo");
@@ -531,10 +466,10 @@ public class FXMLDocumentController implements Initializable {
     	    			doneColumnVBox.getChildren().add(storyPane);
     	    		}
     	    		
-    	        	System.out.println("after checking status");
-    	        	System.out.println("story pane: " + storyPane);
-    	        	System.out.println("parent: " + storyPane.getParent());
-    	    		System.out.println(storyPane.getParent().idProperty().getValue());
+    	        	//System.out.println("after checking status");
+    	        	//System.out.println("story pane: " + storyPane);
+    	        	//System.out.println("parent: " + storyPane.getParent());
+    	    		//System.out.println(storyPane.getParent().idProperty().getValue());
         		}
     		}
 
@@ -560,7 +495,7 @@ public class FXMLDocumentController implements Initializable {
     	public void run() {
     		
     		while(true) {
-    			System.out.println("fxml clients...");
+    			//System.out.println("fxml clients...");
                 Platform.runLater(()->refresh());
 	    		try {
 	    			// wait three seconds to refresh (for drag)
