@@ -87,7 +87,7 @@ public class FXMLDocumentController implements Initializable {
             root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Backlog");
-            stage.setScene(new Scene(root, 700, 700));
+            stage.setScene(new Scene(root, 320, 700));
             
           
             
