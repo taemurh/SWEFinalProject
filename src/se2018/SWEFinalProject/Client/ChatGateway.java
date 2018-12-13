@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-
+import java.util.Hashtable;
 
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
@@ -142,6 +142,32 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
     	outputToServer.println(DELETE_STORY);
         outputToServer.println(id);
         outputToServer.flush();
+    }
+    
+    public Hashtable<Integer, Integer> getBurndown() {
+    	outputToServer.println(GET_BURNDOWN);
+    	outputToServer.flush();
+    	System.out.println("gateway burndown");
+
+    	Hashtable<Integer, Integer> burndown = new Hashtable<Integer, Integer>();
+    	String burndownString = "";
+    	try {
+    		burndownString = inputFromServer.readLine();
+    		String [] entries = burndownString.split(",");
+    		
+    		for (String entry : entries) {
+    			if (entry.contains(":")) {
+    				String [] keyval = entry.split(":");
+    				burndown.put(Integer.parseInt(keyval[0]), Integer.parseInt(keyval[1]));
+    			} else {
+    				continue;
+    			}
+    		}
+    		
+    	} catch (IOException ex) {
+            Platform.runLater(() -> textArea.appendText("Error in get burndwon: " + ex.toString() + "\n"));
+    	}
+    	return burndown;
     }
     
 

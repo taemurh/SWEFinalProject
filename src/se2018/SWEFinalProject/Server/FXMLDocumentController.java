@@ -8,6 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.ResourceBundle;
 
 
@@ -140,6 +141,17 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
                   outputToClient.flush();
                   break;
               }
+              case GET_BURNDOWN: {
+            	  System.out.println("server burndown");
+            	  Hashtable<Integer, Integer> burndown = blackboard.getBurndown();
+            	  String serialBurndown = "";
+            	  for (Integer key : burndown.keySet()) {
+            		  serialBurndown = serialBurndown + Integer.toString(key) + ":" + burndown.get(key) + ",";
+            	  }
+            	  outputToClient.println(serialBurndown);
+            	  outputToClient.flush();
+            	  break;
+              }
               case GET_STORY: {
             	  System.out.println("get story");
             	  Integer id = Integer.parseInt(inputFromClient.readLine());
@@ -157,13 +169,13 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  break;
               }
               case CHANGE_STORY_STATUS: {
-            	  System.out.println("reaching change story status");
             	  String[] fields = inputFromClient.readLine().split("-");
             	  Story story = blackboard.getStory(Integer.parseInt(fields[0]));
             	  story.setStatus(fields[1]);
-            	  System.out.println("after reaching change story status");
             	  System.out.println(story.getStoryPoints());
-            	  blackboard.completeStory(story.getStoryPoints());
+            	  if (fields[1].equals("done")) {
+            		  blackboard.completeStory(story.getStoryPoints());
+            	  }
             	  break;
               }
               case UPDATE_STORY: {

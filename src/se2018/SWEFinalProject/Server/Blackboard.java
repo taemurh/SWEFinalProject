@@ -96,6 +96,7 @@ public class Blackboard implements Externalizable {
 	}
 	
 	public void completeStory(int points) {
+		System.out.println("complete story");
 		burndown.put(time, points);
 		time += 1;
 	}

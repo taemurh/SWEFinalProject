@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import java.lang.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.Scene?>
 
-<AnchorPane prefHeight="2000.0" prefWidth="2005.0" xmlns:fx="http://javafx.com/fxml/1"     xmlns="http://javafx.com/javafx/2.2" fx:controller="se2018.SWEFinalProject.Client.BurndownChartController">
-  <children>
+
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="se2018.SWEFinalProject.Client.FXMLDocumentController">
     <LineChart fx:id="lineGraph" createSymbols="false" legendVisible="false" prefHeight="372.0" prefWidth="423.0" visible="false">
-  	<xAxis>
-   		<NumberAxis autoRanging="false" lowerBound="-10" side="BOTTOM" tickUnit="1" upperBound="10" />
-  	</xAxis>
-  	<yAxis>
-    	<NumberAxis autoRanging="false" lowerBound="-10" side="LEFT" tickUnit="1" upperBound="10" />
-  	</yAxis>
-</LineChart>
-  </children>
-</AnchorPane>
+	  	<xAxis>
+	   		<NumberAxis autoRanging="false" lowerBound="-10" side="BOTTOM" tickUnit="1" upperBound="10" />
+	  	</xAxis>
+	  	<yAxis>
+	    	<NumberAxis autoRanging="false" lowerBound="-10" side="LEFT" tickUnit="1" upperBound="10" />
+	  	</yAxis>
+    </LineChart>
+</GridPane>

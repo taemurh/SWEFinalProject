@@ -2,10 +2,13 @@ package se2018.SWEFinalProject.Client;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Hashtable;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -18,6 +21,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
@@ -53,6 +60,12 @@ public class FXMLDocumentController implements Initializable {
 	@FXML Label IDField;
 	@FXML TextField displayPointsField;
 	@FXML TextField displayTitleField;
+	
+	@FXML NumberAxis xAxis;
+	@FXML NumberAxis yAxis;
+	@FXML LineChart<Number, Number> lineChart;
+	ObservableList<Series<Number, Number>> lineChartData;
+	Series<Number, Number> series;
 	// @FXML TextArea displayDescriptionField;
     
     @FXML
@@ -191,16 +204,32 @@ public class FXMLDocumentController implements Initializable {
     @FXML 
     protected void handleBurndownButtonAction(ActionEvent event) {
         Parent root;
-        try {
-            root = FXMLLoader.load(getClass().getResource("burndown_window.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Burndown Chart");
-            stage.setScene(new Scene(root, 800, 700));
-            stage.show();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        //root = FXMLLoader.load(getClass().getResource("burndown_window.fxml"));
+		Stage stage = new Stage();
+		stage.setTitle("Burndown Chart");
+		
+		lineChartData = FXCollections.observableArrayList();
+		series = new LineChart.Series<Number, Number>();
+         
+		Hashtable<Integer, Integer> burndown = gateway.getBurndown();
+		
+		for (Integer key: burndown.keySet()) {
+		  	series.getData().add(new XYChart.Data<Number, Number>((Number)key, (Number)burndown.get(key)));
+		}
+		
+		System.out.println(series.getData());
+		System.out.println(lineChartData);
+		lineChartData.add(series);
+		NumberAxis xAxis = new NumberAxis();
+		xAxis.setLabel("Time");
+		NumberAxis yAxis = new NumberAxis();
+		yAxis.setLabel("Points");
+		lineChart = new LineChart<Number,Number>(xAxis,yAxis);
+		lineChart.setData(lineChartData);
+		lineChart.setVisible(true);
+		
+		stage.setScene(new Scene(lineChart, 800, 700));
+		stage.show();
     }
     
     @FXML
@@ -458,7 +487,6 @@ public class FXMLDocumentController implements Initializable {
     	        				System.out.println("Already in Testing");
     	        			}
     	        			else {
-    	        	    		System.out.println("DEBUG4");
     	
     	        				testingColumnVBox.getChildren().add(storyPane);
     	        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
