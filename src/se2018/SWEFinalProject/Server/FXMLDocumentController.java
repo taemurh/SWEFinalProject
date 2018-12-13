@@ -1,8 +1,10 @@
 package se2018.SWEFinalProject.Server;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -33,6 +35,7 @@ public class FXMLDocumentController implements Initializable {
     private int clientNo = 0;
     private Blackboard blackboard;
     private ServerSocket serverSocket;
+    private final static String OUTPUT_FILE = "externalizable_file";
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -74,6 +77,7 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
     private TextArea textArea;
     private String handle;  
     private Story story;
+    private final static String OUTPUT_FILE = "externalizable_file";
     public HandleAClient(Socket socket, Blackboard blackboard, TextArea textArea) {
       this.socket = socket;
       this.blackboard = blackboard;
@@ -220,6 +224,14 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  for(int i = 0; i < story.getSize(); i++) {
             		  System.out.println("comment server: " + story.getComment(i));
             	  }
+              }
+              case SAVE_STORIES: {
+            	  System.out.println("saving stories");
+            	  FileOutputStream outputStream = new FileOutputStream(OUTPUT_FILE);
+            	  ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            	  blackboard.writeExternal(objectOutputStream);
+            	  objectOutputStream.flush();
+            	  outputStream.close();
               }
           }
         }

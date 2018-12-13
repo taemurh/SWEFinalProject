@@ -255,6 +255,11 @@ public class FXMLDocumentController implements Initializable {
     }
     
     @FXML
+    protected void handleSaveButtonAction(ActionEvent event) {
+    	gateway.saveStories();
+    }
+    
+    @FXML
     protected void handleAddStorySubmitButtonAction(ActionEvent event) {
     	//error checking for empty fields
     	if (authorField.getText().isEmpty() == false) {

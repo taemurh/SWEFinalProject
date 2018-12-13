@@ -144,6 +144,11 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
     	System.out.println("add comment gateway");
     }
     
+    public void saveStories() {
+    	outputToServer.println(SAVE_STORIES);
+    	outputToServer.flush();
+    }
+    
     public Hashtable<Integer, Integer> getBurndown() {
     	outputToServer.println(GET_BURNDOWN);
     	outputToServer.flush();
@@ -169,6 +174,5 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
     	}
     	return burndown;
     }
-    
 
 }

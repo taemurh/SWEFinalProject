@@ -39,7 +39,7 @@
 		</ColumnConstraints>
 	</columnConstraints>
 	
-	<HBox fx:id="storyBacklogButtonsHBox" spacing="50" alignment="CENTER"
+	<HBox fx:id="storyBacklogBurndownButtonsHBox" spacing="20" alignment="CENTER"
 		GridPane.columnIndex="0" GridPane.rowIndex="0">
 		<Button fx:id="addStoryButton" text="Add Story"
 			onAction="#handleAddStoryButtonAction">
@@ -47,13 +47,16 @@
 		<Button fx:id="backlogButton" text="Backlog"
 			onAction="#handleBacklogButtonAction">
 		</Button>
-	</HBox>
-	
-	<HBox fx:id="burndownButtonHBox" spacing="20" alignment="CENTER"
-		GridPane.columnIndex="3" GridPane.rowIndex="0">
-		<padding><Insets left="80"/></padding>
 		<Button fx:id="burndownButton" text="Burndown"
 			onAction="#handleBurndownButtonAction">
+		</Button>
+	</HBox>
+	
+	<HBox fx:id="saveRefreshButtonHBox" spacing="20" alignment="CENTER"
+		GridPane.columnIndex="3" GridPane.rowIndex="0">
+		<padding><Insets left="40"/></padding>
+		<Button fx:id="saveButton" text="Save"
+			onAction="#handleSaveButtonAction">
 		</Button>
 		
 		<Button fx:id="refreshButton" text="Refresh"
