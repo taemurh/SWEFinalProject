@@ -18,7 +18,6 @@ public class Blackboard implements Externalizable {
 	Hashtable<Integer, Story> productBacklog;
 	Hashtable<Integer, Story> sprintBacklog;
 	Hashtable<Integer, Story> stories;
-	Hashtable<Integer, Sprint> sprints;
 	Integer time = 0;
 	Hashtable<Integer, Integer> burndown;
 	

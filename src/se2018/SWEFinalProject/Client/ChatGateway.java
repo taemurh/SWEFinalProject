@@ -35,13 +35,6 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
         }
     }
 
-    // Start the chat by sending in the user's handle.
-    public void sendHandle(String handle) {
-        outputToServer.println(SEND_HANDLE);
-        outputToServer.println(handle);
-        outputToServer.flush();
-    }
-    
     // send a new user story to server
     public void sendStory(String story) {
     	outputToServer.println(SEND_STORY);

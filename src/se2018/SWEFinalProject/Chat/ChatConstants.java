@@ -15,5 +15,4 @@ public interface ChatConstants {
     public static int DELETE_STORY = 12;
     public static int ADD_COMMENT = 13;
     public static int SAVE_STORIES = 14;
-    //public static int 
 }
