@@ -133,7 +133,7 @@ public class FXMLDocumentController implements Initializable {
             	                root = loader.load();
             	                Stage stage = new Stage();
             	                stage.setTitle("Story Details");
-            	                stage.setScene(new Scene(root, 450, 300));
+            	                stage.setScene(new Scene(root, 475, 700));
             	                stage.show();
             	                
             	               
@@ -380,7 +380,7 @@ public class FXMLDocumentController implements Initializable {
     	                root = loader.load();
     	                Stage stage = new Stage();
     	                stage.setTitle("Story Details");
-    	                stage.setScene(new Scene(root, 450, 300));
+    	                stage.setScene(new Scene(root, 475, 700));
     	                stage.show();
     	                
     	               

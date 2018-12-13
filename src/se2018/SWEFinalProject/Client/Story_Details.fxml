@@ -27,41 +27,41 @@
    	<padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
     <columnConstraints>
         <ColumnConstraints 
-        	minWidth="100" prefWidth="100" maxWidth="Infinity" halignment="RIGHT">
+        	minWidth="100" prefWidth="100" maxWidth="200" halignment="RIGHT">
         </ColumnConstraints>
         
         <ColumnConstraints 
-        	prefWidth="100" maxWidth="Infinity" hgrow="ALWAYS">
+        	prefWidth="200" maxWidth="200" hgrow="ALWAYS">
         </ColumnConstraints>
     </columnConstraints>
     
     <!-- Add ID Label -->
     <Label
-    	text="ID " GridPane.columnIndex="0" GridPane.rowIndex="0" >
+    	text="ID " GridPane.columnIndex="0" GridPane.rowIndex="1" >
     </Label>
     
     <!-- Add ID Text Field -->
-    <Label fx:id="IDField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <Label fx:id="IDField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
     
     
     <!-- Add Author Label -->
     <Label
-    	text="Author: " GridPane.columnIndex="0" GridPane.rowIndex="1" >
+    	text="Author: " GridPane.columnIndex="0" GridPane.rowIndex="2" >
     </Label>
     
     <!-- Add Author Text Field -->
-    <TextField fx:id="displayAuthorField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <TextField fx:id="displayAuthorField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
 
     <!-- Add Title Label -->
-    <Label text="Title: " GridPane.columnIndex="0" GridPane.rowIndex="2" ></Label>
+    <Label text="Title: " GridPane.columnIndex="0" GridPane.rowIndex="3" ></Label>
     
     <!-- Add Title Text Field -->
-    <TextField fx:id="displayTitleField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <TextField fx:id="displayTitleField" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
     
     <!--  Add Dropdown Label  -->
-    <Label text="Status: " GridPane.columnIndex="0" GridPane.rowIndex="3" ></Label>
-    <ComboBox  fx:id="statusDropDown" GridPane.columnIndex="1" GridPane.rowIndex="3" >
+    <Label text="Status: " GridPane.columnIndex="0" GridPane.rowIndex="4" ></Label>
+    <ComboBox  fx:id="statusDropDown" GridPane.columnIndex="1" GridPane.rowIndex="4" >
     	<items>
        		<FXCollections fx:factory="observableArrayList">
        		 <String fx:value="Backlog" />
@@ -74,34 +74,35 @@
     </ComboBox>
 
     <!-- Add Points Label -->
-    <Label text="Points: " GridPane.columnIndex="0" GridPane.rowIndex="4" ></Label>
+    <Label text="Points: " GridPane.columnIndex="0" GridPane.rowIndex="5" ></Label>
     
     <!-- Add Points Field -->
-    <TextField fx:id="displayPointsField" prefHeight="40" prefWidth="40" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <TextField fx:id="displayPointsField" prefHeight="40" prefWidth="40" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
     
      <!-- Add Description Label -->
-    <Label text="Description: " GridPane.columnIndex="0" GridPane.rowIndex="5" ></Label>
+    <Label text="Description: " GridPane.columnIndex="0" GridPane.rowIndex="6" ></Label>
     
     <!-- Add Description Field -->
-    <TextArea fx:id="displayDescriptionField" prefHeight="120" WrapText="True" prefWidth="20" GridPane.columnIndex="1" GridPane.rowIndex="5"></TextArea>
+    <TextArea fx:id="displayDescriptionField" prefHeight="200" WrapText="True" prefWidth="20" GridPane.columnIndex="1" GridPane.rowIndex="6"></TextArea>
 
-    <Button fx:id="updateStoryButton" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="6"
+    <Button fx:id="updateStoryButton" text="Update" GridPane.columnIndex="0" GridPane.rowIndex="0"
 			onAction="#handleUpdateStoryButtonAction">
 	</Button>
-	<Button fx:id="deleteStoryButton" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="6"
+	<Button fx:id="deleteStoryButton" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="0"
 			onAction="#handleDeleteStoryButtonAction">
 	</Button>
+	<Label text="Comments " GridPane.columnIndex="0" GridPane.rowIndex="7">
 	
-	<ScrollPane pannable="true" style="-fx-background: RGB(204,229,255); -fx-border-style: solid inside;" >
-		<VBox 
-			fx:id="chatColumnVBox" spacing="10" alignment="CENTER" >
-		</VBox>
-		<Button fx:id="addCommentButton" text="Add" onAction="#handleAddCommentButtonAction">
-		
-		</Button>
-		<Button fx:id="refreshCommentSection" text="Refresh" onAction="#handleRefreshCommentButtonAction">
-		
-		</Button>
-	</ScrollPane>
+	</Label>
+	<HBox GridPane.columnIndex="1" GridPane.rowIndex="8">
+		<ScrollPane pannable="true"  style="-fx-background: RGB(255,255,255); -fx-border-style: solid inside;" prefHeight="250"  prefWidth="200">
+		</ScrollPane>
+	</HBox>
+	
+	<Button fx:id="addCommentButton" GridPane.columnIndex="1" GridPane.rowIndex="9" text="Add" onAction="#handleAddCommentButtonAction">
+	</Button>
+	<Button fx:id="refreshCommentSection" GridPane.columnIndex="2" GridPane.rowIndex="9" text="Refresh" onAction="#handleRefreshCommentButtonAction">
+	</Button>
+	
 	
 </GridPane>
