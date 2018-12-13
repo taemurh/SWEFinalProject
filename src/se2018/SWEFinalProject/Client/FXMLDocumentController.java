@@ -284,150 +284,152 @@ public class FXMLDocumentController implements Initializable {
     	
     		// Set Text here for 
     		Story story = gateway.getStory(j);
-    		if(story.getStoryPoints() < 5) {
-    			storyPane.setStyle("-fx-background-color: RGB(130,229,130);");
+    		if(!story.getStatus().equals("not started")) {
+	    		if(story.getStoryPoints() < 5) {
+	    			storyPane.setStyle("-fx-background-color: RGB(130,229,130);");
+	    		}
+	    		else if(story.getStoryPoints() > 4 && story.getStoryPoints()< 8 ) {
+	    			storyPane.setStyle("-fx-background-color: RGB(255,255,100);");
+	    		}
+	    		else {
+	    			storyPane.setStyle("-fx-background-color: RGB(250,150,130);");
+	    		}
+	    		
+	    		
+	    		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
+	    		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
+	    		storyPane.getChildren().add(new Text("Points: " + Integer.toString(story.getStoryPoints())));
+	    		storyPane.getChildren().add(new Label(Integer.toString(story.getStoryID())));
+	    		System.out.println("DEBUG");
+	    		
+	    		storyPane.setOnMouseClicked(e -> {
+	    		System.out.println("Clicked");
+	            Parent root;
+	            try {
+	              
+	                FXMLLoader loader = new FXMLLoader(getClass().getResource("Story_Details.fxml"));
+	                
+	                root = loader.load();
+	                Stage stage = new Stage();
+	                stage.setTitle("Story Details");
+	                stage.setScene(new Scene(root, 450, 300));
+	                stage.show();
+	                
+	               
+	                StoryController controller = loader.getController();
+	              
+	                controller.IDField.setText(Integer.toString(story.getStoryID()));
+	                controller.displayAuthorField.setText(story.getAuthor());
+	                controller.displayTitleField.setText(story.getTitle());
+	                controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
+	                controller.displayDescriptionField.setText(story.getDescription());
+	                // status
+	                if(story.getStatus().equals("todo")) 
+	                	controller.statusDropDown.setValue("TODO");       
+	                else if(story.getStatus().equals("inprogress")) 
+	                	controller.statusDropDown.setValue("In Progress");            
+	                else if (story.getStatus().equals("testing"))
+	                	controller.statusDropDown.setValue("Testing");         
+	                else if (story.getStatus().equals("done"))
+	                	controller.statusDropDown.setValue("Done");          
+	                else
+	                	controller.statusDropDown.setValue("Backlog");
+	                // chat
+	                // getSize is transcript's size, not story size...confusing name, i'll probs change it
+	                for (int k = 0; k < story.getSize(); k++) {
+	                	VBox chatPane = new VBox();
+	            		chatPane.setPrefHeight(80);
+	            		chatPane.setPrefWidth(300);
+	            		chatPane.getChildren().add(new Text(story.getComment(k)));
+	                }
+	                
+	
+	            }
+	            catch (IOException d) {
+	                d.printStackTrace();
+	            }
+	    		});
+	    		
+	    		storyPane.setOnMouseReleased(e -> {
+	        		double endDragX = e.getSceneX();
+	        		double endDragY = e.getSceneY();
+	        		System.out.println(endDragX + ", " + endDragY);
+	        		
+	        		Bounds boundsInScene = storyPane.localToScene(storyPane.getBoundsInLocal());
+	        		System.out.println(boundsInScene.getMaxX());
+	        		if (endDragX <= 300) {
+	        			System.out.println("Ended in Todo");
+	        			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
+	        				System.out.println("Already in Todo");
+	        			}
+	        			else {
+	        	    		System.out.println("DEBUG1");
+	        				todoColumnVBox.getChildren().add(storyPane);
+	        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
+	        	    		gateway.changeStoryStatus(fields[1].replaceAll("'","") + "-todo");
+	        	    		System.out.println("DEBUG2");
+	
+	        			}
+	        		}
+	        		else if (endDragX <= 600) {
+	        			System.out.println("Ended in In Progress");
+	        			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
+	        				System.out.println("Already in In Progress");
+	        			}
+	        			else {
+	        	    		System.out.println("DEBUG3");
+	
+	        				inprogressColumnVBox.getChildren().add(storyPane);
+	        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
+	        				gateway.changeStoryStatus(fields[1].replaceAll("'","") + "-inprogress");
+	        			}
+	        		}
+	        		else if (endDragX <= 900) {
+	        			System.out.println("Ended in Testing");
+	        			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
+	        				System.out.println("Already in Testing");
+	        			}
+	        			else {
+	        	    		System.out.println("DEBUG4");
+	
+	        				testingColumnVBox.getChildren().add(storyPane);
+	        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
+	        				gateway.changeStoryStatus(fields[1].replaceAll("'","") + "-testing");
+	        			}
+	        		}
+	        		else if (endDragX <= 1200) {
+	        			System.out.println("Ended in Done");
+	        			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
+	        				System.out.println("Already in Done");
+	        			}
+	        			else {
+	        	    		System.out.println("DEBUG5");
+	
+	        				doneColumnVBox.getChildren().add(storyPane);
+	        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
+	        				gateway.changeStoryStatus(fields[1].replaceAll("'","") + "-done");
+	        			}
+	        		}
+	        	});
+	    		System.out.println("checking status...");
+	    		System.out.println(story.getStatus());
+	    		
+	    		if (story.getStatus().equals("todo" ) ) {
+	    			System.out.println("story added to todo");
+	        		todoColumnVBox.getChildren().add(storyPane);
+	    		} else if (story.getStatus().equals("inprogress")) {
+	    			inprogressColumnVBox.getChildren().add(storyPane);
+	    		} else if (story.getStatus().equals("testing")) {
+	    			testingColumnVBox.getChildren().add(storyPane);
+	    		} else if (story.getStatus().equals("done")) {
+	    			doneColumnVBox.getChildren().add(storyPane);
+	    		}
+	    		
+	        	System.out.println("after checking status");
+	        	System.out.println("story pane: " + storyPane);
+	        	System.out.println("parent: " + storyPane.getParent());
+	    		System.out.println(storyPane.getParent().idProperty().getValue());
     		}
-    		else if(story.getStoryPoints() > 4 && story.getStoryPoints()< 8 ) {
-    			storyPane.setStyle("-fx-background-color: RGB(255,255,100);");
-    		}
-    		else {
-    			storyPane.setStyle("-fx-background-color: RGB(250,150,130);");
-    		}
-    		
-    		
-    		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
-    		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
-    		storyPane.getChildren().add(new Text("Points: " + Integer.toString(story.getStoryPoints())));
-    		storyPane.getChildren().add(new Label(Integer.toString(story.getStoryID())));
-    		System.out.println("DEBUG");
-    		
-    		storyPane.setOnMouseClicked(e -> {
-    		System.out.println("Clicked");
-            Parent root;
-            try {
-              
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Story_Details.fxml"));
-                
-                root = loader.load();
-                Stage stage = new Stage();
-                stage.setTitle("Story Details");
-                stage.setScene(new Scene(root, 450, 300));
-                stage.show();
-                
-               
-                StoryController controller = loader.getController();
-              
-                controller.IDField.setText(Integer.toString(story.getStoryID()));
-                controller.displayAuthorField.setText(story.getAuthor());
-                controller.displayTitleField.setText(story.getTitle());
-                controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
-                controller.displayDescriptionField.setText(story.getDescription());
-                // status
-                if(story.getStatus().equals("todo")) 
-                	controller.statusDropDown.setValue("TODO");       
-                else if(story.getStatus().equals("inprogress")) 
-                	controller.statusDropDown.setValue("In Progress");            
-                else if (story.getStatus().equals("testing"))
-                	controller.statusDropDown.setValue("Testing");         
-                else if (story.getStatus().equals("done"))
-                	controller.statusDropDown.setValue("Done");          
-                else
-                	controller.statusDropDown.setValue("Backlog");
-                // chat
-                // getSize is transcript's size, not story size...confusing name, i'll probs change it
-                for (int k = 0; k < story.getSize(); k++) {
-                	VBox chatPane = new VBox();
-            		chatPane.setPrefHeight(80);
-            		chatPane.setPrefWidth(300);
-            		chatPane.getChildren().add(new Text(story.getComment(k)));
-                }
-                
-
-            }
-            catch (IOException d) {
-                d.printStackTrace();
-            }
-    		});
-    		
-    		storyPane.setOnMouseReleased(e -> {
-        		double endDragX = e.getSceneX();
-        		double endDragY = e.getSceneY();
-        		System.out.println(endDragX + ", " + endDragY);
-        		
-        		Bounds boundsInScene = storyPane.localToScene(storyPane.getBoundsInLocal());
-        		System.out.println(boundsInScene.getMaxX());
-        		if (endDragX <= 300) {
-        			System.out.println("Ended in Todo");
-        			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
-        				System.out.println("Already in Todo");
-        			}
-        			else {
-        	    		System.out.println("DEBUG1");
-        				todoColumnVBox.getChildren().add(storyPane);
-        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
-        	    		gateway.changeStoryStatus(fields[1].replaceAll("'","") + "-todo");
-        	    		System.out.println("DEBUG2");
-
-        			}
-        		}
-        		else if (endDragX <= 600) {
-        			System.out.println("Ended in In Progress");
-        			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
-        				System.out.println("Already in In Progress");
-        			}
-        			else {
-        	    		System.out.println("DEBUG3");
-
-        				inprogressColumnVBox.getChildren().add(storyPane);
-        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
-        				gateway.changeStoryStatus(fields[1].replaceAll("'","") + "-inprogress");
-        			}
-        		}
-        		else if (endDragX <= 900) {
-        			System.out.println("Ended in Testing");
-        			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
-        				System.out.println("Already in Testing");
-        			}
-        			else {
-        	    		System.out.println("DEBUG4");
-
-        				testingColumnVBox.getChildren().add(storyPane);
-        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
-        				gateway.changeStoryStatus(fields[1].replaceAll("'","") + "-testing");
-        			}
-        		}
-        		else if (endDragX <= 1200) {
-        			System.out.println("Ended in Done");
-        			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
-        				System.out.println("Already in Done");
-        			}
-        			else {
-        	    		System.out.println("DEBUG5");
-
-        				doneColumnVBox.getChildren().add(storyPane);
-        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
-        				gateway.changeStoryStatus(fields[1].replaceAll("'","") + "-done");
-        			}
-        		}
-        	});
-    		System.out.println("checking status...");
-    		System.out.println(story.getStatus());
-    		
-    		if (story.getStatus().equals("todo" ) || story.getStatus().equals("not started")) {
-    			System.out.println("story added to todo");
-        		todoColumnVBox.getChildren().add(storyPane);
-    		} else if (story.getStatus().equals("inprogress")) {
-    			inprogressColumnVBox.getChildren().add(storyPane);
-    		} else if (story.getStatus().equals("testing")) {
-    			testingColumnVBox.getChildren().add(storyPane);
-    		} else if (story.getStatus().equals("done")) {
-    			doneColumnVBox.getChildren().add(storyPane);
-    		}
-    		
-        	System.out.println("after checking status");
-        	System.out.println("story pane: " + storyPane);
-        	System.out.println("parent: " + storyPane.getParent());
-    		System.out.println(storyPane.getParent().idProperty().getValue());
     }
 }
 
