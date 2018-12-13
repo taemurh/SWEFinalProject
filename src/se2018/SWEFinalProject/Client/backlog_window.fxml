@@ -28,15 +28,11 @@
 		<ColumnConstraints minWidth="320" maxWidth="320" >
 		</ColumnConstraints>
 		
-		<ColumnConstraints minWidth="320" maxWidth="320">
-		</ColumnConstraints>
-		
-		<ColumnConstraints minWidth="320" maxWidth="320">
-		</ColumnConstraints>
-		
-		<ColumnConstraints minWidth="320" maxWidth="320">
-		</ColumnConstraints>
 	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints minHeight="700" maxHeight="700"></RowConstraints> 
+	
+	</rowConstraints>	
 	
 	<ScrollPane GridPane.columnIndex="0" pannable="true" style="-fx-background: RGB(204,229,255); -fx-border-style: solid inside;" >
 		<VBox 
