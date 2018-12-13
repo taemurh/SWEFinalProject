@@ -16,7 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import se2018.SWEFinalProject.Client.FXMLDocumentController.TranscriptCheck;
 import se2018.SWEFinalProject.Server.Story;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Button;
@@ -79,7 +78,6 @@ public class StoryController implements Initializable {
 			e.printStackTrace();
 		}
     	
-		System.out.println("storycontroller: " + storyJSON);
       	gateway.updateStory(storyJSON);
       	Stage stage = (Stage) updateStoryButton.getScene().getWindow();
     	stage.close();
@@ -99,22 +97,20 @@ public class StoryController implements Initializable {
 	protected void handleSendCommentButtonAction(ActionEvent event) {
 		String sendComment = IDField.getText() + "-" + displayCommentField.getText();
 		gateway.addComment(sendComment);
-		Platform.runLater(()->commentSectionRefresh());
+		commentSectionRefresh(IDField.getText());
 	}
 	
-	public void commentSectionRefresh() {
-		// clear everything in HBox like in refresh in clientController
-		Platform.runLater(() -> commentSectionVBox.getChildren().clear());
-//		commentSectionVBox.set
-		for(int i = 0; i < gateway.getCommentCount(); i++) {
-			int j = i;
+	public void commentSectionRefresh(String id) {
+		commentSectionVBox.getChildren().clear();
+
+		for(int i = 0; i < gateway.getCommentCount(id); i++) {
+	
 			VBox commentPane = new VBox();
-			Platform.runLater(() -> commentPane.setPrefHeight(100));
-			Platform.runLater(() -> commentPane.setPrefWidth(100));
-			
-			Platform.runLater(()->commentPane.getChildren().add(new Label(gateway.getComment(j))));
-			Platform.runLater(()->commentSectionVBox.getChildren().add(commentPane));
-			System.out.println("storycontroller: " + gateway.getComment(i));
+			commentPane.setPrefHeight(100);
+			commentPane.setPrefWidth(100);
+			commentPane.getChildren().add(new Label(gateway.getComment(id + "-" + Integer.toString(i))));
+			commentSectionVBox.getChildren().add(commentPane);
+			System.out.println("storycontroller: " + gateway.getComment(id + "-" + Integer.toString(i)));
 		}
 	}
 	
@@ -122,7 +118,7 @@ public class StoryController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		gateway = new ChatGateway(textArea);
 	    // Start the transcript check thread
-	    new Thread(new StoryControllerRefresh(gateway)).start();
+	    //new Thread(new StoryControllerRefresh(gateway)).start();
 	}
 	  
 	class StoryControllerRefresh implements Runnable, se2018.SWEFinalProject.Chat.ChatConstants {
@@ -133,6 +129,7 @@ public class StoryController implements Initializable {
 		}
 
 		public void run() {
+			/*
 	     	while(true) {
 //	   			dc.refresh();
 	     		Platform.runLater(()->commentSectionRefresh());
@@ -143,7 +140,7 @@ public class StoryController implements Initializable {
 					e.printStackTrace();
 				}
 		 	}
-		         
+		    */
 		}
 		      
 	}

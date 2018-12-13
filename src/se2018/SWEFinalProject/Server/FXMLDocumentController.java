@@ -31,13 +31,12 @@ public class FXMLDocumentController implements Initializable {
     private TextArea textArea;
     
     private int clientNo = 0;
-    private Transcript transcript;
     private Blackboard blackboard;
     private ServerSocket serverSocket;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      transcript = new Transcript();   
+ 
       blackboard = new Blackboard();
       new Thread( () -> {
       try {
@@ -57,7 +56,7 @@ public class FXMLDocumentController implements Initializable {
             });
           
           // Create and start a new thread for the connection
-          new Thread(new HandleAClient(socket,transcript,blackboard,textArea)).start();
+          new Thread(new HandleAClient(socket, blackboard,textArea)).start();
           // new Thread(new HandleAClient(socket,transcript,,textArea)).start();
         }
       }
@@ -71,14 +70,12 @@ public class FXMLDocumentController implements Initializable {
 
 class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstants {
     private Socket socket; // A connected socket
-    private Transcript transcript; // Reference to shared transcript
     private Blackboard blackboard; // Reference to shared blackboard
     private TextArea textArea;
     private String handle;  
     private Story story;
-    public HandleAClient(Socket socket, Transcript transcript, Blackboard blackboard, TextArea textArea) {
+    public HandleAClient(Socket socket, Blackboard blackboard, TextArea textArea) {
       this.socket = socket;
-      this.transcript = transcript;
       this.blackboard = blackboard;
       this.textArea = textArea;
     }
@@ -97,11 +94,6 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
           switch(request) {
               case SEND_HANDLE: {
                   handle = inputFromClient.readLine();
-                  break;
-              }
-              case SEND_COMMENT: {
-                  String comment = inputFromClient.readLine();
-                  transcript.addComment(handle + "> " + comment);
                   break;
               }
               case SEND_STORY: {
@@ -131,13 +123,17 @@ class HandleAClient implements Runnable, se2018.SWEFinalProject.Chat.ChatConstan
             	  break;
               }
               case GET_COMMENT_COUNT: {
-                  outputToClient.println(transcript.getSize());
+            	  Integer id = Integer.parseInt(inputFromClient.readLine());
+            	  story = blackboard.getStory(id);
+                  outputToClient.println(story.getSize()); // gets size of comment section
                   outputToClient.flush();
                   break;
               }
               case GET_COMMENT: {
-                  int n = Integer.parseInt(inputFromClient.readLine());
-                  outputToClient.println(transcript.getComment(n));
+                  String [] fields  = inputFromClient.readLine().split("-");
+                  story = blackboard.getStory(Integer.parseInt(fields[0]));
+                  String comment = story.getComment(Integer.parseInt(fields[1]));
+                  outputToClient.println(comment);
                   outputToClient.flush();
                   break;
               }

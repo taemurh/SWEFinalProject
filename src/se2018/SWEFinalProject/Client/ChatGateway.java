@@ -41,13 +41,6 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
         outputToServer.println(handle);
         outputToServer.flush();
     }
-
-    // Send a new comment to the server.
-    public void sendComment(String comment) {
-        outputToServer.println(SEND_COMMENT);
-        outputToServer.println(comment);
-        outputToServer.flush();
-    }
     
     // send a new user story to server
     public void sendStory(String story) {
@@ -98,10 +91,10 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
         return count;
     }
 
-    // Ask the server to send us a count of how many comments are
-    // currently in the transcript.
-    public int getCommentCount() {
+    // get comment count for a specific story
+    public int getCommentCount(String id) {
         outputToServer.println(GET_COMMENT_COUNT);
+        outputToServer.println(id);
         outputToServer.flush();
         int count = 0;
         try {
@@ -113,9 +106,9 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
     }
 
     // Fetch comment n of the transcript from the server.
-    public String getComment(int n) {
+    public String getComment(String story_comment_n) {
         outputToServer.println(GET_COMMENT);
-        outputToServer.println(n);
+        outputToServer.println(story_comment_n);
         outputToServer.flush();
         String comment = "";
         try {
