@@ -352,14 +352,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     protected void handleDeleteStoryButtonAction(ActionEvent event) {
     	
-    }
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        gateway = new ChatGateway(textArea);
-        // Start the transcript check thread
-        new Thread(new TranscriptCheck(gateway,textArea, this)).start();
-    }  
+    } 
     
     public void refresh() {
     	//TODO Make for loop and for every story retrieved from server create a new VBOX and append
@@ -527,37 +520,40 @@ public class FXMLDocumentController implements Initializable {
     	    		System.out.println(storyPane.getParent().idProperty().getValue());
         		}
     		}
-    		
+
     	}
-    }
 
-class TranscriptCheck implements Runnable, se2018.SWEFinalProject.Chat.ChatConstants {
-    private ChatGateway gateway; // Gateway to the server
-    private TextArea textArea; // Where to display comments
-    private int N; // How many comments we have read
-    private FXMLDocumentController dc;
-    /** Construct a thread */
-    public TranscriptCheck(ChatGateway gateway,TextArea textArea, FXMLDocumentController dc) {
-      this.gateway = gateway;
-      this.textArea = textArea;
-      this.N = 0;
-      this.dc = dc;
     }
+    
+	@Override
+    public void initialize(URL url, ResourceBundle rb) {
+        gateway = new ChatGateway(textArea);
+        // Start the transcript check thread
+        new Thread(new ContinuousClientRequest(gateway)).start();
+    } 
 
-    /** Run a thread */
-    public void run() {
-     /* while(true) {
-    	dc.refresh();
-    	System.out.println("fxml clients...");
-        try {
-			Thread.sleep(250);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-      }
-       */   
-      }
+    class ContinuousClientRequest implements Runnable, se2018.SWEFinalProject.Chat.ChatConstants {
+    	private ChatGateway gateway; // Gateway to the server
+    	/** Construct a thread */
+    	public ContinuousClientRequest(ChatGateway gateway) {
+    		this.gateway = gateway;
+    	}
+
+    	/** Run a thread */
+    	public void run() {
+    		/*
+    		while(true) {
+    			System.out.println("fxml clients...");
+                Platform.runLater(()->refresh());
+	    		try {
+	    			Thread.sleep(250);
+	    		} catch (InterruptedException e) {
+	    			e.printStackTrace();
+	    		}
+    		}
+    		*/
+      
+    	}
       
     }
 }
