@@ -67,6 +67,10 @@ public class FXMLDocumentController implements Initializable {
 	ObservableList<Series<Number, Number>> lineChartData;
 	Series<Number, Number> series;
 	// @FXML TextArea displayDescriptionField;
+	double startDragX;
+    double startDragY;
+    double xoff = 20.0;
+    double yoff = 20.0;
     
     @FXML
     private void sendComment(ActionEvent event) {
@@ -356,6 +360,7 @@ public class FXMLDocumentController implements Initializable {
     
     public void refresh() {
     	//TODO Make for loop and for every story retrieved from server create a new VBOX and append
+    	
     	todoColumnVBox.getChildren().clear();
     	inprogressColumnVBox.getChildren().clear();
     	testingColumnVBox.getChildren().clear();
@@ -393,52 +398,64 @@ public class FXMLDocumentController implements Initializable {
     	    		storyPane.getChildren().add(new Label(Integer.toString(story.getStoryID())));
     	    		System.out.println("DEBUG");
     	    		
-    	    		storyPane.setOnMouseClicked(e -> {
-    	            Parent root;
-    	            try {
-    	              
-    	                FXMLLoader loader = new FXMLLoader(getClass().getResource("Story_Details.fxml"));
-    	                
-    	                root = loader.load();
-    	                Stage stage = new Stage();
-    	                stage.setTitle("Story Details");
-    	                stage.setScene(new Scene(root, 475, 700));
-    	                stage.show();
-    	                
-    	               
-    	                StoryController controller = loader.getController();
-    	              
-    	                controller.IDField.setText(Integer.toString(story.getStoryID()));
-    	                controller.displayAuthorField.setText(story.getAuthor());
-    	                controller.displayTitleField.setText(story.getTitle());
-    	                controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
-    	                controller.displayDescriptionField.setText(story.getDescription());
-    	                // status
-    	                if(story.getStatus().equals("todo")) 
-    	                	controller.statusDropDown.setValue("TODO");       
-    	                else if(story.getStatus().equals("inprogress")) 
-    	                	controller.statusDropDown.setValue("In Progress");            
-    	                else if (story.getStatus().equals("testing"))
-    	                	controller.statusDropDown.setValue("Testing");         
-    	                else if (story.getStatus().equals("done"))
-    	                	controller.statusDropDown.setValue("Done");          
-    	                else
-    	                	controller.statusDropDown.setValue("Backlog");
-    	                // chat
-    	                // getSize is transcript's size, not story size...confusing name, i'll probs change it
-    	                for (int k = 0; k < story.getSize(); k++) {
-    	                	VBox chatPane = new VBox();
-    	            		chatPane.setPrefHeight(80);
-    	            		chatPane.setPrefWidth(300);
-    	            		chatPane.getChildren().add(new Text(story.getComment(k)));
-    	                }
-    	                
-    	
-    	            }
-    	            catch (IOException d) {
-    	                d.printStackTrace();
-    	            }
-    	    		});
+    	    	
+
+    	    	    
+    	    	    storyPane.setOnMousePressed(e -> {
+    	                startDragX = e.getSceneX();
+    	                startDragY = e.getSceneY(); 	
+    	            });
+    	    	    
+
+    	    	    storyPane.setOnMouseClicked(e -> {
+    	    	    	startDragX = e.getSceneX();
+    	                startDragY = e.getSceneY(); 
+        	            Parent root;
+        	            try {
+        	              
+        	                FXMLLoader loader = new FXMLLoader(getClass().getResource("Story_Details.fxml"));
+        	                
+        	                root = loader.load();
+        	                Stage stage = new Stage();
+        	                stage.setTitle("Story Details");
+        	                stage.setScene(new Scene(root, 475, 700));
+        	                stage.show();
+        	                
+        	               
+        	                StoryController controller = loader.getController();
+        	              
+        	                controller.IDField.setText(Integer.toString(story.getStoryID()));
+        	                controller.displayAuthorField.setText(story.getAuthor());
+        	                controller.displayTitleField.setText(story.getTitle());
+        	                controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
+        	                controller.displayDescriptionField.setText(story.getDescription());
+        	                // status
+        	                if(story.getStatus().equals("todo")) 
+        	                	controller.statusDropDown.setValue("TODO");       
+        	                else if(story.getStatus().equals("inprogress")) 
+        	                	controller.statusDropDown.setValue("In Progress");            
+        	                else if (story.getStatus().equals("testing"))
+        	                	controller.statusDropDown.setValue("Testing");         
+        	                else if (story.getStatus().equals("done"))
+        	                	controller.statusDropDown.setValue("Done");          
+        	                else
+        	                	controller.statusDropDown.setValue("Backlog");
+        	                // chat
+        	                // getSize is transcript's size, not story size...confusing name, i'll probs change it
+        	                for (int k = 0; k < story.getSize(); k++) {
+        	                	VBox chatPane = new VBox();
+        	            		chatPane.setPrefHeight(80);
+        	            		chatPane.setPrefWidth(300);
+        	            		chatPane.getChildren().add(new Text(story.getComment(k)));
+        	                }
+        	                
+        	
+        	            }
+        	            catch (IOException d) {
+        	                d.printStackTrace();
+        	            }
+        	    	});
+    	    	    
     	    		
     	    		storyPane.setOnMouseReleased(e -> {
     	        		double endDragX = e.getSceneX();
@@ -541,17 +558,18 @@ public class FXMLDocumentController implements Initializable {
 
     	/** Run a thread */
     	public void run() {
-    		/*
+    		
     		while(true) {
     			System.out.println("fxml clients...");
                 Platform.runLater(()->refresh());
 	    		try {
-	    			Thread.sleep(250);
+	    			// wait three seconds to refresh (for drag)
+	    			Thread.sleep(3000);
 	    		} catch (InterruptedException e) {
 	    			e.printStackTrace();
 	    		}
     		}
-    		*/
+    		
       
     	}
       
