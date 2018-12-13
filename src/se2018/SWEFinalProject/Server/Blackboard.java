@@ -38,6 +38,7 @@ public class Blackboard implements Externalizable {
 	
 	public synchronized void deleteStory(Integer storyId) {
 		stories.remove(storyId);
+		totStories = totStories - 1;
 	}
 	
 	public synchronized void editStory(Integer storyId, Story eStory) {
