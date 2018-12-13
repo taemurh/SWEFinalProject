@@ -95,7 +95,7 @@
 	
 	</Label>
 	<HBox GridPane.columnIndex="1" GridPane.rowIndex="8">
-		<ScrollPane pannable="true"  style="-fx-background: RGB(255,255,255); -fx-border-style: solid inside;" prefHeight="250"  prefWidth="200">
+		<ScrollPane  fx:id="commentPane" pannable="true"  style="-fx-background: RGB(255,255,255); -fx-border-style: solid inside;" prefHeight="250"  prefWidth="200">
 		</ScrollPane>
 	</HBox>
 	
