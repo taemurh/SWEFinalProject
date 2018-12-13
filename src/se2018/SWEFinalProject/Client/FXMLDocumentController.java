@@ -100,8 +100,22 @@ public class FXMLDocumentController implements Initializable {
                 		storyPane.setPrefHeight(80);
                 		storyPane.setPrefWidth(300);
                 	
+                		
+                		
                 		// Set Text here for 
                 		Story story = gateway.getStory(j);
+                		
+                		if(story.getStoryPoints() < 5) {
+        	    			storyPane.setStyle("-fx-background-color: RGB(130,229,130);");
+        	    		}
+        	    		else if(story.getStoryPoints() > 4 && story.getStoryPoints()< 8 ) {
+        	    			storyPane.setStyle("-fx-background-color: RGB(255,255,100);");
+        	    		}
+        	    		else {
+        	    			storyPane.setStyle("-fx-background-color: RGB(250,150,130);");
+        	    		}
+                		
+                		
                 		
                 		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
                 		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
@@ -109,10 +123,61 @@ public class FXMLDocumentController implements Initializable {
                 		storyPane.getChildren().add(new Label(Integer.toString(story.getStoryID())));
                 		BacklogController controller = loader.getController();
                 		
+                		
+                		storyPane.setOnMouseClicked(ev -> {
+            	            Parent root;
+            	            try {
+            	              
+            	                FXMLLoader loader = new FXMLLoader(getClass().getResource("Story_Details.fxml"));
+            	                
+            	                root = loader.load();
+            	                Stage stage = new Stage();
+            	                stage.setTitle("Story Details");
+            	                stage.setScene(new Scene(root, 450, 300));
+            	                stage.show();
+            	                
+            	               
+            	                StoryController storyController = loader.getController();
+            	              
+            	                storyController.IDField.setText(Integer.toString(story.getStoryID()));
+            	                storyController.displayAuthorField.setText(story.getAuthor());
+            	                storyController.displayTitleField.setText(story.getTitle());
+            	                storyController.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
+            	                storyController.displayDescriptionField.setText(story.getDescription());
+            	                // status
+            	                if(story.getStatus().equals("todo")) 
+            	                	storyController.statusDropDown.setValue("TODO");       
+            	                else if(story.getStatus().equals("inprogress")) 
+            	                	storyController.statusDropDown.setValue("In Progress");            
+            	                else if (story.getStatus().equals("testing"))
+            	                	storyController.statusDropDown.setValue("Testing");         
+            	                else if (story.getStatus().equals("done"))
+            	                	storyController.statusDropDown.setValue("Done");          
+            	                else
+            	                	storyController.statusDropDown.setValue("Backlog");
+            	                // chat
+            	                // getSize is transcript's size, not story size...confusing name, i'll probs change it
+            	                for (int k = 0; k < story.getSize(); k++) {
+            	                	VBox chatPane = new VBox();
+            	            		chatPane.setPrefHeight(80);
+            	            		chatPane.setPrefWidth(300);
+            	            		chatPane.getChildren().add(new Text(story.getComment(k)));
+            	                }
+            	                
+            	
+            	            }
+            	            catch (IOException d) {
+            	                d.printStackTrace();
+            	            }
+            	    		});
+                		
+                		
 	            		if (story.getStatus().equals("not started")) {
 	            			
 	                		controller.backlogWindow.getChildren().add(storyPane);
 	            		}
+	            		
+	            		
                 	}
             	}
             });
@@ -303,7 +368,6 @@ public class FXMLDocumentController implements Initializable {
 	    		System.out.println("DEBUG");
 	    		
 	    		storyPane.setOnMouseClicked(e -> {
-	    		System.out.println("Clicked");
 	            Parent root;
 	            try {
 	              
