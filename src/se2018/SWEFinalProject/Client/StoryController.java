@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -105,8 +106,8 @@ public class StoryController implements Initializable {
 
 		for(int i = 0; i < gateway.getCommentCount(id); i++) {
 	
-			VBox commentPane = new VBox();
-			commentPane.setPrefHeight(100);
+			HBox commentPane = new HBox();
+			commentPane.setPrefHeight(1);
 			commentPane.setPrefWidth(100);
 			commentPane.getChildren().add(new Label(gateway.getComment(id + "-" + Integer.toString(i))));
 			commentSectionVBox.getChildren().add(commentPane);

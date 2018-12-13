@@ -29,6 +29,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -69,14 +70,14 @@ public class FXMLDocumentController implements Initializable {
 	// @FXML TextArea displayDescriptionField;
 	double startDragX;
     double startDragY;
-    double xoff = 20.0;
-    double yoff = 20.0;
     
+    /*
     @FXML
     private void sendComment(ActionEvent event) {
         String text = comment.getText();
         gateway.sendComment(text);
     }
+    */
     
     @FXML 
     protected void handleAddStoryButtonAction(ActionEvent event) {
@@ -161,6 +162,23 @@ public class FXMLDocumentController implements Initializable {
             	                storyController.displayTitleField.setText(story.getTitle());
             	                storyController.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
             	                storyController.displayDescriptionField.setText(story.getDescription());
+            	                
+            	                Platform.runLater(()->storyController.commentSectionVBox.getChildren().clear());
+             	               
+            	                
+            	                Platform.runLater(()->{
+            	                		for(int m = 0; m < gateway.getCommentCount(Integer.toString(story.getStoryID())); m++) {
+            	                
+            	                			HBox commentPane = new HBox();
+            	                			commentPane.setPrefHeight(1);
+            	                			commentPane.setPrefWidth(90);
+            	                			commentPane.getChildren().add(new Label(gateway.getComment(Integer.toString(story.getStoryID()) + "-" +  Integer.toString(m))));
+            	                			storyController.commentSectionVBox.getChildren().add(commentPane);
+            	                			System.out.print("comments that are in the pane" + gateway.getComment(Integer.toString(story.getStoryID()) + "-" +  Integer.toString(m)));
+            	                		}
+            	                	}
+            	        		);
+            	                
             	                // status
             	                if(story.getStatus().equals("todo")) 
             	                	storyController.statusDropDown.setValue("TODO");       
@@ -364,6 +382,24 @@ public class FXMLDocumentController implements Initializable {
         	                controller.displayTitleField.setText(story.getTitle());
         	                controller.displayPointsField.setText(Integer.toString(story.getStoryPoints()));
         	                controller.displayDescriptionField.setText(story.getDescription());
+        	                Platform.runLater(()->controller.commentSectionVBox.getChildren().clear());
+        	               
+        	                
+        	                Platform.runLater(()->{
+        	                		for(int m = 0; m < gateway.getCommentCount(Integer.toString(story.getStoryID())); m++) {
+        	                
+        	                			HBox commentPane = new HBox();
+        	                			commentPane.setPrefHeight(1);
+        	                			commentPane.setPrefWidth(90);
+        	                			commentPane.getChildren().add(new Label(gateway.getComment(Integer.toString(story.getStoryID()) + "-" +  Integer.toString(m))));
+        	                			controller.commentSectionVBox.getChildren().add(commentPane);
+        	                			System.out.print("comments that are in the pane" + gateway.getComment(Integer.toString(story.getStoryID()) + "-" +  Integer.toString(m)));
+        	                		}
+        	                	}
+        	        		);
+        	                
+        	                System.out.println("size of the comment section" + controller.commentSectionVBox.getChildren().size());
+        	                
         	                // status
         	                if(story.getStatus().equals("todo")) 
         	                	controller.statusDropDown.setValue("TODO");       
