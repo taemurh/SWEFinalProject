@@ -47,13 +47,14 @@ public class StoryController implements Initializable {
 	
 	@FXML
 	protected void handleUpdateStoryButtonAction(ActionEvent event) {
+		// update new story from fields in controller
 		int id = Integer.parseInt(IDField.getText());
-		System.out.println("update id: " + id);
 		Story story = gateway.getStory(id);
 		story.setAuthor(displayAuthorField.getText());
 		story.setDesc(displayDescriptionField.getText());
 		story.setStoryPoints(Integer.parseInt(displayPointsField.getText()));
 		story.setTitle(displayTitleField.getText());
+		// update and set status off of drop down
 		if(statusDropDown.getValue().equals("TODO")) {
 			story.setStatus("todo");
 		} else if(statusDropDown.getValue().equals("In Progress")) {
@@ -65,17 +66,12 @@ public class StoryController implements Initializable {
 		} else {
 			story.setStatus("not started");
 		}
-		System.out.println(story.getAuthor());
-		System.out.println(story.getTitle());
-		// SEND INFO TO SERVER
-    	// Story story = new Story(0, authorField.getText(), titleField.getText(), descriptionField.getText(), Integer.parseInt(pointsField.getText()));
-    	
+		
 		String storyJSON = "";
 
     	try {
     		storyJSON = story.toString_();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	
@@ -88,7 +84,6 @@ public class StoryController implements Initializable {
 	@FXML
 	protected void handleDeleteStoryButtonAction(ActionEvent event) {
 		int id = Integer.parseInt(IDField.getText());
-		System.out.println("delete id: " + id);
 		gateway.deleteStory(id);
       	Stage stage = (Stage) deleteStoryButton.getScene().getWindow();
     	stage.close();
@@ -96,6 +91,7 @@ public class StoryController implements Initializable {
 	
 	@FXML
 	protected void handleSendCommentButtonAction(ActionEvent event) {
+		// pass the story id and comment to add to it
 		String sendComment = IDField.getText() + "-" + displayCommentField.getText();
 		gateway.addComment(sendComment);
 		commentSectionRefresh(IDField.getText());
@@ -103,47 +99,19 @@ public class StoryController implements Initializable {
 	
 	public void commentSectionRefresh(String id) {
 		commentSectionVBox.getChildren().clear();
-
+		// fetch comments from server and populate the comment panes in comment section Vbox
 		for(int i = 0; i < gateway.getCommentCount(id); i++) {
-	
 			HBox commentPane = new HBox();
 			commentPane.setPrefHeight(1);
 			commentPane.setPrefWidth(100);
 			commentPane.getChildren().add(new Label(gateway.getComment(id + "-" + Integer.toString(i))));
 			commentSectionVBox.getChildren().add(commentPane);
-			System.out.println("storycontroller: " + gateway.getComment(id + "-" + Integer.toString(i)));
 		}
 	}
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		gateway = new ChatGateway(textArea);
-	    // Start the transcript check thread
-	    //new Thread(new StoryControllerRefresh(gateway)).start();
-	}
-	  
-	class StoryControllerRefresh implements Runnable, se2018.SWEFinalProject.Chat.ChatConstants {
-		private ChatGateway gateway; // Gateway to the server
-		
-		public StoryControllerRefresh(ChatGateway gateway) {
-		    this.gateway = gateway;
-		}
-
-		public void run() {
-			/*
-	     	while(true) {
-//	   			dc.refresh();
-	     		Platform.runLater(()->commentSectionRefresh());
-		       	try {
-					Thread.sleep(250);
-				} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		 	}
-		    */
-		}
-		      
 	}
 	
 }

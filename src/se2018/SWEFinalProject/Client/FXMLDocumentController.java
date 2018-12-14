@@ -67,17 +67,8 @@ public class FXMLDocumentController implements Initializable {
 	@FXML LineChart<Number, Number> lineChart;
 	ObservableList<Series<Number, Number>> lineChartData;
 	Series<Number, Number> series;
-	// @FXML TextArea displayDescriptionField;
 	double startDragX;
     double startDragY;
-    
-    /*
-    @FXML
-    private void sendComment(ActionEvent event) {
-        String text = comment.getText();
-        gateway.sendComment(text);
-    }
-    */
     
     @FXML 
     protected void handleAddStoryButtonAction(ActionEvent event) {
@@ -99,16 +90,13 @@ public class FXMLDocumentController implements Initializable {
  
         Parent root;
         try {
-            //root = FXMLLoader.load(getClass().getResource("backlog_window.fxml"));
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("backlog_window.fxml"));
              
             root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Backlog");
             stage.setScene(new Scene(root, 320, 700));
-            
-          
-            
+            // populate backlog panel and set event handlers for story panes
             stage.setOnShowing(new EventHandler<WindowEvent>() {
             	public void handle(WindowEvent e) {
             		int storyCount = gateway.getStoryCount();
@@ -117,9 +105,7 @@ public class FXMLDocumentController implements Initializable {
                 		VBox storyPane = new VBox();
                 		storyPane.setPrefHeight(80);
                 		storyPane.setPrefWidth(300);
-                	
-                		
-                		
+
                 		// Set Text here for 
                 		Story story = gateway.getStory(j);
                 		
@@ -132,15 +118,12 @@ public class FXMLDocumentController implements Initializable {
         	    		else {
         	    			storyPane.setStyle("-fx-background-color: RGB(250,150,130);");
         	    		}
-                		
-                		
-                		
+
                 		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
                 		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
                 		storyPane.getChildren().add(new Text("Points: " + Integer.toString(story.getStoryPoints())));
                 		storyPane.getChildren().add(new Label(Integer.toString(story.getStoryID())));
                 		BacklogController controller = loader.getController();
-                		
                 		
                 		storyPane.setOnMouseClicked(ev -> {
             	            Parent root;
@@ -199,7 +182,6 @@ public class FXMLDocumentController implements Initializable {
             	            		chatPane.getChildren().add(new Text(story.getComment(k)));
             	                }
             	                
-            	
             	            }
             	            catch (IOException d) {
             	                d.printStackTrace();
@@ -211,8 +193,6 @@ public class FXMLDocumentController implements Initializable {
 	            			
 	                		controller.backlogWindow.getChildren().add(storyPane);
 	            		}
-	            		
-	            		
                 	}
             	}
             });
@@ -226,7 +206,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML 
     protected void handleBurndownButtonAction(ActionEvent event) {
         Parent root;
-        //root = FXMLLoader.load(getClass().getResource("burndown_window.fxml"));
 		Stage stage = new Stage();
 		stage.setTitle("Burndown Chart");
 		
@@ -239,8 +218,6 @@ public class FXMLDocumentController implements Initializable {
 		  	series.getData().add(new XYChart.Data<Number, Number>((Number)key, (Number)burndown.get(key)));
 		}
 		
-		//System.out.println(series.getData());
-		//System.out.println(lineChartData);
 		lineChartData.add(series);
 		NumberAxis xAxis = new NumberAxis();
 		xAxis.setLabel("Time");
@@ -266,13 +243,9 @@ public class FXMLDocumentController implements Initializable {
     		if (titleField.getText().isEmpty() == false) {
     			if (pointsField.getText().isEmpty() == false) {
     				if (descriptionField.getText().isEmpty() == false) {
-	    				//System.out.println(authorField.getText());
-	    		    	//System.out.println(titleField.getText());
-	    		    	//System.out.println(pointsField.getText());
 	    		    	
 	    		    	Stage stage = (Stage) submitButton.getScene().getWindow();
 	    		    	stage.close();
-	    		    	System.out.println("window closed");
 	    		    	// SEND INFO TO SERVER
 	    		    	
 	    		    	Story story = new Story(0, authorField.getText(), titleField.getText(), descriptionField.getText(), Integer.parseInt(pointsField.getText()));
@@ -281,7 +254,6 @@ public class FXMLDocumentController implements Initializable {
 	    		    	try {
 	    		    		storyJSON = story.toString_();
 	    				} catch (Exception e) {
-	    					// TODO Auto-generated catch block
 	    					e.printStackTrace();
 	    				}
 	    		    	
@@ -317,7 +289,7 @@ public class FXMLDocumentController implements Initializable {
     }
     
     public void refresh() {
-    	//TODO Make for loop and for every story retrieved from server create a new VBOX and append
+    	//loop and for every story retrieved from server create a new VBOX and append
     	
     	todoColumnVBox.getChildren().clear();
     	inprogressColumnVBox.getChildren().clear();
@@ -325,16 +297,16 @@ public class FXMLDocumentController implements Initializable {
     	doneColumnVBox.getChildren().clear();
     	
     	int storyCount = gateway.getStoryCount();
-    	//System.out.println("refresh: " + storyCount);
     	for (int i = 0; i < storyCount; i++) {
     		int j = i;
+    		
+    		// create story pane
     		VBox storyPane = new VBox();
     		storyPane.setPrefHeight(80);
     		storyPane.setPrefWidth(300);
     	
     		// Set Text here for 
     		Story story = gateway.getStory(j);
-    		System.out.println(story);
     		if(story == null) {
     			continue;
     		} else {
@@ -349,22 +321,16 @@ public class FXMLDocumentController implements Initializable {
     	    			storyPane.setStyle("-fx-background-color: RGB(250,150,130);");
     	    		}
     	    		
-    	    		
     	    		storyPane.getChildren().add(new Text("Author: " + story.getAuthor()));
     	    		storyPane.getChildren().add(new Text("Title: "+ story.getTitle()));
     	    		storyPane.getChildren().add(new Text("Points: " + Integer.toString(story.getStoryPoints())));
     	    		storyPane.getChildren().add(new Label(Integer.toString(story.getStoryID())));
-    	    		System.out.println("DEBUG");
-    	    		
-    	    	
-
-    	    	    
+    	    		  
     	    	    storyPane.setOnMousePressed(e -> {
     	                startDragX = e.getSceneX();
     	                startDragY = e.getSceneY(); 	
     	            });
     	    	    
-
     	    	    storyPane.setOnMouseClicked(e -> {
     	    	    	startDragX = e.getSceneX();
     	                startDragY = e.getSceneY(); 
@@ -379,7 +345,7 @@ public class FXMLDocumentController implements Initializable {
         	                stage.setScene(new Scene(root, 475, 700));
         	                stage.show();
         	                
-        	               
+        	                // load controller to update story details fxml
         	                StoryController controller = loader.getController();
         	              
         	                controller.IDField.setText(Integer.toString(story.getStoryID()));
@@ -398,14 +364,11 @@ public class FXMLDocumentController implements Initializable {
         	                			commentPane.setPrefWidth(90);
         	                			commentPane.getChildren().add(new Label(gateway.getComment(Integer.toString(story.getStoryID()) + "-" +  Integer.toString(m))));
         	                			controller.commentSectionVBox.getChildren().add(commentPane);
-        	                			System.out.print("comments that are in the pane" + gateway.getComment(Integer.toString(story.getStoryID()) + "-" +  Integer.toString(m)));
         	                		}
         	                	}
         	        		);
         	                
-        	                System.out.println("size of the comment section" + controller.commentSectionVBox.getChildren().size());
-        	                
-        	                // status
+        	                // status on drop down
         	                if(story.getStatus().equals("todo")) 
         	                	controller.statusDropDown.setValue("TODO");       
         	                else if(story.getStatus().equals("inprogress")) 
@@ -417,22 +380,20 @@ public class FXMLDocumentController implements Initializable {
         	                else
         	                	controller.statusDropDown.setValue("Backlog");
         	                // chat
-        	                // getSize is transcript's size, not story size...confusing name, i'll probs change it
         	                for (int k = 0; k < story.getSize(); k++) {
         	                	VBox chatPane = new VBox();
         	            		chatPane.setPrefHeight(80);
         	            		chatPane.setPrefWidth(300);
         	            		chatPane.getChildren().add(new Text(story.getComment(k)));
         	                }
-        	                
-        	
+
         	            }
         	            catch (IOException d) {
         	                d.printStackTrace();
         	            }
         	    	});
     	    	    
-    	    		
+    	    	    // drag and snap to swimlanes and set status
     	    		storyPane.setOnMouseReleased(e -> {
     	        		double endDragX = e.getSceneX();
     	        		double endDragY = e.getSceneY();
@@ -441,17 +402,12 @@ public class FXMLDocumentController implements Initializable {
     	        		Bounds boundsInScene = storyPane.localToScene(storyPane.getBoundsInLocal());
     	        		System.out.println(boundsInScene.getMaxX());
     	        		if (endDragX <= 300) {
-    	        			System.out.println("Ended in Todo");
     	        			if (endDragX <= boundsInScene.getMaxX() && endDragX >= boundsInScene.getMinX()) {
-    	        				System.out.println("Already in Todo");
     	        			}
     	        			else {
-    	        	    		System.out.println("DEBUG1");
     	        				todoColumnVBox.getChildren().add(storyPane);
     	        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
     	        	    		gateway.changeStoryStatus(fields[1].replaceAll("'","") + "-todo");
-    	        	    		System.out.println("DEBUG2");
-    	
     	        			}
     	        		}
     	        		else if (endDragX <= 600) {
@@ -460,7 +416,6 @@ public class FXMLDocumentController implements Initializable {
     	        				System.out.println("Already in In Progress");
     	        			}
     	        			else {
-    	        	    		System.out.println("DEBUG3");
     	
     	        				inprogressColumnVBox.getChildren().add(storyPane);
     	        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
@@ -485,7 +440,6 @@ public class FXMLDocumentController implements Initializable {
     	        				System.out.println("Already in Done");
     	        			}
     	        			else {
-    	        	    		System.out.println("DEBUG5");
     	
     	        				doneColumnVBox.getChildren().add(storyPane);
     	        				String[] fields = storyPane.getChildren().get(3).toString().split("]");
@@ -493,9 +447,8 @@ public class FXMLDocumentController implements Initializable {
     	        			}
     	        		}
     	        	});
-    	    		//System.out.println("checking status...");
-    	    		//System.out.println(story.getStatus());
-    	    		
+
+    	    		// place stories in correct Vbox according to status
     	    		if (story.getStatus().equals("todo" ) ) {
     	    			System.out.println("story added to todo");
     	        		todoColumnVBox.getChildren().add(storyPane);
@@ -506,11 +459,7 @@ public class FXMLDocumentController implements Initializable {
     	    		} else if (story.getStatus().equals("done")) {
     	    			doneColumnVBox.getChildren().add(storyPane);
     	    		}
-    	    		
-    	        	//System.out.println("after checking status");
-    	        	//System.out.println("story pane: " + storyPane);
-    	        	//System.out.println("parent: " + storyPane.getParent());
-    	    		//System.out.println(storyPane.getParent().idProperty().getValue());
+
         		}
     		}
 
@@ -521,7 +470,7 @@ public class FXMLDocumentController implements Initializable {
 	@Override
     public void initialize(URL url, ResourceBundle rb) {
         gateway = new ChatGateway(textArea);
-        // Start the transcript check thread
+        // Start the thread to continously update the client
         new Thread(new ContinuousClientRequest(gateway)).start();
     } 
 
@@ -536,7 +485,6 @@ public class FXMLDocumentController implements Initializable {
     	public void run() {
     		
     		while(true) {
-    			//System.out.println("fxml clients...");
                 Platform.runLater(()->refresh());
 	    		try {
 	    			// wait three seconds to refresh (for drag)

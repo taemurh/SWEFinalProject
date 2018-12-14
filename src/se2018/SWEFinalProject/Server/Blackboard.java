@@ -8,12 +8,6 @@ import java.util.Hashtable;
 
 public class Blackboard implements Externalizable {
 	
-	/* 
-	 * Int Story Id : new  Story()
-	 * 
-	 * 
-	 */
-	
 	Integer totStories = 0;
 	Hashtable<Integer, Story> productBacklog;
 	Hashtable<Integer, Story> sprintBacklog;
@@ -29,13 +23,14 @@ public class Blackboard implements Externalizable {
 	}
 	
 	public synchronized void addStory(Story story) {
-		System.out.println("story id in blackboard: " + story.getStoryID());
+		// add story to hashtable and increment count
 		stories.put(totStories, story);
 		story.setStoryID(totStories);
 		totStories = totStories + 1;
 	}
 	
 	public synchronized void deleteStory(Integer storyId) {
+		// add story to hashtable and decrement count
 		stories.remove(storyId);
 		totStories = totStories - 1;
 	}
@@ -95,7 +90,7 @@ public class Blackboard implements Externalizable {
 	}
 	
 	public void completeStory(int points) {
-		System.out.println("complete story");
+		// update points of finishing story over time 
 		burndown.put(time, points);
 		time += 1;
 	}

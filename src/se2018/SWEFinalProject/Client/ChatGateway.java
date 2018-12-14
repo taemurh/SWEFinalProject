@@ -42,6 +42,7 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
     	outputToServer.flush();
     }
     
+    // get user story with id
     public Story getStory(int id) {
     	outputToServer.println(GET_STORY);
     	outputToServer.println(Integer.toString(id));
@@ -112,24 +113,28 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
         return comment;
     }
     
+    // change status of story
     public void changeStoryStatus(String story) {
     	outputToServer.println(CHANGE_STORY_STATUS);
         outputToServer.println(story);
         outputToServer.flush();
     }
     
+    // update story fields
     public void updateStory(String story) {
     	outputToServer.println(UPDATE_STORY);
         outputToServer.println(story);
         outputToServer.flush();
     }
     
+    // delete story from blackboard
     public void deleteStory(int id) {
     	outputToServer.println(DELETE_STORY);
         outputToServer.println(id);
         outputToServer.flush();
     }
     
+    // add comment to a story
     public void addComment(String comment) {
     	outputToServer.println(ADD_COMMENT);
     	outputToServer.println(comment);
@@ -137,11 +142,13 @@ public class ChatGateway implements se2018.SWEFinalProject.Chat.ChatConstants {
     	System.out.println("add comment gateway");
     }
     
+    // save stories request
     public void saveStories() {
     	outputToServer.println(SAVE_STORIES);
     	outputToServer.flush();
     }
     
+    // retrieve burndown data structure
     public Hashtable<Integer, Integer> getBurndown() {
     	outputToServer.println(GET_BURNDOWN);
     	outputToServer.flush();
