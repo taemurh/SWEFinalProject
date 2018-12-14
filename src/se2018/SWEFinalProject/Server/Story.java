@@ -22,6 +22,7 @@ public class Story {
 		this.storyPoints = storyPoints;
 	}
 	
+	// update functions for editing
 	public synchronized void updateAuthor(String author) {
 		this.author = author;
 	}
@@ -34,6 +35,7 @@ public class Story {
 		this.description = description;
 	}
 	
+	// getters for displaying
 	public synchronized String getAuthor() {
 		return author;
 	}
@@ -50,6 +52,7 @@ public class Story {
 		return status;
 	}
 
+	// setters for editing and creation
 	public synchronized void setAuthor(String author) {
 		this.author = author;
 	}
@@ -66,7 +69,7 @@ public class Story {
 		this.storyPoints = storyPoints;
 	}
 	
-	
+	// methods for comment section
 	public synchronized void addComment(String comment) { 
 		transcript.add(comment); 
 	}
@@ -99,7 +102,7 @@ public class Story {
 		this.title = title;
 	}
 	
-	 
+	// serialization method
 	public String toString_() 
     { 	
 		String chat = "";
