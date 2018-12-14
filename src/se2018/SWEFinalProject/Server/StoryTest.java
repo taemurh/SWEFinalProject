@@ -1,7 +1,7 @@
 package se2018.SWEFinalProject.Server;
 import org.junit.Test;
 
-public class testStory{
+public class StoryTest{
 	@Test
 	// Test to validate the get methods of the story class
 	public void testStoryGet() {
